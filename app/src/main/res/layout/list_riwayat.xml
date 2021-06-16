@@ -38,9 +38,9 @@
 
     <Button
         android:id="@+id/Edit_riwayat"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="48dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
         app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
@@ -48,8 +48,8 @@
 
     <Button
         android:id="@+id/hapus_riwayat"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
