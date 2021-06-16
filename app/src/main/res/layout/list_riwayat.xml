@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/no_riwayat"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="No"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tanggal_riwayat"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Tannggal"
+        app:layout_constraintBottom_toBottomOf="@+id/no_riwayat"
+        app:layout_constraintStart_toEndOf="@+id/no_riwayat"
+        app:layout_constraintTop_toTopOf="@+id/no_riwayat"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gejala_riwayat"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Gejala"
+        app:layout_constraintBottom_toBottomOf="@+id/tanggal_riwayat"
+        app:layout_constraintStart_toEndOf="@+id/tanggal_riwayat"
+        app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
+
+    <Button
+        android:id="@+id/Edit_riwayat"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
+        app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
+        app:layout_constraintTop_toTopOf="@+id/gejala_riwayat" />
+
+    <Button
+        android:id="@+id/hapus_riwayat"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
+        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
+        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
+</androidx.constraintlayout.widget.ConstraintLayout>
