@@ -22,8 +22,7 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
 <!--        android:networkSecurityConfig="@xml/network_security_config">-->
-        <activity android:name=".HomeActivity"
-        android:theme="@style/Theme.ABP">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
