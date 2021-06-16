@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ import retrofit2.Retrofit;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String ipaddressLaravel = "10.0.2.2:8000";
-    private static final String BASE_URL = "http://"+ipaddressLaravel+"/api/";
     private static final String URL_POST_LOGIN = "http://"+ipaddressLaravel+"/api/auth/login";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 
@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edt_email, edt_password;
     Button btn_login;
     String email,password;
+    TextView tv_register;
 
     SessionManager session;
 
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         edt_email = findViewById(R.id.edt_email);
+        tv_register = findViewById(R.id.tv_register);
         edt_password = findViewById(R.id.edt_password);
         btn_login = findViewById(R.id.login_button);
 
@@ -49,6 +51,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        tv_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+
+                startActivity(i);
+                finish();
             }
         });
     }

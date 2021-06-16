@@ -21,6 +21,13 @@ public interface InterfaceAPI {
     Call<UserModel> login(@Body UserModel login);
 //    Call<String> login(@Header("Authorization") String authToken);
 
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @POST("auth/signup")
+    Call<UserModel> signup(@Body UserModel signup);
+
     @GET("auth/user")
     Call<ResponseBody> getUser(@Header("Authorization") String authToken);
 }

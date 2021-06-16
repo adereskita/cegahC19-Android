@@ -52,7 +52,7 @@
         android:drawableTint="?attr/colorControlNormal"
         android:ems="10"
         android:hint="Nomor NIK"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:padding="16dp"
         android:textColorHint="#616161"
         android:textSize="14sp"
@@ -181,15 +181,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="2dp"
+        android:text="disini"
+        android:textColor="#0183d5"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_toLogin"
+        app:layout_constraintStart_toEndOf="@+id/tv_toLogin"
+        app:layout_constraintTop_toTopOf="@+id/tv_toLogin" />
 
     <View
         android:id="@+id/view2"
@@ -206,7 +207,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Kembali ke halaman masuk yuk! Klik disini"
+        android:text="Kembali ke halaman masuk yuk! Klik"
         android:textColor="#000000"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_signup"

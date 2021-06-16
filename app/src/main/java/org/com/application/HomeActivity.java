@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         // email
         String email = user.get(SessionManager.KEY_EMAIL);
 
-
+        System.out.println(ACCESS_TOKEN);
 
         recyclerView = findViewById(R.id.recycler_Home);
         LinearLayoutManager layoutManager
@@ -105,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
 
         LoadCovidCase();
         LoadPostURL();
-        LoadYou();
+        LoadUser();
 
     }
 
@@ -213,7 +213,7 @@ public class HomeActivity extends AppCompatActivity {
 //        });
 //    }
 
-    private void LoadYou(){
+    private void LoadUser(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 URL_GET_USER,
                 new Response.Listener<String>() {
