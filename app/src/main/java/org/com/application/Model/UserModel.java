@@ -3,13 +3,7 @@ package org.com.application.Model;
 public class UserModel {
     String id, name,email,password,nik,access_token;
 
-    public UserModel(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public UserModel(String id, String name, String email, String access_token) {
+    public UserModel(String name, String email, String access_token) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -19,6 +13,21 @@ public class UserModel {
     public UserModel(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public UserModel(String nik,String name, String email, String password) {
+        this.nik = nik;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
     }
 
     public String getPassword() {
