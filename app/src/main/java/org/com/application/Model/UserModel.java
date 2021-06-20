@@ -15,11 +15,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public UserModel(String nik,String name, String email, String password) {
-        this.nik = nik;
+    public UserModel(String name, String email, String password, String nik) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.nik = nik;
     }
 
     public String getNik() {

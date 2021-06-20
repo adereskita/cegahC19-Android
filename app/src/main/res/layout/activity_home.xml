@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".HomeActivity"
     android:background="#EEEEEE">
 
     <View
@@ -67,7 +68,7 @@
                 android:shadowColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView"
-                android:drawableTop="@drawable/ic_outline_add_circle_outline_24"
+                android:drawableTop="@drawable/ic_outline_post_add_24"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
@@ -110,7 +111,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView"
                 android:shadowColor="@color/white"
-                android:drawableTop="@drawable/ic_outline_add_circle_outline_24"
+                android:drawableTop="@drawable/ic_outline_article_24"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
     </LinearLayout>
@@ -229,10 +230,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="8dp"
         android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LinearLayoutVert">
@@ -243,8 +243,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView11"
@@ -294,6 +296,20 @@
         app:layout_constraintEnd_toEndOf="@+id/LinearTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:itemIconTint="@drawable/menu_state"
+        app:itemTextColor="@drawable/menu_state"
+        app:menu="@menu/bottomnavigation_menu" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import org.com.application.HomeActivity;
 import org.com.application.Model.PostModel;
 import org.com.application.R;
 
@@ -24,6 +27,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<PostModel> data;
     private Context mContext;
+
+    private final int limit = 5;
 
     public RecyclerViewAdapter(ArrayList<PostModel> data, Context mContext) {
         this.data = data;
@@ -55,12 +60,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.title.setText(nPost.getTitle());
         holder.date.setText(new_Date);
+        Picasso.get().load(HomeActivity.URL_BASE_STORAGE+nPost.getImage()).into(holder.imgView);
 
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return Math.min(data.size(), limit);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             title = itemView.findViewById(R.id.tv_rv_title);
             date = itemView.findViewById(R.id.tv_rc_date);
+            imgView = itemView.findViewById(R.id.img_home_post);
         }
     }
 }
