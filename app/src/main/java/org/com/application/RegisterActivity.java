@@ -73,16 +73,12 @@ public class RegisterActivity extends AppCompatActivity {
         password = edt_password.getText().toString().trim();
         password2 = edt_password_sec.getText().toString().trim();
 
-        System.out.println(password);
-        System.out.println(nik);
-        System.out.println(password2);
-
         if (password.equals(password2)){
             Retrofit retrofit = RetrofitClient.getRetrofitInstance();
 
             InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
 
-            UserModel user = new UserModel(nik,name,email,password2);
+            UserModel user = new UserModel(name,email,password2,nik);
             Call<UserModel> call = apiClient.signup(user);
 
             call.enqueue(new Callback<UserModel>() {
@@ -90,12 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(Call<UserModel> call, retrofit2.Response<UserModel> response) {
                     if (response.isSuccessful()) {
                         try {
-//                            token = response.body().getAccess_token();
+                            token = response.body().getAccess_token();
 
                             Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                             i.putExtra("ACCESS_TOKEN_EXTRA",token);
-//
                             startActivity(i);
+
+                            Toast.makeText(RegisterActivity.this, "Berhasil Registrasi, silahkan login terlebih dahulu", Toast.LENGTH_SHORT).show();
                             finish();
 
                         } catch (Exception e) {

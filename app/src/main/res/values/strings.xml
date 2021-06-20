@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ABP</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="home">Home</string>
+    <string name="klinik">Lokasi Klinik</string>
+    <string name="profile">Profile</string>
 </resources>

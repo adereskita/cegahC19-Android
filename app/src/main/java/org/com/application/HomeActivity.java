@@ -2,10 +2,12 @@ package org.com.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.com.application.API.InterfaceAPI;
-import org.com.application.API.RetrofitClient;
 import org.com.application.Adapter.RecyclerViewAdapter;
 import org.com.application.Model.PostModel;
 import org.com.application.SessionManager.SessionManager;
@@ -27,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,16 +36,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-
 public class HomeActivity extends AppCompatActivity {
 //    private static final String ipaddress = "192.168.100.30";
-    private static final String ipaddressLaravel = "10.0.2.2:8000";
+    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
     private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
+
+    public static final String URL_BASE_STORAGE = "http://"+ipaddressLaravel+"/storage/";
 
     private static String ACCESS_TOKEN;
 
@@ -57,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
     Button btn_form,btn_hospitalMap,btn_stepCount,btn_showArticle;
     TextView tv_CovidTotal, tv_tanggalNow, tv_nama, tv_ktp;
+    BottomNavigationView bottomNavigation;
 
     SessionManager session;
 
@@ -81,21 +79,37 @@ public class HomeActivity extends AppCompatActivity {
         // email
         String email = user.get(SessionManager.KEY_EMAIL);
 
-        System.out.println(ACCESS_TOKEN);
-
-        recyclerView = findViewById(R.id.recycler_Home);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
 //        initialize all things here
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView = findViewById(R.id.recycler_Home);
         tv_CovidTotal = findViewById(R.id.tv_covidTotal);
         tv_tanggalNow = findViewById(R.id.tv_tanggalNow);
         tv_nama = findViewById(R.id.tv_nama);
+        tv_ktp = findViewById(R.id.tv_nik_id);
         btn_form = findViewById(R.id.btn_inputData);
         btn_hospitalMap = findViewById(R.id.btn_hospital);
         btn_stepCount = findViewById(R.id.btn_stepCount);
         btn_showArticle = findViewById(R.id.btn_article);
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home_menu:
+                        System.out.println("HOME");
+                        return true;
+                    case R.id.klinik_menu:
+                        //TODO: ganti ke intent
+                        System.out.println("klinik");
+                        return true;
+                    case R.id.profile_menu:
+                        //TODO: ganti ke intent
+                        System.out.println("PROFILE");
+                        return true;
+                }
+                return false;
+            }
+        });
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
@@ -103,10 +117,19 @@ public class HomeActivity extends AppCompatActivity {
 
         tv_tanggalNow.setText(formattedDate);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false){
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                // force height of viewHolder here, this will override layout_height from xml
+                return super.checkLayoutParams(lp);
+//                lp.height = getHeight() / 2;
+//                return true;
+            }
+        });
+
         LoadCovidCase();
         LoadPostURL();
         LoadUser();
-
     }
 
     private void LoadPostURL(){
@@ -133,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
                                             obj.getString("image")
                                     );
                                     data.add(item);
-                                    System.out.println(data);
                                 }
                             }
                             adapter = new RecyclerViewAdapter(data,
@@ -186,33 +208,6 @@ public class HomeActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-//    private void LoadUser(){
-//
-//        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-//        final InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
-//
-//        Call<ResponseBody> call = apiClient.getUser("Bearer "+ACCESS_TOKEN);
-//
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    try {
-//                        ACCESS_TOKEN = response.body().string();
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
     private void LoadUser(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 URL_GET_USER,
@@ -228,6 +223,7 @@ public class HomeActivity extends AppCompatActivity {
 
                                 if (obj != null) {
                                     tv_nama.setText(obj.getString("name"));
+                                    tv_ktp.setText(obj.getString("nik"));
                                 }
                             }
                         } catch (JSONException e) {
@@ -259,5 +255,4 @@ public class HomeActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
-    }
+}

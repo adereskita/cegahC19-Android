@@ -27,8 +27,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="Nama"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/img_home_post"
+        app:layout_constraintTop_toTopOf="@+id/img_home_post" />
 
     <TextView
         android:id="@+id/textView12"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_home_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
