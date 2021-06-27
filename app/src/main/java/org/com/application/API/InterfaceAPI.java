@@ -1,5 +1,6 @@
 package org.com.application.API;
 
+import org.com.application.Model.StepModel;
 import org.com.application.Model.UserModel;
 
 import okhttp3.ResponseBody;
@@ -30,4 +31,7 @@ public interface InterfaceAPI {
 
     @GET("auth/user")
     Call<ResponseBody> getUser(@Header("Authorization") String authToken);
+
+    @POST("post/step")
+    Call<StepModel> stepPOST(@Body StepModel stepPost);
 }

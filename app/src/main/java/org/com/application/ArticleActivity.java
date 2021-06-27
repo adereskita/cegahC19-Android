@@ -84,16 +84,10 @@ public class ArticleActivity extends AppCompatActivity {
                                     obj.getString("image");
 //                                            obj.getString("id").trim();
 //                                            obj.getString("category_id");
-//                                            obj.getString("title");
-                                    System.out.println(obj.getString("title"));
                                     tv_tittle.setText(obj.getString("title"));
-                                    System.out.println(obj.getString("created_at"));
                                     tv_tanggal.setText(obj.getString("created_at"));
-                                    System.out.println(obj.getString("body"));
                                     tv_body.setText(obj.getString("body"));
-//
 //                                            obj.getString("created_at");
-//                                            obj.getString("image");
                                 }
                             }
 
