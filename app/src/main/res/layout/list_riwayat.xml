@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
         app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
         app:layout_constraintTop_toTopOf="@+id/gejala_riwayat"
-        android:background="invisible"/>
+        android:backgroundTintMode="screen"/>
 
     <Button
         android:id="@+id/hapus_riwayat"
@@ -60,5 +60,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/edit_riwayat"
         app:layout_constraintStart_toEndOf="@+id/edit_riwayat"
         app:layout_constraintTop_toTopOf="@+id/edit_riwayat"
-        android:background="invisible"/>
+        android:backgroundTintMode="screen"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
