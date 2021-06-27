@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/home_menu"
+        android:title="@string/home"
+        android:iconTint="@color/black"
+        android:icon="@drawable/ic_outline_home_24"/>
+
+    <item
+        android:id="@+id/klinik_menu"
+        android:title="@string/klinik"
+        android:iconTint="@color/black"
+        android:icon="@drawable/ic_outline_add_circle_outline_24"/>
+
+    <item
+        android:id="@+id/profile_menu"
+        android:title="@string/profile"
+        android:iconTint="@color/black"
+        android:icon="@drawable/ic_outline_person_outline_24"/>
+
+</menu>

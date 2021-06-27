@@ -1,0 +1,987 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"org.com.application\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Design.Light.NoActionBar\"\r\n        android:usesCleartextTraffic=\"true\">\r\n<!--        android:networkSecurityConfig=\"@xml/network_security_config\">-->\r\n        <activity android:name=\".HomeActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".LoginActivity\">\r\n\r\n        </activity>\r\n\r\n        <activity android:name=\".RegisterActivity\">\r\n\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ app/src/main/AndroidManifest.xml	(date 1623854886601)
+@@ -1,6 +1,15 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="org.com.application">
++    <!--
++         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
++         Google Maps Android API v2, but you must specify either coarse or fine
++         location permissions for the "MyLocation" functionality.
++    -->
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ 
+     <uses-permission android:name="android.permission.INTERNET"/>
+ 
+@@ -13,20 +22,32 @@
+         android:theme="@style/Theme.Design.Light.NoActionBar"
+         android:usesCleartextTraffic="true">
+ <!--        android:networkSecurityConfig="@xml/network_security_config">-->
+-        <activity android:name=".HomeActivity">
++        <activity android:name=".HomeActivity"
++        android:theme="@style/Theme.ABP">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+-        <activity android:name=".LoginActivity">
+-
+-        </activity>
++        <!--
++             The API key for Google Maps-based APIs is defined as a string resource.
++             (See the file "res/values/google_maps_api.xml").
++             Note that the API key is linked to the encryption key used to sign the APK.
++             You need a different API key for each encryption key, including the release key that is used to
++             sign the APK for publishing.
++             You can define the keys for the debug and release targets in src/debug/ and src/release/.
++        -->
++        <meta-data
++            android:name="com.google.android.geo.API_KEY"
++            android:value="@string/google_maps_key" />
+ 
+-        <activity android:name=".RegisterActivity">
+-
+-        </activity>
++        <activity
++            android:name=".MapsActivity"
++            android:label="@string/title_activity_maps" />
++            <activity android:name=".LoginActivity" />
++            <activity android:name=".ProfileActivity"/>
++        <activity android:name=".RegisterActivity" />
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00_[Default_Changelist]/shelved.patch	(date 1623852029767)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00_[Default_Changelist]/shelved.patch	(date 1623852029767)
+@@ -0,0 +1,478 @@
++Index: app/src/main/AndroidManifest.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"org.com.application\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Design.Light.NoActionBar\"\r\n        android:usesCleartextTraffic=\"true\">\r\n<!--        android:networkSecurityConfig=\"@xml/network_security_config\">-->\r\n        <activity android:name=\".HomeActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".LoginActivity\">\r\n\r\n        </activity>\r\n\r\n        <activity android:name=\".RegisterActivity\">\r\n\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/AndroidManifest.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ app/src/main/AndroidManifest.xml	(date 1623851902873)
++@@ -1,7 +1,15 @@
++ <?xml version="1.0" encoding="utf-8"?>
++ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++     package="org.com.application">
++-
+++    <!--
+++         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+++         Google Maps Android API v2, but you must specify either coarse or fine
+++         location permissions for the "MyLocation" functionality.
+++    -->
+++    <uses-permission android:name="android.permission.INTERNET" />
+++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++     <uses-permission android:name="android.permission.INTERNET"/>
++ 
++     <application
++@@ -20,6 +28,18 @@
++                 <category android:name="android.intent.category.LAUNCHER" />
++             </intent-filter>
++         </activity>
+++        <!--
+++             The API key for Google Maps-based APIs is defined as a string resource.
+++             (See the file "res/values/google_maps_api.xml").
+++             Note that the API key is linked to the encryption key used to sign the APK.
+++             You need a different API key for each encryption key, including the release key that is used to
+++             sign the APK for publishing.
+++             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+++        -->
+++        <meta-data
+++            android:name="com.google.android.geo.API_KEY"
+++            android:value="@string/google_maps_key" />
+++
++         <activity android:name=".LoginActivity">
++ 
++         </activity>
++@@ -27,6 +47,16 @@
++         <activity android:name=".RegisterActivity">
++ 
++         </activity>
+++
+++        <activity android:name=".ProfileActivity">
+++
+++        </activity>
+++
+++        <activity
+++            android:name=".MapsActivity"
+++            android:label="@string/title_activity_maps" />
+++            <activity android:name=".LoginActivity" />
+++        <activity android:name=".RegisterActivity" />
++     </application>
++ 
++ </manifest>
++\ No newline at end of file
++Index: app/src/main/res/values/strings.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><resources>\r\n    <string name=\"app_name\">ABP</string>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/res/values/strings.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ app/src/main/res/values/strings.xml	(date 1623851265254)
++@@ -1,3 +1,4 @@
++ <resources>
++     <string name="app_name">ABP</string>
+++    <string name="title_activity_maps">Map</string>
++ </resources>
++\ No newline at end of file
++Index: app/src/debug/res/values/google_maps_api.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/debug/res/values/google_maps_api.xml	(date 1623851265241)
+++++ app/src/debug/res/values/google_maps_api.xml	(date 1623851265241)
++@@ -0,0 +1,24 @@
+++<resources>
+++    <!--
+++    TODO: Before you run your application, you need a Google Maps API key.
+++
+++    To get one, follow this link, follow the directions and press "Create" at the end:
+++
+++    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E%3Borg.com.application
+++
+++    You can also add your credentials to an existing key, using these values:
+++
+++    Package name:
+++    org.com.application
+++
+++    SHA-1 certificate fingerprint:
+++    B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E
+++
+++    Alternatively, follow the directions here:
+++    https://developers.google.com/maps/documentation/android/start#get-key
+++
+++    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+++    string in this file.
+++    -->
+++    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSk8F14GwIi44G3i0XbK5ZO8p5gmmaC10</string>
+++</resources>
++\ No newline at end of file
++Index: app/src/release/res/values/google_maps_api.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/release/res/values/google_maps_api.xml	(date 1623851265256)
+++++ app/src/release/res/values/google_maps_api.xml	(date 1623851265256)
++@@ -0,0 +1,20 @@
+++<resources>
+++    <!--
+++    TODO: Before you release your application, you need a Google Maps API key.
+++
+++    To do this, you can either add your release key credentials to your existing
+++    key, or create a new key.
+++
+++    Note that this file specifies the API key for the release build target.
+++    If you have previously set up a key for the debug target with the debug signing certificate,
+++    you will also need to set up a key for your release certificate.
+++
+++    Follow the directions here:
+++
+++    https://developers.google.com/maps/documentation/android/signup
+++
+++    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+++    string in this file.
+++    -->
+++    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
+++</resources>
++\ No newline at end of file
++Index: app/src/main/java/org/com/application/ProfileActivity.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package org.com.application;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n    }\r\n}\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/java/org/com/application/ProfileActivity.java	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ app/src/main/java/org/com/application/ProfileActivity.java	(date 1623851265245)
++@@ -1,14 +1,31 @@
++ package org.com.application;
++ 
++-import android.os.Bundle;
++-
++-import androidx.annotation.Nullable;
++ import androidx.appcompat.app.AppCompatActivity;
++ 
+++import android.content.Intent;
+++import android.os.Bundle;
+++import android.view.View;
+++import android.widget.Button;
+++
++ public class ProfileActivity extends AppCompatActivity {
+++
+++    Button nearby_button;
+++
++     @Override
++     protected void onCreate(Bundle savedInstanceState) {
++         super.onCreate(savedInstanceState);
++         setContentView(R.layout.activity_profile);
++-    }
++-}
+++
+++        //define nearby_button
+++        nearby_button = findViewById(R.id.btnFind_nearby);
+++
+++        //ketika di klik membuka maps nearby
+++        nearby_button.setOnClickListener(new View.OnClickListener() {
+++            @Override
+++            public void onClick(View view) {
+++                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);
+++                startActivity(intent);
+++            }
+++        });
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/java/org/com/application/MapsActivity.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/java/org/com/application/MapsActivity.java	(date 1623851265241)
+++++ app/src/main/java/org/com/application/MapsActivity.java	(date 1623851265241)
++@@ -0,0 +1,56 @@
+++package org.com.application;
+++
+++import androidx.fragment.app.FragmentActivity;
+++
+++import android.os.Bundle;
+++
+++import com.google.android.gms.maps.CameraUpdateFactory;
+++import com.google.android.gms.maps.GoogleMap;
+++import com.google.android.gms.maps.OnMapReadyCallback;
+++import com.google.android.gms.maps.SupportMapFragment;
+++import com.google.android.gms.maps.model.LatLng;
+++import com.google.android.gms.maps.model.MarkerOptions;
+++
+++import org.com.application.databinding.ActivityMapsBinding;
+++
+++public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+++
+++    private GoogleMap mMap;
+++    private ActivityMapsBinding binding;
+++
+++    @Override
+++    protected void onCreate(Bundle savedInstanceState) {
+++        super.onCreate(savedInstanceState);
+++
+++        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+++        setContentView(binding.getRoot());
+++
+++        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+++        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+++                .findFragmentById(R.id.map);
+++        mapFragment.getMapAsync(this);
+++    }
+++
+++    /**
+++     * Manipulates the map once available.3
+++     * This callback is triggered when the map is ready to be used.
+++     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+++     * we just add a marker near Sydney, Australia.
+++     * If Google Play services is not installed on the device, the user will be prompted to install
+++     * it inside the SupportMapFragment. This method will only be triggered once the user has
+++     * installed Google Play services and returned to the app.
+++     */
+++    @Override
+++    public void onMapReady(GoogleMap googleMap) {
+++        mMap = googleMap;
+++        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+++        mMap.getUiSettings().setZoomControlsEnabled(true);
+++        mMap.getUiSettings().setZoomGesturesEnabled(true);
+++
+++
+++        // Add a marker in Sydney and move the camera
+++        LatLng sydney = new LatLng(-34, 151);
+++        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+++        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+++    }
+++}
++\ No newline at end of file
++Index: app/build.gradle
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"org.com.application\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.3.0'\r\n    implementation 'com.google.android.material:material:1.3.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'androidx.recyclerview:recyclerview:1.2.0'\r\n\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n\r\n    implementation 'com.android.volley:volley:1.2.0'\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/build.gradle	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ app/build.gradle	(date 1623851995224)
++@@ -26,6 +26,9 @@
++         sourceCompatibility JavaVersion.VERSION_1_8
++         targetCompatibility JavaVersion.VERSION_1_8
++     }
+++    buildFeatures {
+++        viewBinding true
+++    }
++ }
++ 
++ dependencies {
++@@ -33,6 +36,8 @@
++     implementation 'androidx.appcompat:appcompat:1.3.0'
++     implementation 'com.google.android.material:material:1.3.0'
++     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+++    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+++    implementation 'com.google.android.gms:play-services-location:17.0.0'
++     implementation 'androidx.recyclerview:recyclerview:1.2.0'
++ 
++     testImplementation 'junit:junit:4.+'
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- .idea/misc.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ .idea/misc.xml	(date 1623851961111)
++@@ -1,6 +1,7 @@
++ <?xml version="1.0" encoding="UTF-8"?>
++ <project version="4">
++-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+++<!--  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">-->
++     <output url="file://$PROJECT_DIR$/build/classes" />
++   </component>
++   <component name="ProjectType">
++Index: app/src/main/res/layout/list_riwayat.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/res/layout/list_riwayat.xml	(date 1623851265251)
+++++ app/src/main/res/layout/list_riwayat.xml	(date 1623851265251)
++@@ -0,0 +1,58 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
+++    android:layout_width="match_parent"
+++    android:layout_height="match_parent">
+++
+++    <TextView
+++        android:id="@+id/no_riwayat"
+++        android:layout_width="20dp"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="16dp"
+++        android:layout_marginTop="16dp"
+++        android:text="No"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toTopOf="parent" />
+++
+++    <TextView
+++        android:id="@+id/tanggal_riwayat"
+++        android:layout_width="80dp"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="32dp"
+++        android:text="Tannggal"
+++        app:layout_constraintBottom_toBottomOf="@+id/no_riwayat"
+++        app:layout_constraintStart_toEndOf="@+id/no_riwayat"
+++        app:layout_constraintTop_toTopOf="@+id/no_riwayat"
+++        app:layout_constraintVertical_bias="0.0" />
+++
+++    <TextView
+++        android:id="@+id/gejala_riwayat"
+++        android:layout_width="100dp"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="24dp"
+++        android:text="Gejala"
+++        app:layout_constraintBottom_toBottomOf="@+id/tanggal_riwayat"
+++        app:layout_constraintStart_toEndOf="@+id/tanggal_riwayat"
+++        app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
+++
+++    <Button
+++        android:id="@+id/Edit_riwayat"
+++        android:layout_width="30dp"
+++        android:layout_height="30dp"
+++        android:layout_marginStart="24dp"
+++        android:text="Button"
+++        app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
+++        app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
+++        app:layout_constraintTop_toTopOf="@+id/gejala_riwayat" />
+++
+++    <Button
+++        android:id="@+id/hapus_riwayat"
+++        android:layout_width="30dp"
+++        android:layout_height="30dp"
+++        android:layout_marginStart="8dp"
+++        android:text="Button"
+++        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
+++        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
+++        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
+++</androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/res/layout/activity_maps.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/res/layout/activity_maps.xml	(date 1623851265247)
+++++ app/src/main/res/layout/activity_maps.xml	(date 1623851265247)
++@@ -0,0 +1,9 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:map="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
+++    android:id="@+id/map"
+++    android:name="com.google.android.gms.maps.SupportMapFragment"
+++    android:layout_width="match_parent"
+++    android:layout_height="match_parent"
+++    tools:context=".MapsActivity" />
++\ No newline at end of file
++Index: app/src/main/res/layout/activity_profile.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/src/main/res/layout/activity_profile.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
+++++ app/src/main/res/layout/activity_profile.xml	(date 1623851265250)
++@@ -1,6 +1,83 @@
++ <?xml version="1.0" encoding="utf-8"?>
++ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
++     android:layout_width="match_parent"
++-    android:layout_height="match_parent">
+++    android:layout_height="match_parent"
+++    tools:context=".ProfileActivity">
+++
+++    <Button
+++        android:id="@+id/btnFind_nearby"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="8dp"
+++        android:layout_marginTop="16dp"
+++        android:layout_marginEnd="8dp"
+++        android:layout_marginBottom="32dp"
+++        android:text="Cari Rumah sakit/klinik terdekat"
+++        app:layout_constraintBottom_toBottomOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/rv_riwayat" />
+++
+++    <TextView
+++        android:id="@+id/textView11"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="32dp"
+++        android:layout_marginTop="16dp"
+++        android:text="Nama"
+++        app:layout_constraintStart_toEndOf="@+id/imageView"
+++        app:layout_constraintTop_toTopOf="@+id/imageView" />
+++
+++    <TextView
+++        android:id="@+id/textView12"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:layout_marginTop="8dp"
+++        android:text="Provinsi/Kota"
+++        app:layout_constraintStart_toStartOf="@+id/textView11"
+++        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+++
+++    <ImageView
+++        android:id="@+id/imageView"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="32dp"
+++        android:layout_marginTop="24dp"
+++        android:layout_marginBottom="24dp"
+++        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toTopOf="parent"
+++        tools:srcCompat="@tools:sample/avatars" />
+++
+++    <TextView
+++        android:id="@+id/textView13"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:layout_marginStart="16dp"
+++        android:layout_marginTop="8dp"
+++        android:text="Riwayat"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+++
+++    <androidx.constraintlayout.widget.Guideline
+++        android:id="@+id/guideline3"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:orientation="horizontal"
+++        app:layout_constraintGuide_percent="0.25" />
+++
+++    <androidx.recyclerview.widget.RecyclerView
+++        android:id="@+id/rv_riwayat"
+++        android:layout_width="0dp"
+++        android:layout_height="400dp"
+++        android:layout_marginStart="16dp"
+++        android:layout_marginTop="16dp"
+++        android:layout_marginEnd="16dp"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/textView13"
+++        tools:listitem="@layout/list_riwayat"/>
++ 
++ </androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">ABP</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ app/src/main/res/values/strings.xml	(date 1623852029877)
+@@ -1,3 +1,4 @@
+ <resources>
+     <string name="app_name">ABP</string>
++    <string name="title_activity_maps">Map</string>
+ </resources>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00__Default_Changelist_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00__Default_Changelist_.xml	(date 1623852056638)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00__Default_Changelist_.xml	(date 1623852056638)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_16_06_21_21_00_[Default_Changelist]" date="1623852029783" recycled="false" toDelete="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_00_[Default_Changelist]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 16/06/21 21.00 [Default Changelist]" />
++</changelist>
+\ No newline at end of file
+Index: app/src/debug/res/values/google_maps_api.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/debug/res/values/google_maps_api.xml	(date 1623852029872)
++++ app/src/debug/res/values/google_maps_api.xml	(date 1623852029872)
+@@ -0,0 +1,24 @@
++<resources>
++    <!--
++    TODO: Before you run your application, you need a Google Maps API key.
++
++    To get one, follow this link, follow the directions and press "Create" at the end:
++
++    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E%3Borg.com.application
++
++    You can also add your credentials to an existing key, using these values:
++
++    Package name:
++    org.com.application
++
++    SHA-1 certificate fingerprint:
++    B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E
++
++    Alternatively, follow the directions here:
++    https://developers.google.com/maps/documentation/android/start#get-key
++
++    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
++    string in this file.
++    -->
++    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSk8F14GwIi44G3i0XbK5ZO8p5gmmaC10</string>
++</resources>
+\ No newline at end of file
+Index: app/src/release/res/values/google_maps_api.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/release/res/values/google_maps_api.xml	(date 1623852029878)
++++ app/src/release/res/values/google_maps_api.xml	(date 1623852029878)
+@@ -0,0 +1,20 @@
++<resources>
++    <!--
++    TODO: Before you release your application, you need a Google Maps API key.
++
++    To do this, you can either add your release key credentials to your existing
++    key, or create a new key.
++
++    Note that this file specifies the API key for the release build target.
++    If you have previously set up a key for the debug target with the debug signing certificate,
++    you will also need to set up a key for your release certificate.
++
++    Follow the directions here:
++
++    https://developers.google.com/maps/documentation/android/signup
++
++    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
++    string in this file.
++    -->
++    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
++</resources>
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/ProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/ProfileActivity.java	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ app/src/main/java/org/com/application/ProfileActivity.java	(date 1623852029873)
+@@ -1,14 +1,31 @@
+ package org.com.application;
+ 
+-import android.os.Bundle;
+-
+-import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++
+ public class ProfileActivity extends AppCompatActivity {
++
++    Button nearby_button;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_profile);
+-    }
+-}
++
++        //define nearby_button
++        nearby_button = findViewById(R.id.btnFind_nearby);
++
++        //ketika di klik membuka maps nearby
++        nearby_button.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);
++                startActivity(intent);
++            }
++        });
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/MapsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/MapsActivity.java	(date 1623852029872)
++++ app/src/main/java/org/com/application/MapsActivity.java	(date 1623852029872)
+@@ -0,0 +1,56 @@
++package org.com.application;
++
++import androidx.fragment.app.FragmentActivity;
++
++import android.os.Bundle;
++
++import com.google.android.gms.maps.CameraUpdateFactory;
++import com.google.android.gms.maps.GoogleMap;
++import com.google.android.gms.maps.OnMapReadyCallback;
++import com.google.android.gms.maps.SupportMapFragment;
++import com.google.android.gms.maps.model.LatLng;
++import com.google.android.gms.maps.model.MarkerOptions;
++
++import org.com.application.databinding.ActivityMapsBinding;
++
++public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
++
++    private GoogleMap mMap;
++    private ActivityMapsBinding binding;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++
++        binding = ActivityMapsBinding.inflate(getLayoutInflater());
++        setContentView(binding.getRoot());
++
++        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
++        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
++                .findFragmentById(R.id.map);
++        mapFragment.getMapAsync(this);
++    }
++
++    /**
++     * Manipulates the map once available.3
++     * This callback is triggered when the map is ready to be used.
++     * This is where we can add markers or lines, add listeners or move the camera. In this case,
++     * we just add a marker near Sydney, Australia.
++     * If Google Play services is not installed on the device, the user will be prompted to install
++     * it inside the SupportMapFragment. This method will only be triggered once the user has
++     * installed Google Play services and returned to the app.
++     */
++    @Override
++    public void onMapReady(GoogleMap googleMap) {
++        mMap = googleMap;
++        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
++        mMap.getUiSettings().setZoomControlsEnabled(true);
++        mMap.getUiSettings().setZoomGesturesEnabled(true);
++
++
++        // Add a marker in Sydney and move the camera
++        LatLng sydney = new LatLng(-34, 151);
++        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
++        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
++    }
++}
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"org.com.application\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.3.0'\r\n    implementation 'com.google.android.material:material:1.3.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'androidx.recyclerview:recyclerview:1.2.0'\r\n\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n\r\n    implementation 'com.android.volley:volley:1.2.0'\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ app/build.gradle	(date 1623852029887)
+@@ -26,6 +26,9 @@
+         sourceCompatibility JavaVersion.VERSION_1_8
+         targetCompatibility JavaVersion.VERSION_1_8
+     }
++    buildFeatures {
++        viewBinding true
++    }
+ }
+ 
+ dependencies {
+@@ -33,8 +36,13 @@
+     implementation 'androidx.appcompat:appcompat:1.3.0'
+     implementation 'com.google.android.material:material:1.3.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
++<<<<<<< HEAD
+     implementation 'androidx.recyclerview:recyclerview:1.2.0'
+ 
++=======
++    implementation 'com.google.android.gms:play-services-maps:17.0.1'
++    implementation 'com.google.android.gms:play-services-location:17.0.0'
++>>>>>>> origin/master
+     testImplementation 'junit:junit:4.+'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ .idea/misc.xml	(date 1623852029890)
+@@ -1,6 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++<<<<<<< HEAD
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++=======
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++>>>>>>> origin/master
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: app/src/main/res/layout/list_riwayat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/list_riwayat.xml	(date 1623852029876)
++++ app/src/main/res/layout/list_riwayat.xml	(date 1623852029876)
+@@ -0,0 +1,58 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <TextView
++        android:id="@+id/no_riwayat"
++        android:layout_width="20dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="16dp"
++        android:text="No"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/tanggal_riwayat"
++        android:layout_width="80dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="32dp"
++        android:text="Tannggal"
++        app:layout_constraintBottom_toBottomOf="@+id/no_riwayat"
++        app:layout_constraintStart_toEndOf="@+id/no_riwayat"
++        app:layout_constraintTop_toTopOf="@+id/no_riwayat"
++        app:layout_constraintVertical_bias="0.0" />
++
++    <TextView
++        android:id="@+id/gejala_riwayat"
++        android:layout_width="100dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="24dp"
++        android:text="Gejala"
++        app:layout_constraintBottom_toBottomOf="@+id/tanggal_riwayat"
++        app:layout_constraintStart_toEndOf="@+id/tanggal_riwayat"
++        app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
++
++    <Button
++        android:id="@+id/Edit_riwayat"
++        android:layout_width="30dp"
++        android:layout_height="30dp"
++        android:layout_marginStart="24dp"
++        android:text="Button"
++        app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
++        app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
++        app:layout_constraintTop_toTopOf="@+id/gejala_riwayat" />
++
++    <Button
++        android:id="@+id/hapus_riwayat"
++        android:layout_width="30dp"
++        android:layout_height="30dp"
++        android:layout_marginStart="8dp"
++        android:text="Button"
++        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
++        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
++        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_maps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_maps.xml	(date 1623852029874)
++++ app/src/main/res/layout/activity_maps.xml	(date 1623852029874)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<fragment xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:map="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/map"
++    android:name="com.google.android.gms.maps.SupportMapFragment"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".MapsActivity" />
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_profile.xml	(revision cee8dc54fca680b561604a634ae8e4ec1c68a870)
++++ app/src/main/res/layout/activity_profile.xml	(date 1623852029875)
+@@ -1,6 +1,83 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    tools:context=".ProfileActivity">
++
++    <Button
++        android:id="@+id/btnFind_nearby"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="16dp"
++        android:layout_marginEnd="8dp"
++        android:layout_marginBottom="32dp"
++        android:text="Cari Rumah sakit/klinik terdekat"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/rv_riwayat" />
++
++    <TextView
++        android:id="@+id/textView11"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="32dp"
++        android:layout_marginTop="16dp"
++        android:text="Nama"
++        app:layout_constraintStart_toEndOf="@+id/imageView"
++        app:layout_constraintTop_toTopOf="@+id/imageView" />
++
++    <TextView
++        android:id="@+id/textView12"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:text="Provinsi/Kota"
++        app:layout_constraintStart_toStartOf="@+id/textView11"
++        app:layout_constraintTop_toBottomOf="@+id/textView11" />
++
++    <ImageView
++        android:id="@+id/imageView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="32dp"
++        android:layout_marginTop="24dp"
++        android:layout_marginBottom="24dp"
++        app:layout_constraintBottom_toTopOf="@+id/guideline3"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        tools:srcCompat="@tools:sample/avatars" />
++
++    <TextView
++        android:id="@+id/textView13"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="8dp"
++        android:text="Riwayat"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/guideline3" />
++
++    <androidx.constraintlayout.widget.Guideline
++        android:id="@+id/guideline3"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        app:layout_constraintGuide_percent="0.25" />
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/rv_riwayat"
++        android:layout_width="0dp"
++        android:layout_height="400dp"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="16dp"
++        android:layout_marginEnd="16dp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/textView13"
++        tools:listitem="@layout/list_riwayat"/>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file

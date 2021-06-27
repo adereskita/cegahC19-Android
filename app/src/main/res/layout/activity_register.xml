@@ -7,10 +7,9 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/editTextPassword_reg"
+        android:id="@+id/edt_password_reg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border_edit_text"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawablePadding="8dp"
@@ -20,12 +19,12 @@
         android:padding="16dp"
         android:textColorHint="#616161"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextEmail_reg"
-        app:layout_constraintStart_toStartOf="@+id/editTextEmail_reg"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_email_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_email_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_nik_reg" />
 
     <EditText
-        android:id="@+id/editTextPasswordVerif_reg"
+        android:id="@+id/edt_password_reg_conf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -38,30 +37,31 @@
         android:padding="16dp"
         android:textColorHint="#616161"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword_reg"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword_reg"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_password_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg" />
 
     <EditText
-        android:id="@+id/editTextAddress_reg"
+        android:id="@+id/edt_nik_reg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/border_edit_text"
-        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:drawableStart="@drawable/ic_outline_credit_card_24"
         android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
         android:ems="10"
-        android:hint="Alamat Lengkap saat ini"
-        android:inputType="textPassword"
+        android:hint="Nomor NIK"
+        android:inputType="number"
         android:padding="16dp"
         android:textColorHint="#616161"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPasswordVerif_reg"
-        app:layout_constraintStart_toStartOf="@+id/editTextPasswordVerif_reg"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordVerif_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg_conf"
+        app:layout_constraintStart_toStartOf="@+id/edt_password_reg_conf"
+        app:layout_constraintTop_toBottomOf="@+id/edt_email_reg" />
 
     <EditText
-        android:id="@+id/editTextEmail_reg"
+        android:id="@+id/edt_email_reg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -74,12 +74,12 @@
         android:padding="16dp"
         android:textColorHint="#616161"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextName_reg"
-        app:layout_constraintStart_toStartOf="@+id/editTextName_reg"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_nama_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_nama_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_nama_reg" />
 
     <EditText
-        android:id="@+id/editTextName_reg"
+        android:id="@+id/edt_nama_reg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -156,40 +156,41 @@
         android:text="Isi dulu untuk daftar ya!"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextEmail_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_email_reg"
         app:layout_constraintTop_toBottomOf="@+id/top_wave2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/border_button"
         android:text="Daftar!"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAddress_reg"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddress_reg"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddress_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_nik_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_nik_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg_conf" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="Cegah Covid"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="2dp"
+        android:text="disini"
+        android:textColor="#0183d5"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_toLogin"
+        app:layout_constraintStart_toEndOf="@+id/tv_toLogin"
+        app:layout_constraintTop_toTopOf="@+id/tv_toLogin" />
 
     <View
         android:id="@+id/view2"
@@ -202,14 +203,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tv_toLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Kembali ke halaman masuk yuk! Klik disini"
+        android:text="Kembali ke halaman masuk yuk! Klik"
         android:textColor="#000000"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_signup"
+        app:layout_constraintStart_toStartOf="@+id/btn_signup"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg_conf"
+        app:layout_constraintStart_toStartOf="@+id/edt_password_reg_conf"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg_conf" />
 </androidx.constraintlayout.widget.ConstraintLayout>
