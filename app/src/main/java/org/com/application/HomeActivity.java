@@ -3,6 +3,7 @@ package org.com.application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,9 +88,21 @@ public class HomeActivity extends AppCompatActivity {
         tv_nama = findViewById(R.id.tv_nama);
         tv_ktp = findViewById(R.id.tv_nik_id);
         btn_form = findViewById(R.id.btn_inputData);
+        btn_form.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FormGejalaActivity();
+            }
+        });
         btn_hospitalMap = findViewById(R.id.btn_hospital);
         btn_stepCount = findViewById(R.id.btn_stepCount);
         btn_showArticle = findViewById(R.id.btn_article);
+        btn_showArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ListArtikelActivity();
+            }
+        });
         bottomNavigation = findViewById(R.id.bottomNavigationView);
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -133,6 +146,15 @@ public class HomeActivity extends AppCompatActivity {
         LoadUser();
     }
 
+    public void FormGejalaActivity(){
+        Intent intent = new Intent(this, FormGejalaActivity.class);
+        startActivity(intent);
+    }
+
+    public void ListArtikelActivity(){
+        Intent intent = new Intent(this, ListArtikelActivity.class);
+        startActivity(intent);
+    }
     private void LoadPostURL(){
         data = new ArrayList<>();
 

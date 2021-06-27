@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import org.com.application.ArticleActivity;
 import org.com.application.HomeActivity;
+import org.com.application.ListArtikelActivity;
 import org.com.application.Model.PostModel;
 import org.com.application.R;
 
@@ -39,7 +40,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            View view = inflater.inflate(R.layout.item_list, parent,false);
+            View view = inflater.inflate(R.layout.list_artikel, parent,false);
 
             return new ViewHolder(view);
     }
@@ -59,8 +60,9 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         }
 
         holder.title.setText(nPost.getTitle());
+        holder.content.setText(nPost.getBody());
         holder.date.setText(new_Date);
-        Picasso.get().load(HomeActivity.URL_BASE_STORAGE+nPost.getImage()).into(holder.imgView);
+        Picasso.get().load(ListArtikelActivity.URL_BASE_STORAGE+nPost.getImage()).into(holder.imgView);
 
         id = nPost.getId();
 
@@ -72,14 +74,15 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, date;
+        private TextView title, date,content;
         private ImageView imgView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.tv_rv_title);
-            date = itemView.findViewById(R.id.tv_rc_date);
-            imgView = itemView.findViewById(R.id.img_home_post);
+            title = itemView.findViewById(R.id.tv_judul);
+            date = itemView.findViewById(R.id.tv_tanggal);
+            content = itemView.findViewById(R.id.tv_body);
+            imgView = itemView.findViewById(R.id.iv_image_artikel);
 
             itemView.isClickable();
             itemView.setOnClickListener(new View.OnClickListener() {

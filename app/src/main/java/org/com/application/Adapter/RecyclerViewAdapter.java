@@ -34,6 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context mContext;
 
     private final int limit = 5;
+    private String id;
 
     public RecyclerViewAdapter(ArrayList<PostModel> data, Context mContext) {
         this.data = data;
@@ -67,15 +68,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.date.setText(new_Date);
         Picasso.get().load(HomeActivity.URL_BASE_STORAGE+nPost.getImage()).into(holder.imgView);
 
+        id = nPost.getId();
     }
 
     @Override
     public int getItemCount() {
-        return Math.min(data.size(), limit);
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, date;
+        private TextView title, date,body;
         private ImageView imgView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +85,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             title = itemView.findViewById(R.id.tv_rv_title);
             date = itemView.findViewById(R.id.tv_rc_date);
             imgView = itemView.findViewById(R.id.img_home_post);
+
+            itemView.isClickable();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int itemPosition = getAbsoluteAdapterPosition();
+
+                    PostModel nPostId = data.get(itemPosition);
+                    id = nPostId.getId();
+
+                    Intent i = new Intent(mContext.getApplicationContext(), ArticleActivity.class);
+                    i.putExtra("EXTRA_ID_POST",id);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.getApplicationContext().startActivity(i);
+                }
+            });
         }
     }
 }

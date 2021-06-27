@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE androidx.constraintlayout.widget.ConstraintLayout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormGejalaActivity">
+
+    <View
+        android:id="@+id/top_view2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/primary_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bot_view2"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/primary_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Kejang"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox6"
+        app:layout_constraintStart_toEndOf="@+id/checkBox6"
+        app:layout_constraintTop_toTopOf="@+id/checkBox6" />
+
+    <EditText
+        android:id="@+id/edt_alamat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Umur"
+        android:inputType="number"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/edt_nama_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_nama_reg" />
+
+    <EditText
+        android:id="@+id/edt_alamat2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_gender_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Jenis Kelamin"
+        android:inputType="text"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_alamat"
+        app:layout_constraintEnd_toEndOf="@+id/edt_nama_reg"
+        app:layout_constraintTop_toTopOf="@+id/edt_alamat"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/edt_no_telfon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_phone_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Nomor Telfon"
+        android:inputType="number"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_nik_reg"
+        app:layout_constraintStart_toStartOf="@+id/edt_nik_reg"
+        app:layout_constraintTop_toBottomOf="@+id/edt_nik_reg" />
+
+    <EditText
+        android:id="@+id/edt_no_telfon2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Provinsi"
+        android:inputType="textPostalAddress"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_no_telfon"
+        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon"
+        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon" />
+
+    <EditText
+        android:id="@+id/edt_no_telfon3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Alamat"
+        android:inputType="textPostalAddress"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_no_telfon2"
+        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon2"
+        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon2" />
+
+    <EditText
+        android:id="@+id/edt_nik_reg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_outline_credit_card_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorControlNormal"
+        android:ems="10"
+        android:hint="Nomor NIK"
+        android:inputType="number"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_alamat2"
+        app:layout_constraintStart_toStartOf="@+id/edt_alamat"
+        app:layout_constraintTop_toBottomOf="@+id/edt_alamat2" />
+
+    <EditText
+        android:id="@+id/edt_nama_reg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/border_edit_text"
+        android:drawableStart="@drawable/ic_baseline_assignment_ind_24"
+        android:drawablePadding="8dp"
+        android:ems="10"
+        android:hint="Nama Lengkap"
+        android:inputType="text"
+        android:padding="16dp"
+        android:textColorHint="#616161"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/top_view2"
+        app:layout_constraintStart_toStartOf="@+id/top_view2"
+        app:layout_constraintTop_toBottomOf="@+id/top_view2" />
+
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Form Input Gejala"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button_gejala"
+        android:text="Simpan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bot_view2" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Silahkan isi data dan gejala yang anda rasakan!"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/tv_keluhan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text=" Keluhan : "
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon3"
+        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon3" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Demam"
+        app:layout_constraintStart_toStartOf="@+id/tv_keluhan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_keluhan" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Batuk"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
+        app:layout_constraintStart_toEndOf="@+id/checkBox2"
+        app:layout_constraintTop_toTopOf="@+id/checkBox2" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Diare"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
+        app:layout_constraintStart_toEndOf="@+id/checkBox3"
+        app:layout_constraintTop_toTopOf="@+id/checkBox3" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Lemas"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox4"
+        app:layout_constraintStart_toEndOf="@+id/checkBox4"
+        app:layout_constraintTop_toTopOf="@+id/checkBox4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Sesak Nafas"
+        app:layout_constraintStart_toStartOf="@+id/checkBox2"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Kaku Pundak"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox7"
+        app:layout_constraintStart_toEndOf="@+id/checkBox7"
+        app:layout_constraintTop_toTopOf="@+id/checkBox7" />
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Mata Merah"
+        app:layout_constraintStart_toStartOf="@+id/checkBox6"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox6" />
+
+    <CheckBox
+        android:id="@+id/checkBox10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Mata Kuning"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox9"
+        app:layout_constraintStart_toEndOf="@+id/checkBox9"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox6" />
+
+    <CheckBox
+        android:id="@+id/checkBox11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Kulit Ruam "
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox10"
+        app:layout_constraintStart_toEndOf="@+id/checkBox10"
+        app:layout_constraintTop_toTopOf="@+id/checkBox10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
