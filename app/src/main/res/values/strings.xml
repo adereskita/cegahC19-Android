@@ -5,4 +5,7 @@
     <string name="home">Home</string>
     <string name="klinik">Lokasi Klinik</string>
     <string name="profile">Profile</string>
+    <string name="judul_artikel">Judul Artikel</string>
+    <string name="tanggal">tanggal</string>
+    <string name="isi_artikel">Isi Artikel</string>
 </resources>

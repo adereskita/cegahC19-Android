@@ -1,0 +1,382 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"org.com.application\">\r\n    <!--\r\n         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use\r\n         Google Maps Android API v2, but you must specify either coarse or fine\r\n         location permissions for the \"MyLocation\" functionality.\r\n    -->\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Design.Light.NoActionBar\"\r\n        android:usesCleartextTraffic=\"true\">\r\n<!--        android:networkSecurityConfig=\"@xml/network_security_config\">-->\r\n        <activity android:name=\".HomeActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <!--\r\n             The API key for Google Maps-based APIs is defined as a string resource.\r\n             (See the file \"res/values/google_maps_api.xml\").\r\n             Note that the API key is linked to the encryption key used to sign the APK.\r\n             You need a different API key for each encryption key, including the release key that is used to\r\n             sign the APK for publishing.\r\n             You can define the keys for the debug and release targets in src/debug/ and src/release/.\r\n        -->\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"@string/google_maps_key\" />\r\n\r\n        <activity\r\n            android:name=\".MapsActivity\"\r\n            android:label=\"@string/title_activity_maps\" />\r\n            <activity android:name=\".LoginActivity\" />\r\n            <activity android:name=\".ProfileActivity\"/>\r\n        <activity android:name=\".RegisterActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 135f395c301ae852259a5832cdfb5c8b97bbb401)
++++ app/src/main/AndroidManifest.xml	(date 1624380366870)
+@@ -6,13 +6,6 @@
+          Google Maps Android API v2, but you must specify either coarse or fine
+          location permissions for the "MyLocation" functionality.
+     -->
+-    <uses-permission android:name="android.permission.INTERNET" />
+-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+-
+-    <uses-permission android:name="android.permission.INTERNET"/>
+-
+     <application
+         android:allowBackup="true"
+         android:icon="@mipmap/ic_launcher"
+@@ -21,7 +14,8 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Design.Light.NoActionBar"
+         android:usesCleartextTraffic="true">
+-<!--        android:networkSecurityConfig="@xml/network_security_config">-->
++        <activity android:name=".FormGejalaActivity"></activity>
++        <!-- android:networkSecurityConfig="@xml/network_security_config"> -->
+         <activity android:name=".HomeActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+@@ -37,16 +31,22 @@
+              sign the APK for publishing.
+              You can define the keys for the debug and release targets in src/debug/ and src/release/.
+         -->
+-        <meta-data
+-            android:name="com.google.android.geo.API_KEY"
+-            android:value="@string/google_maps_key" />
+-
+         <activity
+             android:name=".MapsActivity"
+             android:label="@string/title_activity_maps" />
+-            <activity android:name=".LoginActivity" />
+-            <activity android:name=".ProfileActivity"/>
++
++        <activity android:name=".LoginActivity" />
++        <activity android:name=".ProfileActivity" />
+         <activity android:name=".RegisterActivity" />
++        <meta-data
++            android:name="com.google.android.geo.API_KEY"
++            android:value="@string/google_maps_key" />
+     </application>
++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.INTERNET" />
++
++    <uses-permission android:name="android.permission.INTERNET" />
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/drawable/border_button_gejala.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/border_button_gejala.xml	(date 1624428309389)
++++ app/src/main/res/drawable/border_button_gejala.xml	(date 1624428309389)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
++    <solid android:color="@color/white">
++
++    </solid>
++    <corners android:radius="10dp"></corners>
++</shape>
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/FormGejalaActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/FormGejalaActivity.java	(date 1624268858144)
++++ app/src/main/java/org/com/application/FormGejalaActivity.java	(date 1624268858144)
+@@ -0,0 +1,14 @@
++package org.com.application;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.os.Bundle;
++
++public class FormGejalaActivity extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_form_gejala);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_baseline_phone_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_phone_24.xml	(date 1624270467785)
++++ app/src/main/res/drawable/ic_baseline_phone_24.xml	(date 1624270467785)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M6.62,10.79c1.44,2.83 3.76,5.14 6.59,6.59l2.2,-2.2c0.27,-0.27 0.67,-0.36 1.02,-0.24 1.12,0.37 2.33,0.57 3.57,0.57 0.55,0 1,0.45 1,1V20c0,0.55 -0.45,1 -1,1 -9.39,0 -17,-7.61 -17,-17 0,-0.55 0.45,-1 1,-1h3.5c0.55,0 1,0.45 1,1 0,1.25 0.2,2.45 0.57,3.57 0.11,0.35 0.03,0.74 -0.25,1.02l-2.2,2.2z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_baseline_gender_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_gender_24.xml	(date 1624271451982)
++++ app/src/main/res/drawable/ic_baseline_gender_24.xml	(date 1624271451982)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M5.5,22v-7.5L4,14.5L4,9c0,-1.1 0.9,-2 2,-2h3c1.1,0 2,0.9 2,2v5.5L9.5,14.5L9.5,22h-4zM18,22v-6h3l-2.54,-7.63C18.18,7.55 17.42,7 16.56,7h-0.12c-0.86,0 -1.63,0.55 -1.9,1.37L12,16h3v6h3zM7.5,6c1.11,0 2,-0.89 2,-2s-0.89,-2 -2,-2 -2,0.89 -2,2 0.89,2 2,2zM16.5,6c1.11,0 2,-0.89 2,-2s-0.89,-2 -2,-2 -2,0.89 -2,2 0.89,2 2,2z"/>
++</vector>
+Index: app/src/main/res/layout/activity_form_gejala.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_form_gejala.xml	(date 1624379464803)
++++ app/src/main/res/layout/activity_form_gejala.xml	(date 1624379464803)
+@@ -0,0 +1,215 @@
++<?xml version="1.0" encoding="utf-8"?><!DOCTYPE androidx.constraintlayout.widget.ConstraintLayout>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".FormGejalaActivity">
++
++    <EditText
++        android:id="@+id/edt_alamat"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_location_on_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Umur"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintStart_toStartOf="@+id/edt_nama_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_nama_reg" />
++
++    <EditText
++        android:id="@+id/edt_alamat2"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_gender_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Jenis Kelamin"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintBottom_toBottomOf="@+id/edt_alamat"
++        app:layout_constraintEnd_toEndOf="@+id/edt_nama_reg"
++        app:layout_constraintTop_toTopOf="@+id/edt_alamat"
++        app:layout_constraintVertical_bias="1.0" />
++
++    <EditText
++        android:id="@+id/edt_no_telfon"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_phone_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Nomor Telfon"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintEnd_toEndOf="@+id/edt_nik_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_nik_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_nik_reg" />
++
++    <EditText
++        android:id="@+id/edt_no_telfon2"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_location_on_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Provinsi"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintEnd_toEndOf="@+id/edt_no_telfon"
++        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon"
++        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon" />
++
++    <EditText
++        android:id="@+id/edt_no_telfon3"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_location_on_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Alamat"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintEnd_toEndOf="@+id/edt_no_telfon2"
++        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon2"
++        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon2" />
++
++    <EditText
++        android:id="@+id/edt_nik_reg"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_outline_credit_card_24"
++        android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
++        android:ems="10"
++        android:hint="Nomor NIK"
++        android:inputType="number"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintEnd_toEndOf="@+id/edt_alamat2"
++        app:layout_constraintStart_toStartOf="@+id/edt_alamat"
++        app:layout_constraintTop_toBottomOf="@+id/edt_alamat2" />
++
++    <EditText
++        android:id="@+id/edt_nama_reg"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="32dp"
++        android:layout_marginTop="8dp"
++        android:layout_marginEnd="32dp"
++        android:background="@drawable/border_edit_text"
++        android:drawableStart="@drawable/ic_baseline_assignment_ind_24"
++        android:drawablePadding="8dp"
++        android:ems="10"
++        android:hint="Nama Lengkap"
++        android:inputType="textEmailAddress"
++        android:padding="16dp"
++        android:textColorHint="#616161"
++        android:textSize="14sp"
++        app:layout_constraintEnd_toEndOf="@+id/top_view2"
++        app:layout_constraintStart_toStartOf="@+id/top_view2"
++        app:layout_constraintTop_toBottomOf="@+id/top_view2" />
++
++    <View
++        android:id="@+id/top_view2"
++        android:layout_width="0dp"
++        android:layout_height="100dp"
++        android:background="@color/primary_blue"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <View
++        android:id="@+id/bot_view2"
++        android:layout_width="0dp"
++        android:layout_height="50dp"
++        android:background="@color/primary_blue"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <View
++        android:id="@+id/bot_wave2"
++        android:layout_width="0dp"
++        android:layout_height="50dp"
++        android:background="@drawable/wavebot"
++        app:layout_constraintBottom_toTopOf="@+id/bot_view2"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <TextView
++        android:id="@+id/textView4"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:text="Form Input Gejala"
++        android:textColor="#FFFFFF"
++        android:textSize="24sp"
++        android:textStyle="bold"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.13"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/btn_signup"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:layout_marginEnd="16dp"
++        android:background="@drawable/border_button_gejala"
++        android:text="Simpan"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/bot_wave2" />
++
++    <TextView
++        android:id="@+id/textView7"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:text="Silahkan isi data dan gejala yang anda rasakan!"
++        android:textColor="#FFFFFF"
++        app:layout_constraintStart_toStartOf="@+id/textView4"
++        app:layout_constraintTop_toBottomOf="@+id/textView4" />
++
++    <TextView
++        android:id="@+id/tv_keluhan"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="14dp"
++        android:text=" Keluhan : "
++        android:textStyle="bold"
++        app:layout_constraintStart_toStartOf="@+id/edt_no_telfon3"
++        app:layout_constraintTop_toBottomOf="@+id/edt_no_telfon3" />
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_maps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<fragment xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:map=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/map\"\r\n    android:name=\"com.google.android.gms.maps.SupportMapFragment\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MapsActivity\" />
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_maps.xml	(revision 135f395c301ae852259a5832cdfb5c8b97bbb401)
++++ app/src/main/res/layout/activity_maps.xml	(date 1623856723794)
+@@ -6,4 +6,5 @@
+     android:name="com.google.android.gms.maps.SupportMapFragment"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".MapsActivity" />
+\ No newline at end of file
++    tools:context=".MapsActivity"
++    tools:ignore="MissingClass" />
+\ No newline at end of file
+diff --git app/src/main/res/drawable/ic_baseline_location_on_24.xml app/src/main/res/drawable/ic_baseline_location_on_24.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_48__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_16_06_21_21_48__Default_Changelist_.xml

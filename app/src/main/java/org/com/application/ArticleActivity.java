@@ -22,15 +22,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ArticleActivity extends AppCompatActivity {
 
     private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
     private static final String URL_GET_POST_DETAIL = "http://"+ipaddressLaravel+"/api/post?";
+    public static final String URL_BASE_STORAGE = "http://"+ipaddressLaravel+"/storage/";
 
-    TextView tv_body;
+
+    TextView tv_body,tv_tittle,tv_tanggal;
+    ImageView iv_home_post;
     String id_post;
     PostModel data;
 
@@ -41,7 +48,20 @@ public class ArticleActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         id_post = i.getStringExtra("EXTRA_ID_POST");
+
+        System.out.println(id_post);
+
         tv_body = findViewById(R.id.tv_body);
+        tv_tittle = findViewById(R.id.tv_title);
+        tv_tanggal = findViewById(R.id.tv_tanggal);
+        iv_home_post= findViewById(R.id.img_home_post);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        tv_tanggal.setText(formattedDate);
+
 
         getDetails();
     }
@@ -60,12 +80,13 @@ public class ArticleActivity extends AppCompatActivity {
                                 JSONObject obj = jsonArray.getJSONObject(i);
 
                                 if (obj != null) {
+                                    obj.getString("image");
 //                                            obj.getString("id").trim();
 //                                            obj.getString("category_id");
-//                                            obj.getString("title");
-                                            tv_body.setText(obj.getString("body"));
+                                    tv_tittle.setText(obj.getString("title"));
+                                    tv_tanggal.setText(obj.getString("created_at"));
+                                    tv_body.setText(obj.getString("body"));
 //                                            obj.getString("created_at");
-//                                            obj.getString("image");
                                 }
                             }
 
