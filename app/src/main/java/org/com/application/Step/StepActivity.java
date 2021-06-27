@@ -12,20 +12,57 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.com.application.R;
+import org.com.application.SessionManager.SessionManager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import abak.tr.com.boxedverticalseekbar.BoxedVertical;
 
 public class StepActivity extends AppCompatActivity implements SensorEventListener, StepListener {
+
+    public static String getCalculatedDate(int days) {
+        SimpleDateFormat s = new SimpleDateFormat("EEEE", new Locale("id", "ID"));
+        Calendar cal = Calendar.getInstance();
+//        SimpleDateFormat s = new SimpleDateFormat(dateFormat);
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        return s.format(new Date(cal.getTimeInMillis()));
+    }
+    public static String getPrevDate(int days) {
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd", new Locale("id", "ID"));
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        return s.format(new Date(cal.getTimeInMillis()));
+    }
+
+    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
+    private static final String URL_GET_STEP = "http://"+ipaddressLaravel+"/api/get/step?";
 
     public static final String EXTRA_STEP = "step";
 
@@ -35,7 +72,10 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mStepDetectorSensor;
     private Sensor mAccelerometer;
 
-    private TextView tv_step;
+    private TextView tv_step, tv_dayPrev_1,tv_dayPrev_2,tv_dayPrev_3,tv_dayPrev_4,tv_nowDate;
+    private BoxedVertical bv_dayPrev_1,bv_dayPrev_2,bv_dayPrev_3,bv_dayPrev_4;
+    private View view_blocker;
+    private ImageButton btn_back_step;
 
     private String dates, id, nowTime;
     private int NumStep, nStep;
@@ -43,12 +83,11 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
 
-//    private FirebaseAuth mAuth;
-//    private DatabaseReference dbUser;
+    private static String ACCESS_TOKEN;
+
+    SessionManager session;
 
     //boolean running = false;
-
-//    private HorizontalCalendar mHorizontalCalendar;
     private BottomNavigationView mBottomNavView;
 
     @Override
@@ -58,11 +97,34 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
 
         mBottomNavView = findViewById(R.id.bottomNavigationView);
 
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser mUser = mAuth.getCurrentUser();
-//        id = mUser.getUid();
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // token
+        ACCESS_TOKEN = user.get(SessionManager.KEY_TOKEN);
 
         tv_step = findViewById(R.id.tv_step);
+        tv_nowDate = findViewById(R.id.tv_nowDate);
+        tv_dayPrev_1 = findViewById(R.id.tv_day_1);
+        tv_dayPrev_2 = findViewById(R.id.tv_day_2);
+        tv_dayPrev_3 = findViewById(R.id.tv_day_3);
+        tv_dayPrev_4 = findViewById(R.id.tv_day_4);
+        bv_dayPrev_1 = findViewById(R.id.bar_1);
+        bv_dayPrev_2 = findViewById(R.id.bar_2);
+        bv_dayPrev_3 = findViewById(R.id.bar_3);
+        bv_dayPrev_4 = findViewById(R.id.bar_4);
+        view_blocker = findViewById(R.id.view_blocker);
+        btn_back_step = findViewById(R.id.btn_back_step);
+
+        view_blocker.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
 
         // Get an instance of the SensorManager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -77,94 +139,73 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mPreferences.edit();
 
+        Date thisTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("EEEE", new Locale("id", "ID"));
+        nowTime = df.format(thisTime);
 
-            Date thisTime = Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-            nowTime = df.format(thisTime);
+        tv_nowDate.setText(nowTime);
 
         //IF THE DATES IS NULL
         if (dates == null) {
             Date currentTime = Calendar.getInstance().getTime();
             dates = df.format(currentTime);
 
-//            dbUser = FirebaseDatabase.getInstance().getReference("user")
-//                    .child(id).child("step").child(dates);
-
             tv_step.setText(String.valueOf(nStep));
         }
 
+        tv_dayPrev_1.setText(getCalculatedDate(-1));
+        getStep(mPreferences.getInt(SessionManager.KEY_ID, 0), getPrevDate(-1), bv_dayPrev_1);
+        tv_dayPrev_2.setText(getCalculatedDate(-2));
+        getStep(mPreferences.getInt(SessionManager.KEY_ID, 0), getPrevDate(-2), bv_dayPrev_2);
+        tv_dayPrev_3.setText(getCalculatedDate(-3));
+        getStep(mPreferences.getInt(SessionManager.KEY_ID, 0), getPrevDate(-3), bv_dayPrev_3);
+        tv_dayPrev_4.setText(getCalculatedDate(-4));
+        getStep(mPreferences.getInt(SessionManager.KEY_ID, 0), getPrevDate(-4), bv_dayPrev_4);
+
         schedAlarm(getApplicationContext());
 
-        //calendar
-        Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
-        Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -1);
+        btn_back_step.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-//        mHorizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarViews)
-//                .range(startDate, endDate)
-//                .datesNumberOnScreen(5)
-//                .build();
-//
-//        mHorizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
-//
-//
-//            @Override
-//            public void onDateSelected(Calendar date, int position) {
-//                Date nowTime = mHorizontalCalendar.getSelectedDate().getTime();
-//                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-//                dates = df.format(nowTime);
-//
-//                if (!dates.equals(nowTime)){
-//                    tv_step.setText(String.valueOf(NumStep));
-//                }
-//
-//                dbUser = FirebaseDatabase.getInstance().getReference("user")
-//                        .child(id).child("step").child(dates);
-//
-//                dbUser.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                        if (dataSnapshot.exists()){
-////                            for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                            Users mData= new Users();
-//
-//                            mData.setStep(dataSnapshot.getValue(Users.class).getStep());//step User
-//
-//                                if (mData.getStep() != 0){
-//                                    tv_step.setText(String.valueOf(mData.getStep()));
-//                                    System.out.println(mData.getStep());
-//                                }else{
-//                                    tv_step.setText(String.valueOf(NumStep));
-//                                }
-////                            }
-//
-//                        }else {
-//                            tv_step.setText(String.valueOf(NumStep));
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onCalendarScroll(HorizontalCalendarView calendarView,
-//                                         int dx, int dy) {
-//
-//            }
-//
-//            @Override
-//            public boolean onDateLongClicked(Calendar date, int position) {
-//                return true;
-//            }
-//        });
     }
     //onCreate end here
+
+    private void getStep(int id_post, String date, BoxedVertical bv){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_GET_STEP+"id_user="+id_post+"&date="+date,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                            for (int i = 0; i<jsonArray.length(); i++){
+                                JSONObject obj = jsonArray.getJSONObject(i);
+
+                                if (obj != null) {
+                                    bv.setValue(obj.getInt("step"));
+                                    System.out.println(date+" step: "+obj.getInt("step"));
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
 
     private void schedAlarm(Context context) {
         Date date = new Date();
@@ -172,9 +213,10 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         time.setTime(date);
         time.set(Calendar.HOUR_OF_DAY, 23);// for 23 hour
         time.set(Calendar.MINUTE, 59);// for 0 min
-        time.set(Calendar.SECOND, 50);// for 0 sec
+        time.set(Calendar.SECOND, 58);// for 0 sec
 
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, SchedBroadcast.class), PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, SchedBroadcast.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, SchedBroadcast.class), 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), 1000*60*60*24, pi);
     }
@@ -194,11 +236,9 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         if (countSensor != null){
             mSensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
             mSensorManager.registerListener(this, mStepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
-            Toast.makeText(this, "Sensor with count sensorManager", Toast.LENGTH_SHORT).show();
 
 
         }else if (mAccelSensor != null){
-            Toast.makeText(this, "Sensor with Acceler", Toast.LENGTH_SHORT).show();
 //            mSensorManager.registerListener(this, mStepDetectorSensor,SensorManager.SENSOR_DELAY_FASTEST);
 //            NumStep = 0;
             mSensorManager.registerListener(StepActivity.this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
@@ -267,7 +307,6 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
                     event.timestamp, event.values[0], event.values[1], event.values[2]);
             nStep = mPreferences.getInt(EXTRA_STEP, NumStep);
             tv_step.setText(String.valueOf(nStep));
-            System.out.println(String.valueOf(nStep));
         }
 //        if (running){
 //            tv_step.setText(String.valueOf(event.values[0]));

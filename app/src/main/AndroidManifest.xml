@@ -20,8 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListArtikelActivity"></activity>
-        <activity android:name=".FormGejalaActivity" />
         <!-- android:networkSecurityConfig="@xml/network_security_config"> -->
         <activity android:name=".HomeActivity">
             <intent-filter>
@@ -48,7 +46,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ArticleActivity" />
-<!--        <activity android:name=".Step.StepActivity"/>-->
+        <activity android:name=".ListArtikelActivity"/>
+        <activity android:name=".FormGejalaActivity" />
         <activity android:name=".Step.pedometerActivity"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Step.StepActivity"/>

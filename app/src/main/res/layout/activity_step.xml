@@ -7,6 +7,41 @@
     tools:context=".Step.StepActivity"
     android:background="#F4F4F4">
 
+    <View
+        android:id="@+id/top_wave3"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/wavetop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_back_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:contentDescription="TODO"
+        android:padding="15dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_nowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Today"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintStart_toStartOf="@+id/cardView2" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
@@ -14,17 +49,17 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:maxHeight="160dp"
-        app:cardBackgroundColor="#DBEBFF"
+        android:outlineAmbientShadowColor="#A9BCBCBC"
+        android:outlineSpotShadowColor="#AE686868"
+        app:cardBackgroundColor="#CFE5FF"
         app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        android:outlineSpotShadowColor="#AE434343"
-        android:outlineAmbientShadowColor="#A99C9C9C"
+        app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16000003">
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_step"
+        app:layout_constraintVertical_bias="0.100000024">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,30 +67,45 @@
 
             <TextView
                 android:id="@+id/tv_step"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginEnd="24dp"
                 android:text="0"
+                android:textAlignment="textEnd"
                 android:textColor="#1329BC"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_rv_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.78"
+                app:layout_constraintStart_toEndOf="@+id/tv_rv_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_rv_title" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_baseline_bar_chart_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_rv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="My Step"
                 android:textColor="#4870A2"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.504" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,7 +115,7 @@
         android:id="@+id/LinearHorizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,14 +136,18 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:linksClickable="false"
                 app:backgroundColor="#FFFFFF"
                 app:cornerRadius="20dp"
-                app:defaultValue="600"
+                app:defaultValue="0"
                 app:imageEnabled="false"
-                app:max="1000"
-                app:progressColor="#DBEBFF"
+                app:max="10000"
+                app:progressColor="#BCD5F3"
                 app:step="5"
-                app:textBottomPadding="600"
+                app:textBottomPadding="80"
                 app:textColor="#1329BC"
                 app:textEnabled="true"
                 app:textSize="12sp"
@@ -103,11 +157,12 @@
                 android:id="@+id/tv_day_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:text="Senin"
                 android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,10 +183,10 @@
                 app:cornerRadius="20dp"
                 app:defaultValue="0"
                 app:imageEnabled="false"
-                app:max="300"
-                app:progressColor="#DBEBFF"
+                app:max="10000"
+                app:progressColor="#BCD5F3"
                 app:step="5"
-                app:textBottomPadding="600"
+                app:textBottomPadding="80"
                 app:textColor="#1329BC"
                 app:textEnabled="true"
                 app:textSize="12sp"
@@ -141,11 +196,12 @@
                 android:id="@+id/tv_day_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:text="Selasa"
                 android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -167,10 +223,10 @@
                 app:cornerRadius="20dp"
                 app:defaultValue="0"
                 app:imageEnabled="false"
-                app:max="300"
-                app:progressColor="#DBEBFF"
+                app:max="10000"
+                app:progressColor="#BCD5F3"
                 app:step="5"
-                app:textBottomPadding="600"
+                app:textBottomPadding="80"
                 app:textColor="#1329BC"
                 app:textEnabled="true"
                 app:textSize="12sp"
@@ -180,11 +236,12 @@
                 android:id="@+id/tv_day_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:text="Rabu"
                 android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -207,10 +264,10 @@
                 app:cornerRadius="20dp"
                 app:defaultValue="0"
                 app:imageEnabled="false"
-                app:max="300"
-                app:progressColor="#DBEBFF"
+                app:max="10000"
+                app:progressColor="#BCD5F3"
                 app:step="5"
-                app:textBottomPadding="600"
+                app:textBottomPadding="80"
                 app:textColor="#1329BC"
                 app:textEnabled="true"
                 app:textSize="12sp"
@@ -220,14 +277,28 @@
                 android:id="@+id/tv_day_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:text="Kamis"
                 android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/view_blocker"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/LinearHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/LinearHorizontal"
+        android:background="#00FFFFFF"
+        tools:visibility="visible">
+
+    </View>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

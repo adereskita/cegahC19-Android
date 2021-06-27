@@ -1,8 +1,10 @@
 package org.com.application;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +63,8 @@ public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
 
     SessionManager session;
+    SharedPreferences mPreferences;
+    SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,6 +263,16 @@ public class HomeActivity extends AppCompatActivity {
                                 JSONObject obj = jsonArray.getJSONObject(i);
 
                                 if (obj != null) {
+                                    mPreferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
+                                    mEditor = mPreferences.edit();
+
+                                    mEditor.putInt(SessionManager.KEY_ID, obj.getInt("id"));
+                                    mEditor.commit();
+
+                                    int id = mPreferences.getInt(SessionManager.KEY_ID, 0);
+
+                                    System.out.println("ID DI HOME: "+id);
+
                                     tv_nama.setText(obj.getString("name"));
                                     tv_ktp.setText(obj.getString("nik"));
                                 }
@@ -301,7 +315,6 @@ public class HomeActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                System.out.println(tv_nama.getText().toString());
                 if (tv_nama.getText().toString().equals("Null")){
                     session.logoutUser();
                 }
