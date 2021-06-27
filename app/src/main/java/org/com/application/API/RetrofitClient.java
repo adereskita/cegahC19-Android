@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
+    //    private static final String ipaddressLaravel = "192.168.100.30:8000";
     private static final String ipaddressLaravel = "10.0.2.2:8000";
     private static final String BASE_URL = "http://"+ipaddressLaravel+"/api/";
 

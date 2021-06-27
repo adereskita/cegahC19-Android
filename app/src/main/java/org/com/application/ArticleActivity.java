@@ -41,9 +41,6 @@ public class ArticleActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         id_post = i.getStringExtra("EXTRA_ID_POST");
-
-        System.out.println(id_post);
-
         tv_body = findViewById(R.id.tv_body);
 
         getDetails();
@@ -66,7 +63,6 @@ public class ArticleActivity extends AppCompatActivity {
 //                                            obj.getString("id").trim();
 //                                            obj.getString("category_id");
 //                                            obj.getString("title");
-                                    System.out.println(obj.getString("body"));
                                             tv_body.setText(obj.getString("body"));
 //                                            obj.getString("created_at");
 //                                            obj.getString("image");

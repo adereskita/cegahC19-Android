@@ -1,4 +1,4 @@
-package com.anaminase.shapeyou.Step;
+package org.com.application.Step;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anaminase.shapeyou.R;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.com.application.R;
 
 public class pedometerActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -23,9 +23,9 @@ public class pedometerActivity extends AppCompatActivity implements SensorEventL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedometer);
+        setContentView(R.layout.activity_step);
 
-        tv_step = findViewById(R.id.tv_steps);
+        tv_step = findViewById(R.id.tv_step);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 

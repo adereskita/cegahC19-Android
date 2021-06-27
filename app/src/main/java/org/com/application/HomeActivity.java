@@ -2,7 +2,9 @@ package org.com.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.com.application.Adapter.RecyclerViewAdapter;
 import org.com.application.Model.PostModel;
 import org.com.application.SessionManager.SessionManager;
+import org.com.application.Step.StepActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -125,6 +128,18 @@ public class HomeActivity extends AppCompatActivity {
                 return super.checkLayoutParams(lp);
 //                lp.height = getHeight() / 2;
 //                return true;
+            }
+        });
+
+        btn_stepCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                Intent i = new Intent(HomeActivity.this, StepActivity.class);
+//                i.putExtra("EXTRA_ID_POST",id);
+//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+
             }
         });
 
@@ -255,5 +270,21 @@ public class HomeActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(tv_nama.getText().toString());
+                if (tv_nama.getText().toString().equals("Null")){
+                    session.logoutUser();
+                }
+            }
+        }, 3000);
     }
 }

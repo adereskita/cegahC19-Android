@@ -1,9 +1,11 @@
-package com.anaminase.shapeyou.Step;
+package org.com.application.Step;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+
+import java.util.prefs.Preferences;
 
 public class SchedBroadcast extends BroadcastReceiver {
     @Override

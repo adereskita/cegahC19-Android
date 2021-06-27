@@ -1,4 +1,4 @@
-package com.anaminase.shapeyou.Step;
+package org.com.application.Step;
 
 public interface StepListener{
 

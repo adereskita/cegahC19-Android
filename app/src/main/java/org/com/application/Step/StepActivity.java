@@ -1,4 +1,4 @@
-package com.anaminase.shapeyou.Step;
+package org.com.application.Step;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,21 +14,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.anaminase.shapeyou.Calori.CalculatorActivity;
-import com.anaminase.shapeyou.DiscoveryActivity;
-import com.anaminase.shapeyou.HomeActivity;
-import com.anaminase.shapeyou.Models.Users;
-import com.anaminase.shapeyou.R;
-import com.anaminase.shapeyou.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,9 +22,8 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.HorizontalCalendarView;
-import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
+import org.com.application.R;
 
 public class StepActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
@@ -58,12 +43,12 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference dbUser;
+//    private FirebaseAuth mAuth;
+//    private DatabaseReference dbUser;
 
     //boolean running = false;
 
-    private HorizontalCalendar mHorizontalCalendar;
+//    private HorizontalCalendar mHorizontalCalendar;
     private BottomNavigationView mBottomNavView;
 
     @Override
@@ -71,13 +56,13 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
 
-        mBottomNavView = findViewById(R.id.bottom_nav);
+        mBottomNavView = findViewById(R.id.bottomNavigationView);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        id = mUser.getUid();
+//        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser mUser = mAuth.getCurrentUser();
+//        id = mUser.getUid();
 
-        tv_step = findViewById(R.id.tv_numbstep);
+        tv_step = findViewById(R.id.tv_step);
 
         // Get an instance of the SensorManager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -102,8 +87,8 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
             Date currentTime = Calendar.getInstance().getTime();
             dates = df.format(currentTime);
 
-            dbUser = FirebaseDatabase.getInstance().getReference("user")
-                    .child(id).child("step").child(dates);
+//            dbUser = FirebaseDatabase.getInstance().getReference("user")
+//                    .child(id).child("step").child(dates);
 
             tv_step.setText(String.valueOf(nStep));
         }
@@ -116,108 +101,68 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -1);
 
-        mHorizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarViews)
-                .range(startDate, endDate)
-                .datesNumberOnScreen(5)
-                .build();
-
-        mHorizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
-
-
-            @Override
-            public void onDateSelected(Calendar date, int position) {
-                Date nowTime = mHorizontalCalendar.getSelectedDate().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                dates = df.format(nowTime);
-
-                if (!dates.equals(nowTime)){
-                    tv_step.setText(String.valueOf(NumStep));
-                }
-
-                dbUser = FirebaseDatabase.getInstance().getReference("user")
-                        .child(id).child("step").child(dates);
-
-                dbUser.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()){
-//                            for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            Users mData= new Users();
-
-                            mData.setStep(dataSnapshot.getValue(Users.class).getStep());//step User
-
-                                if (mData.getStep() != 0){
-                                    tv_step.setText(String.valueOf(mData.getStep()));
-                                    System.out.println(mData.getStep());
-                                }else{
-                                    tv_step.setText(String.valueOf(NumStep));
-                                }
-//                            }
-
-                        }else {
-                            tv_step.setText(String.valueOf(NumStep));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCalendarScroll(HorizontalCalendarView calendarView,
-                                         int dx, int dy) {
-
-            }
-
-            @Override
-            public boolean onDateLongClicked(Calendar date, int position) {
-                return true;
-            }
-        });
-
-        mBottomNavView.setSelectedItemId(R.id.nav_step);
-        mBottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-
-                    case R.id.nav_home:
-                        Intent home = new Intent(StepActivity.this, HomeActivity.class);
-                        startActivity(home);
-                        finish();
-                        return true;
-                    case R.id.nav_step:
-                        menuItem.isEnabled();
-                        Intent step = new Intent(StepActivity.this, StepActivity.class);
-                        startActivity(step);
-                        finish();
-                        return true;
-                    case R.id.nav_discover:
-                        Intent discover = new Intent(StepActivity.this, DiscoveryActivity.class);
-                        startActivity(discover);
-                        finish();
-                        return true;
-                    case R.id.nav_calories:
-                        Intent calori = new Intent(StepActivity.this, CalculatorActivity.class);
-                        startActivity(calori);
-                        finish();
-                        return true;
-                    case R.id.nav_profile:
-                        Intent profile = new Intent(StepActivity.this, ProfileActivity.class);
-                        startActivity(profile);
-                        finish();
-                        return true;
-
-                    default:
-                        return false;
-                }
-            }
-        });
+//        mHorizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarViews)
+//                .range(startDate, endDate)
+//                .datesNumberOnScreen(5)
+//                .build();
+//
+//        mHorizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+//
+//
+//            @Override
+//            public void onDateSelected(Calendar date, int position) {
+//                Date nowTime = mHorizontalCalendar.getSelectedDate().getTime();
+//                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+//                dates = df.format(nowTime);
+//
+//                if (!dates.equals(nowTime)){
+//                    tv_step.setText(String.valueOf(NumStep));
+//                }
+//
+//                dbUser = FirebaseDatabase.getInstance().getReference("user")
+//                        .child(id).child("step").child(dates);
+//
+//                dbUser.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                        if (dataSnapshot.exists()){
+////                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+//                            Users mData= new Users();
+//
+//                            mData.setStep(dataSnapshot.getValue(Users.class).getStep());//step User
+//
+//                                if (mData.getStep() != 0){
+//                                    tv_step.setText(String.valueOf(mData.getStep()));
+//                                    System.out.println(mData.getStep());
+//                                }else{
+//                                    tv_step.setText(String.valueOf(NumStep));
+//                                }
+////                            }
+//
+//                        }else {
+//                            tv_step.setText(String.valueOf(NumStep));
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCalendarScroll(HorizontalCalendarView calendarView,
+//                                         int dx, int dy) {
+//
+//            }
+//
+//            @Override
+//            public boolean onDateLongClicked(Calendar date, int position) {
+//                return true;
+//            }
+//        });
     }
     //onCreate end here
 
@@ -249,9 +194,11 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         if (countSensor != null){
             mSensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
             mSensorManager.registerListener(this, mStepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
+            Toast.makeText(this, "Sensor with count sensorManager", Toast.LENGTH_SHORT).show();
 
 
         }else if (mAccelSensor != null){
+            Toast.makeText(this, "Sensor with Acceler", Toast.LENGTH_SHORT).show();
 //            mSensorManager.registerListener(this, mStepDetectorSensor,SensorManager.SENSOR_DELAY_FASTEST);
 //            NumStep = 0;
             mSensorManager.registerListener(StepActivity.this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
@@ -260,7 +207,7 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
             }
 
         }else {
-            Toast.makeText(this, "Sensor not found. This device is not supported. :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sensor not found. This device is not supported.", Toast.LENGTH_SHORT).show();
 //            mSensorManager.registerListener(this, mStepDetectorSensor,SensorManager.SENSOR_DELAY_FASTEST);
 
         }
@@ -319,8 +266,8 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
             mAcceleroDetector.updateAccel(
                     event.timestamp, event.values[0], event.values[1], event.values[2]);
             nStep = mPreferences.getInt(EXTRA_STEP, NumStep);
-//            tv_step.setText(String.valueOf(nStep));
-
+            tv_step.setText(String.valueOf(nStep));
+            System.out.println(String.valueOf(nStep));
         }
 //        if (running){
 //            tv_step.setText(String.valueOf(event.values[0]));
@@ -357,9 +304,9 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
 //            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 //            step_time = df.format(currentTime);
 
-                Users mUser = new Users(id,nStep);
-
-                dbUser.setValue(mUser);
+//                Users mUser = new Users(id,nStep);
+//
+//                dbUser.setValue(mUser);
 
                 tv_step.setText(String.valueOf(nStep));
             }

@@ -4,7 +4,6 @@ public class UserModel {
     String id, name,email,password,nik,access_token;
 
     public UserModel(String name, String email, String access_token) {
-        this.id = id;
         this.name = name;
         this.email = email;
         this.access_token = access_token;
@@ -16,6 +15,14 @@ public class UserModel {
     }
 
     public UserModel(String name, String email, String password, String nik) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.nik = nik;
+    }
+
+    public UserModel(String id,String name, String email, String password, String nik) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
