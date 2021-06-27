@@ -1,31 +1,152 @@
 package org.com.application;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.com.application.Model.UserModel;
+import org.com.application.SessionManager.SessionManager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
+    private static final String ipaddressLaravel = "10.0.0.2:8000";
+    private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
+    private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 
-    Button nearby_button;
+    private static String ACCESS_TOKEN;
+
+    Button nearby_button, btnHapus_riwayat, btnEdit_riwayat;
+    BottomNavigationView bottomNavigation;
+    TextView tv_nama, tv_nik, tv_email, tv_no_gejala, tv_tanggal_gejala, tv_riwayat_gejala;
+    RecyclerView recyclerViewGejala;
+    ArrayList<UserModel> user = new ArrayList<>();
+
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //define nearby_button
-        nearby_button = findViewById(R.id.btnFind_nearby);
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        ACCESS_TOKEN = user.get(SessionManager.KEY_TOKEN);
 
-        //ketika di klik membuka maps nearby
-        nearby_button.setOnClickListener(new View.OnClickListener() {
+        btnEdit_riwayat = findViewById(R.id.edit_riwayat);
+        btnHapus_riwayat = findViewById(R.id.hapus_riwayat);
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+
+        tv_nama = findViewById(R.id.nama_tv);
+        tv_nik = findViewById(R.id.nik_tv);
+        tv_email = findViewById(R.id.email_tv);
+        tv_no_gejala = findViewById(R.id.no_riwayat);
+        tv_tanggal_gejala = findViewById(R.id.tanggal_riwayat);
+        tv_riwayat_gejala = findViewById(R.id.gejala_riwayat);
+
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+//        recyclerViewGejala.setLayoutManager(linearLayoutManager);
+
+        //define nearby_button
+
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home_menu:
+                        System.out.println("Home");
+                        Intent intent2 = new Intent(ProfileActivity.this,HomeActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.klinik_menu:
+                        //TODO: ganti ke intent
+                        System.out.println("klinik");
+                        Intent intent = new Intent(ProfileActivity.this,MapsActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.profile_menu:
+                        //TODO: ganti ke intent
+                        Toast.makeText(getApplicationContext(),"Kamu sudah di Halaman Profile",Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+                return false;
             }
         });
+
+        System.out.println(ACCESS_TOKEN);
+
+        LoadUser();
+    }
+
+    private void LoadUser(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                URL_GET_USER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                            for (int i = 0; i<jsonArray.length(); i++){
+                                JSONObject obj = jsonArray.getJSONObject(i);
+
+                                if (obj != null) {
+                                    tv_nama.setText(obj.getString("name"));
+                                    tv_email.setText(obj.getString("email"));
+                                    tv_nik.setText(obj.getString("nik"));
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            //This is for Headers If You Needed
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                headers.put("Authorization", "Bearer " + ACCESS_TOKEN);
+                return headers;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
