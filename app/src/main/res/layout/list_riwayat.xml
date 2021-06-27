@@ -12,6 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="No"
+        android:textColor="#0183D5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="Tannggal"
+        android:textColor="#0183D5"
         app:layout_constraintBottom_toBottomOf="@+id/no_riwayat"
         app:layout_constraintStart_toEndOf="@+id/no_riwayat"
         app:layout_constraintTop_toTopOf="@+id/no_riwayat"
@@ -32,27 +34,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="Gejala"
+        android:textColor="#0183D5"
         app:layout_constraintBottom_toBottomOf="@+id/tanggal_riwayat"
         app:layout_constraintStart_toEndOf="@+id/tanggal_riwayat"
         app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
 
     <Button
-        android:id="@+id/Edit_riwayat"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="48dp"
-        android:text="Button"
+        android:id="@+id/edit_riwayat"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:foreground="@android:drawable/ic_menu_edit"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/gejala_riwayat"
         app:layout_constraintStart_toEndOf="@+id/gejala_riwayat"
-        app:layout_constraintTop_toTopOf="@+id/gejala_riwayat" />
+        app:layout_constraintTop_toTopOf="@+id/gejala_riwayat"
+        android:background="invisible"/>
 
     <Button
         android:id="@+id/hapus_riwayat"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
-        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
-        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
+        android:foreground="@android:drawable/ic_menu_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_riwayat"
+        app:layout_constraintStart_toEndOf="@+id/edit_riwayat"
+        app:layout_constraintTop_toTopOf="@+id/edit_riwayat"
+        android:background="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

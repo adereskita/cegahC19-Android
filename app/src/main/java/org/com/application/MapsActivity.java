@@ -133,6 +133,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //zoom in to current location
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),11));
                             mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title("Your Location"));
+
+                            LatLng sariasih = new LatLng(-6.167804702136648, 106.60082643805694);
+                            mMap.addMarker(new MarkerOptions().position(sariasih).title("RS Sari Asih"));
+
+                            LatLng annisa = new LatLng(-6.185360386827428, 106.60378648154852);
+                            mMap.addMarker(new MarkerOptions().position(annisa).title("RS An-nisa"));
+                            LatLng rsud = new LatLng(-6.198450662567235, 106.63532625530358);
+                            mMap.addMarker(new MarkerOptions().position(rsud).title("RS Umum Daerah Kab.Tangerang"));
                         }
                     });
                 }

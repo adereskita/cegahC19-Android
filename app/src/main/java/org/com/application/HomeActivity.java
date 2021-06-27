@@ -3,6 +3,7 @@ package org.com.application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,20 +93,32 @@ public class HomeActivity extends AppCompatActivity {
         btn_showArticle = findViewById(R.id.btn_article);
         bottomNavigation = findViewById(R.id.bottomNavigationView);
 
+        btn_hospitalMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home_menu:
-                        System.out.println("HOME");
+                        Toast.makeText(getApplicationContext(),"Kamu sudah di Halaman Home",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.klinik_menu:
                         //TODO: ganti ke intent
                         System.out.println("klinik");
+                        Intent intent = new Intent(HomeActivity.this,MapsActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.profile_menu:
                         //TODO: ganti ke intent
                         System.out.println("PROFILE");
+                        Intent intent1 = new Intent(HomeActivity.this,ProfileActivity.class);
+                        startActivity(intent1);
                         return true;
                 }
                 return false;
