@@ -43,8 +43,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
-//    private static final String ipaddress = "192.168.100.30";
-    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
+    private static final String ipaddressLaravel = "192.168.100.30:8000";
+//    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
     private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 
@@ -124,7 +124,6 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home_menu:
-                        Toast.makeText(getApplicationContext(),"Kamu sudah di Halaman Home",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.klinik_menu:
                         //TODO: ganti ke intent

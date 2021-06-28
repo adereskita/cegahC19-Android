@@ -34,4 +34,7 @@ public interface InterfaceAPI {
 
     @POST("post/step")
     Call<StepModel> stepPOST(@Body StepModel stepPost);
+
+    @POST("input/covid")
+    Call<StepModel> covidPOST(@Body StepModel covidPost);
 }

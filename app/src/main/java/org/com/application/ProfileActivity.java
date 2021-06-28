@@ -2,13 +2,11 @@ package org.com.application;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +31,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final String ipaddressLaravel = "10.0.0.2:8000";
+
+    private static final String ipaddressLaravel = "192.168.100.30:8000";
+    //    private static final String ipaddressLaravel = "10.0.0.2:8000";
     private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 

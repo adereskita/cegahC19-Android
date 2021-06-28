@@ -61,7 +61,8 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
         return s.format(new Date(cal.getTimeInMillis()));
     }
 
-    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
+    private static final String ipaddressLaravel = "192.168.100.30:8000";
+    //    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
     private static final String URL_GET_STEP = "http://"+ipaddressLaravel+"/api/get/step?";
 
     public static final String EXTRA_STEP = "step";
