@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.com.application.Adapter.RecyclerViewAdapter;
+import org.com.application.Model.PostModel;
 import org.com.application.Model.UserModel;
 import org.com.application.SessionManager.SessionManager;
 import org.json.JSONArray;
@@ -36,29 +39,44 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String ipaddressLaravel = "10.0.0.2:8000";
     private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
+    public static final String URL_BASE_STORAGE = "http://"+ipaddressLaravel+"/storage/";
 
     private static String ACCESS_TOKEN;
 
-    Button nearby_button, btnHapus_riwayat, btnEdit_riwayat;
+    Button btn_logout, btnHapus_riwayat, btnEdit_riwayat;
     BottomNavigationView bottomNavigation;
     TextView tv_nama, tv_nik, tv_email, tv_no_gejala, tv_tanggal_gejala, tv_riwayat_gejala;
     RecyclerView recyclerViewGejala;
     ArrayList<UserModel> user = new ArrayList<>();
 
+    ArrayList<PostModel> data;
+    RecyclerViewAdapter adapter;
+    RecyclerView recyclerView;
+
     SessionManager session;
+    SharedPreferences mPreferences;
+    SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Session class instance
         session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+
+        // get user data from session
         HashMap<String, String> user = session.getUserDetails();
+        // token
         ACCESS_TOKEN = user.get(SessionManager.KEY_TOKEN);
+        // email
+        String email = user.get(SessionManager.KEY_EMAIL);
 
         btnEdit_riwayat = findViewById(R.id.edit_riwayat);
         btnHapus_riwayat = findViewById(R.id.hapus_riwayat);
         bottomNavigation = findViewById(R.id.bottomNavigationView);
+        btn_logout = findViewById(R.id.exit_button);
 
         tv_nama = findViewById(R.id.nama_tv);
         tv_nik = findViewById(R.id.nik_tv);
@@ -70,7 +88,14 @@ public class ProfileActivity extends AppCompatActivity {
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
 //        recyclerViewGejala.setLayoutManager(linearLayoutManager);
 
-        //define nearby_button
+        //exit button
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                session.logoutUser();
+                finish();
+            }
+        });
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
