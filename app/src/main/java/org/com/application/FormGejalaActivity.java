@@ -41,8 +41,8 @@ import java.util.Map;
 
 public class FormGejalaActivity extends AppCompatActivity {
 
-    private static final String ipaddressLaravel = "192.168.100.30:8000";
-//    private static final String ipaddressLaravel = "10.0.2.2:8000";
+//    private static final String ipaddressLaravel = "192.168.100.30:8000";
+    private static final String ipaddressLaravel = "10.0.2.2:8000";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 
     private SharedPreferences mPreferences;
@@ -54,7 +54,7 @@ public class FormGejalaActivity extends AppCompatActivity {
     EditText edt_name_form,edt_nik_form,et_age,et_gender,et_telfo,et_provinsi, et_kota, et_address, et_gejala;
 //    TextView tv_name, tv_nik;
 
-    String demam, batuk, gejala;
+    String demam, batuk, diare, lemas, kaku_pundak, mata_kuning,kulit_ruam,sesak_nafas, mata_merah, gejala;
 
     SessionManager session;
 
@@ -87,6 +87,7 @@ public class FormGejalaActivity extends AppCompatActivity {
         et_telfo = findViewById(R.id.edt_no_telfon);
         et_provinsi = findViewById(R.id.edt_provinsi);
         et_address = findViewById(R.id.edt_alamat);
+        sp_gender = findViewById(R.id.sp_gender);
 //        et_gejala = findViewById(R.id.edt_g)
 
         LoadUser();
@@ -123,6 +124,41 @@ public class FormGejalaActivity extends AppCompatActivity {
                 }else {
                     batuk = "";
                 }
+                if (cbdiare.isChecked()){
+                    diare = "Diare";
+                }else {
+                    diare = "";
+                }
+                if (cblemes.isChecked()){
+                    lemas = "Lemas";
+                }else {
+                    lemas = "";
+                }
+                if (cbkakupundak.isChecked()){
+                    kaku_pundak = "Kaku Pundak";
+                }else {
+                    kaku_pundak = "";
+                }
+                if (cbmatakuning.isChecked()){
+                    mata_kuning = "Mata Kuning";
+                }else {
+                    mata_kuning = "";
+                }
+                if (cbkulitruam.isChecked()){
+                    kulit_ruam = "Kulit Ruam";
+                }else {
+                    kulit_ruam = "";
+                }
+                if (cbsesaknafas.isChecked()){
+                    sesak_nafas = "Sesak Nafas";
+                }else {
+                    sesak_nafas = "";
+                }
+                if (cbmatamerah.isChecked()){
+                    mata_merah = "Mata Merah";
+                }else {
+                    mata_merah = "";
+                }
 
                 gejala = demam+","+batuk;
                 postCovid();
@@ -140,12 +176,13 @@ public class FormGejalaActivity extends AppCompatActivity {
         String provinsi = et_provinsi.getText().toString().trim();
 //        String kota = et_kota.getText().toString().trim();
         String alamat = et_address.getText().toString().trim();
+        String gender= sp_gender.getSelectedItem().toString();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
 
         InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
 
-        CovidModel covid = new CovidModel(id, nama, umur, "pria", nik,
+        CovidModel covid = new CovidModel(id, nama, umur, gender, nik,
                 telepon, provinsi, alamat, gejala);
         //Call<UserModel> call = apiClient.login("application/json","application/json",user);
         Call<CovidModel> call = apiClient.covidPost(covid);
