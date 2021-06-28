@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,7 +49,8 @@ public class FormGejalaActivity extends AppCompatActivity {
     private int id;
 
     private CheckBox cbdemam, cbbatuk, cbdiare, cblemes, cbkakupundak,cbmatakuning,cbkulitruam, cbmatamerah,cbsesaknafas;
-    EditText et_name, et_age,et_gender, et_nik, et_telfo,et_provinsi, et_kota, et_address, et_gejala;
+    EditText et_age,et_gender,et_telfo,et_provinsi, et_kota, et_address, et_gejala;
+    TextView tv_name, tv_nik;
     Spinner sp_gender;
     Button btnsave;
 
@@ -67,10 +69,10 @@ public class FormGejalaActivity extends AppCompatActivity {
         System.out.println("ID DI HOME: "+id);
 
         //initial variable
-        et_name = findViewById(R.id.edt_nama_reg);
+        tv_name = findViewById(R.id.edt_nama_reg);
         et_age = findViewById(R.id.edt_age);
         sp_gender = findViewById(R.id.sp_gender);
-        et_nik = findViewById(R.id.edt_nik);
+        tv_nik = findViewById(R.id.edt_nik);
         et_telfo = findViewById(R.id.edt_no_telfon);
         et_provinsi = findViewById(R.id.edt_provinsi);
         et_address = findViewById(R.id.edt_alamat);
@@ -79,7 +81,7 @@ public class FormGejalaActivity extends AppCompatActivity {
         setCheckBoxListener();
         //setButtonListener();
 
-        LoadUser();
+
 
 
     }
@@ -117,10 +119,13 @@ public class FormGejalaActivity extends AppCompatActivity {
 
 
     private void postCovid() {
-        String nama = et_name.getText().toString().trim();
+        String nama = tv_name.getText().toString().trim();
         String umur = et_age.getText().toString().trim();
-        String nik = et_nik.getText().toString().trim();
+        String nik = tv_nik.getText().toString().trim();
         String telepon = et_telfo.getText().toString().trim();
+        String provinsi = et_provinsi.getText().toString().trim();
+        String kota = et_kota.getText().toString().trim();
+        String alamat = et_address.getText().toString().trim();
 
 
 //        Retrofit.Builder builder = new Retrofit.Builder()
@@ -174,9 +179,9 @@ public class FormGejalaActivity extends AppCompatActivity {
                                 JSONObject obj = jsonArray.getJSONObject(i);
 
                                 if (obj != null) {
-                                    et_name.setText(obj.getString("name"));
+                                    tv_name.setText(obj.getString("name"));
                                     System.out.println(obj.getString("name"));
-                                    et_nik.setText(obj.getString("nik"));
+                                    tv_nik.setText(obj.getString("nik"));
                                     System.out.println(obj.getString("nik"));
                                 }
                             }
