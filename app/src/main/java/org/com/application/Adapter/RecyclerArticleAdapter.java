@@ -50,7 +50,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
         PostModel nPost = data.get(position);
 
         String tgl = nPost.getCreated_at().substring(0,10);
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
         DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         String new_Date = null;
         try {

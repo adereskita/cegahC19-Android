@@ -1,13 +1,16 @@
 package org.com.application.Model;
 
-public class GejalaModel {
+public class UsersCovidModel {
     int id;
     String gejala, created_at;
 
-    public GejalaModel(int no, String gejala, String date) {
-        this.id = no;
+    public UsersCovidModel(String gejala, String created_at) {
         this.gejala = gejala;
-        this.created_at = date;
+        this.created_at = created_at;
+    }
+
+    public UsersCovidModel(int id) {
+        this.id = id;
     }
 
     public int getId() {
