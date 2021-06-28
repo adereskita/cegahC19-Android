@@ -1,7 +1,10 @@
 package org.com.application;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.com.application.Adapter.RecyclerViewAdapter;
 import org.com.application.Model.PostModel;
 import org.com.application.SessionManager.SessionManager;
+import org.com.application.Step.StepActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,15 +63,17 @@ public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
 
     SessionManager session;
+    SharedPreferences mPreferences;
+    SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Intent i = getIntent();
 //        Bundle b = getIntent().getExtras();
 //        int imgID = b.getInt("IMGSOURCE_EXTRA");
+        Intent i = getIntent();
+
         String token = i.getStringExtra("ACCESS_TOKEN_EXTRA");
 
         // Session class instance
@@ -105,20 +111,32 @@ public class HomeActivity extends AppCompatActivity {
         });
         bottomNavigation = findViewById(R.id.bottomNavigationView);
 
+        btn_hospitalMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home_menu:
-                        System.out.println("HOME");
+                        Toast.makeText(getApplicationContext(),"Kamu sudah di Halaman Home",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.klinik_menu:
                         //TODO: ganti ke intent
                         System.out.println("klinik");
+                        Intent intent = new Intent(HomeActivity.this,MapsActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.profile_menu:
                         //TODO: ganti ke intent
                         System.out.println("PROFILE");
+                        Intent intent1 = new Intent(HomeActivity.this,ProfileActivity.class);
+                        startActivity(intent1);
                         return true;
                 }
                 return false;
@@ -138,6 +156,18 @@ public class HomeActivity extends AppCompatActivity {
                 return super.checkLayoutParams(lp);
 //                lp.height = getHeight() / 2;
 //                return true;
+            }
+        });
+
+        btn_stepCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                Intent i = new Intent(HomeActivity.this, StepActivity.class);
+//                i.putExtra("EXTRA_ID_POST",id);
+//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+
             }
         });
 
@@ -245,6 +275,16 @@ public class HomeActivity extends AppCompatActivity {
                                 JSONObject obj = jsonArray.getJSONObject(i);
 
                                 if (obj != null) {
+                                    mPreferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
+                                    mEditor = mPreferences.edit();
+
+                                    mEditor.putInt(SessionManager.KEY_ID, obj.getInt("id"));
+                                    mEditor.commit();
+
+                                    int id = mPreferences.getInt(SessionManager.KEY_ID, 0);
+
+                                    System.out.println("ID DI HOME: "+id);
+
                                     tv_nama.setText(obj.getString("name"));
                                     tv_ktp.setText(obj.getString("nik"));
                                 }
@@ -277,5 +317,20 @@ public class HomeActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (tv_nama.getText().toString().equals("Null")){
+                    session.logoutUser();
+                }
+            }
+        }, 3000);
     }
 }
