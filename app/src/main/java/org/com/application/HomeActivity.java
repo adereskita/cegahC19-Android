@@ -43,6 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
+
     private static final String ipaddressLaravel = "192.168.100.30:8000";
 //    private static final String ipaddressLaravel = "10.0.2.2:8000"; //berdasarkan emulator masing2
     private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
@@ -281,8 +282,6 @@ public class HomeActivity extends AppCompatActivity {
                                     mEditor.commit();
 
                                     int id = mPreferences.getInt(SessionManager.KEY_ID, 0);
-
-                                    System.out.println("ID DI HOME: "+id);
 
                                     tv_nama.setText(obj.getString("name"));
                                     tv_ktp.setText(obj.getString("nik"));

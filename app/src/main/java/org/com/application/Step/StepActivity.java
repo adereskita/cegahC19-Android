@@ -175,8 +175,8 @@ public class StepActivity extends AppCompatActivity implements SensorEventListen
     }
     //onCreate end here
 
-    private void getStep(int id_post, String date, BoxedVertical bv){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_GET_STEP+"id_user="+id_post+"&date="+date,
+    private void getStep(int id_user, String date, BoxedVertical bv){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_GET_STEP+"id_user="+id_user+"&date="+date,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

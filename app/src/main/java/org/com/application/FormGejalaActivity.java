@@ -25,12 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FormGejalaActivity extends AppCompatActivity {
-    private static final String ipaddressLaravel = "10.0.2.2:8000";
+
+    private static final String ipaddressLaravel = "192.168.100.30:8000";
+//    private static final String ipaddressLaravel = "10.0.2.2:8000";
     private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
 
     private static String ACCESS_TOKEN;
-
-
 
     EditText et_name, et_age, et_nik, et_telfo,et_address;
     Spinner sp_gender;
