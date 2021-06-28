@@ -1,5 +1,6 @@
 package org.com.application.API;
 
+import org.com.application.Model.CovidModel;
 import org.com.application.Model.StepModel;
 import org.com.application.Model.UserModel;
 
@@ -28,6 +29,9 @@ public interface InterfaceAPI {
     })
     @POST("auth/signup")
     Call<UserModel> signup(@Body UserModel signup);
+
+    @POST("input/covid")
+    Call<CovidModel> covidPost(@Body CovidModel covidPost);
 
     @GET("auth/user")
     Call<ResponseBody> getUser(@Header("Authorization") String authToken);
