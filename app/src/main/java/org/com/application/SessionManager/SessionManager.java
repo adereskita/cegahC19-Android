@@ -33,6 +33,8 @@ public class SessionManager {
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
 
+    public static final String KEY_ID = "id_user";
+
     // Constructor
     public SessionManager(Context context){
         this._context = context;
@@ -55,6 +57,12 @@ public class SessionManager {
         editor.putString(KEY_EMAIL, email);
 
         // commit changes
+        editor.commit();
+    }
+
+    public void putUserId(int id){
+        editor.putInt(KEY_ID, 0);
+
         editor.commit();
     }
 
@@ -93,6 +101,7 @@ public class SessionManager {
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
         // return user
         return user;
     }
@@ -102,8 +111,10 @@ public class SessionManager {
      * */
     public void logoutUser(){
         // Clearing all data from Shared Preferences
-        editor.clear();
-        editor.commit();
+        editor.remove(KEY_TOKEN).apply();
+        editor.remove(KEY_EMAIL).apply();
+        editor.remove(KEY_ID).apply();
+//        editor.commit();
 
         // After logout redirect user to Loing Activity
         Intent i = new Intent(_context, LoginActivity.class);

@@ -1,0 +1,384 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"org.com.application\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    buildFeatures {\r\n        viewBinding true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.3.0'\r\n    implementation 'com.google.android.material:material:1.3.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'com.google.android.gms:play-services-maps:17.0.1'\r\n    implementation 'com.google.android.gms:play-services-location:17.0.0'\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/build.gradle	(date 1623860879931)
+@@ -38,6 +38,7 @@
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+     implementation 'com.google.android.gms:play-services-maps:17.0.1'
+     implementation 'com.google.android.gms:play-services-location:17.0.0'
++    implementation 'com.android.volley:volley:1.2.0'
+     testImplementation 'junit:junit:4.+'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+Index: app/src/main/java/org/com/application/MapsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.core.app.ActivityCompat;\r\nimport androidx.fragment.app.FragmentActivity;\r\n\r\nimport android.Manifest;\r\nimport android.content.pm.PackageManager;\r\nimport android.location.Location;\r\nimport android.os.AsyncTask;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.Spinner;\r\n\r\nimport com.google.android.gms.location.FusedLocationProviderClient;\r\nimport com.google.android.gms.location.LocationServices;\r\nimport com.google.android.gms.maps.CameraUpdateFactory;\r\nimport com.google.android.gms.maps.GoogleMap;\r\nimport com.google.android.gms.maps.OnMapReadyCallback;\r\nimport com.google.android.gms.maps.SupportMapFragment;\r\nimport com.google.android.gms.maps.model.LatLng;\r\nimport com.google.android.gms.maps.model.MarkerOptions;\r\nimport com.google.android.gms.tasks.OnSuccessListener;\r\nimport com.google.android.gms.tasks.Task;\r\n\r\nimport org.com.application.databinding.ActivityMapsBinding;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.MalformedURLException;\r\nimport java.net.URL;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\n\r\npublic class MapsActivity extends FragmentActivity implements OnMapReadyCallback {\r\n\r\n    private GoogleMap mMap;\r\n    private ActivityMapsBinding binding;\r\n    private SupportMapFragment supportMapFragment;\r\n\r\n    Spinner spType;\r\n    Button btnFind;\r\n    FusedLocationProviderClient fusedLocationProviderClient;\r\n    double currentLat = 0, currentLong = 0;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_maps);\r\n\r\n\r\n        //initialize spinner & button find nearby\r\n        spType = findViewById(R.id.sp_type);\r\n        btnFind = findViewById(R.id.btn_find);\r\n\r\n        // Obtain the SupportMapFragment and get notified when the map is ready to be used.\r\n        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()\r\n                .findFragmentById(R.id.map);\r\n        supportMapFragment.getMapAsync(this);\r\n\r\n        //initialize array of place type\r\n        String[] placeTypeList = {\"rumah_sakit\", \"klinik\"};\r\n\r\n        //initialize array of place name\r\n        String[] placeNameList = {\"Rumah Sakit\", \"Klinik\"};\r\n\r\n        //adapter for spinner\r\n        spType.setAdapter(new ArrayAdapter<>(MapsActivity.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));\r\n\r\n        //initialize fused location provider client\r\n        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);\r\n\r\n        //check permission\r\n        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {\r\n            //when permission granted\r\n            //call method\r\n            getCurrentLocation();\r\n        } else {\r\n            //whhen permission not granted/denied\r\n            //req permission\r\n            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);\r\n        }\r\n\r\n        btnFind.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                //get selected spinner position\r\n                int i = spType.getSelectedItemPosition();\r\n                //initialize url\r\n                String url = \"https://maps.googleapis.com/maps/api/place/nearbysearch/json\" + \"?location=\" + //url\r\n                        currentLat + \", \" + currentLong + //location long&lat\r\n                        \"&radius=5000\" + //nearby location radius\r\n                        \"&types=\" + placeTypeList[i] + //placeTypes\r\n                        \"&sensor=true\" + //sensor\r\n                        \"&key=\" + getResources().getString(R.string.google_maps_key);//google maps api key\r\n\r\n                new PlaceTask().execute(url);\r\n            }\r\n        });\r\n\r\n\r\n//        binding = ActivityMapsBinding.inflate(getLayoutInflater());\r\n//        setContentView(binding.getRoot());\r\n    }\r\n\r\n    private void getCurrentLocation() {\r\n\r\n        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();\r\n        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {\r\n            @Override\r\n            public void onSuccess(Location location) {\r\n                //when success\r\n                if (location != null){\r\n                    //when location = null/empty\r\n                    //get current latitude\r\n                    currentLat = location.getLatitude();\r\n                    //get current longitude\r\n                    currentLong = location.getLongitude();\r\n                    //Sync map\r\n                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {\r\n                        @Override\r\n                        public void onMapReady(@NonNull GoogleMap googleMap) {\r\n                            //When map opened/ready\r\n                            mMap = googleMap;\r\n                            //zoom in to current location\r\n                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),11));\r\n                            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title(\"Your Location\"));\r\n                        }\r\n                    });\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {\r\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults);\r\n        if (requestCode == 44) {\r\n            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {\r\n                //when permission granted\r\n                //call method\r\n                getCurrentLocation();\r\n            }\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onMapReady(GoogleMap googleMap) {\r\n        mMap = googleMap;\r\n        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);\r\n        mMap.getUiSettings().setZoomControlsEnabled(true);\r\n        mMap.getUiSettings().setZoomGesturesEnabled(true);\r\n    }\r\n\r\n    private class PlaceTask extends AsyncTask<String,Integer,String> {\r\n        @Override\r\n        protected String doInBackground(String... strings) {\r\n            String data = null;\r\n            try {\r\n                //initialize data\r\n                data = downloadUrl(strings[0]);\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n            return data;\r\n        }\r\n\r\n        @Override\r\n        protected void onPostExecute(String s) {\r\n            //execute parser task\r\n            new ParserTask().execute(s);\r\n        }\r\n    }\r\n\r\n    private String downloadUrl(String myUrl) throws IOException {\r\n\r\n        String data = \"\";\r\n        InputStream inputStream = null;\r\n        HttpURLConnection httpURLConnection = null;\r\n\r\n        try {\r\n            //initialize url\r\n            URL url = new URL(myUrl);\r\n            //initialize connection\r\n            HttpURLConnection connection = (HttpURLConnection) url.openConnection();\r\n            //connect connection\r\n            connection.connect();\r\n            //initialize input stream\r\n            InputStream stream = connection.getInputStream();\r\n            //initializez buffer reader\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));\r\n            //initialize myUrl builder\r\n            StringBuilder builder = new StringBuilder();\r\n\r\n            //initliaze myUrl variable\r\n            String line = \"\";\r\n            //use while loop\r\n            while ((line = reader.readLine()) != null) {\r\n                //append line\r\n                builder.append(line);\r\n            }\r\n\r\n            //get append data\r\n            data = builder.toString();\r\n            //close reader\r\n            reader.close();\r\n        }\r\n        catch (MalformedURLException e){\r\n            Log.i(\"DownloadUrl\",\"readUrl : \"+e.getMessage());\r\n        }\r\n        catch (IOException e){\r\n            e.printStackTrace();\r\n        }\r\n        //return data\r\n        return data;\r\n    }\r\n\r\n    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{\r\n        @Override\r\n        protected List<HashMap<String, String>> doInBackground(String... strings) {\r\n            //create json parser class\r\n            JsonParserNearbyMaps jsonParserNearbyMaps = new JsonParserNearbyMaps();\r\n            //initialize hash map list\r\n            List<HashMap<String,String>> mapList = null;\r\n            JSONObject object = null;\r\n            try {\r\n                //initialize json object\r\n                object = new JSONObject(strings[0]);\r\n                //parse json object\r\n                mapList = jsonParserNearbyMaps.parseResult(object);\r\n            } catch (JSONException e) {\r\n                e.printStackTrace();\r\n            }\r\n            //return map List\r\n            return mapList;\r\n        }\r\n\r\n        @Override\r\n        protected void onPostExecute(List<HashMap<String, String>> hashMaps) {\r\n            //clear map\r\n            mMap.clear();\r\n            //use for loop\r\n            for (int i=0; i<hashMaps.size(); i++){\r\n                //initialize hash map\r\n                HashMap<String, String> hashMapList = hashMaps.get(i);\r\n                //get latitude\r\n                double lat = Double.parseDouble(hashMapList.get(\"lat\"));\r\n                //get longitude\r\n                double lng = Double.parseDouble(hashMapList.get(\"lng\"));\r\n                //get name\r\n                String name = hashMapList.get(\"name\");\r\n                //concat latitude and longitude\r\n\r\n                LatLng latLng = new LatLng(lat,lng);\r\n                //initialize marker options\r\n                MarkerOptions options = new MarkerOptions();\r\n                //set position\r\n                options.position(latLng);\r\n                //set title\r\n                options.title(name);\r\n                //add marker on map\r\n                mMap.addMarker(options);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/MapsActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/MapsActivity.java	(date 1623897172191)
+@@ -131,8 +131,24 @@
+                             //When map opened/ready
+                             mMap = googleMap;
+                             //zoom in to current location
+-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),11));
+-                            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title("Your Location"));
++                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),12));
++//                            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title("Your Location"));
++
++                            //marker hospital 1
++                            LatLng SariAsih = new LatLng(-6.1691239356577166, 106.60154093131352);
++                            mMap.addMarker(new MarkerOptions().position(SariAsih).title("Rumah Sakit Sari Asih"));
++
++                            LatLng Annisa = new LatLng(-6.186172196307512, 106.6045009748051);
++                            mMap.addMarker(new MarkerOptions().position(Annisa).title("Rumah Sakit An-nisa"));
++
++                            LatLng Dinda = new LatLng(-6.189216470752779, 106.59061939153428);
++                            mMap.addMarker(new MarkerOptions().position(Dinda).title("Rumah Sakit Dinda"));
++
++                            LatLng Melati = new LatLng( -6.17551709773793, 106.62501713831568);
++                            mMap.addMarker(new MarkerOptions().position(Melati).title("Rumah Sakit Melati"));
++
++                            LatLng DaanMogot = new LatLng( -6.170037249249044, 106.63124343669449);
++                            mMap.addMarker(new MarkerOptions().position(DaanMogot).title("Rumah Sakit Daan Mogot"));
+                         }
+                     });
+                 }
+@@ -158,6 +174,8 @@
+         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+         mMap.getUiSettings().setZoomControlsEnabled(true);
+         mMap.getUiSettings().setZoomGesturesEnabled(true);
++
++
+     }
+ 
+     private class PlaceTask extends AsyncTask<String,Integer,String> {
+Index: app/src/main/java/org/com/application/RecycleViewRiwayatAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/RecycleViewRiwayatAdapter.java	(date 1623898234722)
++++ app/src/main/java/org/com/application/RecycleViewRiwayatAdapter.java	(date 1623898234722)
+@@ -0,0 +1,70 @@
++package org.com.application;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import java.text.DateFormat;
++import java.text.ParseException;
++import java.text.SimpleDateFormat;
++import java.util.ArrayList;
++
++public class RecycleViewRiwayatAdapter extends RecyclerView.Adapter<RecycleViewRiwayatAdapter.ViewHolder>{
++    private ArrayList<PostModel> data;
++    private Context mContext;
++
++    public RecyclerViewAdapter(ArrayList<PostModel> data, Context mContext) {
++        this.data = data;
++        this.mContext = mContext;
++    }
++
++    @NonNull
++    @Override
++    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        LayoutInflater inflater = LayoutInflater.from(mContext);
++        View view = inflater.inflate(R.layout.item_list, parent,false);
++
++        return new ViewHolder(view);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
++        PostModel nPost = data.get(position);
++
++        String tgl = nPost.getCreated_at().substring(0,10);
++        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
++        DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
++        String new_Date = null;
++        try {
++            new_Date = dateFormat.format(df.parse(tgl));
++        } catch (ParseException e) {
++            e.printStackTrace();
++        }
++
++        holder.title.setText(nPost.getTitle());
++        holder.date.setText(new_Date);
++
++    }
++
++    @Override
++    public int getItemCount() {
++        return data.size();
++    }
++
++    public class ViewHolder extends RecyclerView.ViewHolder {
++        private TextView title, date;
++        private ImageView imgView;
++        public ViewHolder(@NonNull View itemView) {
++            super(itemView);
++
++            title = itemView.findViewById(R.id.tv_rv_title);
++            date = itemView.findViewById(R.id.tv_rc_date);
++        }
++    }
++}
+Index: app/src/main/res/layout/activity_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ProfileActivity\">\r\n\r\n    <Button\r\n        android:id=\"@+id/btnFind_nearby\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"8dp\"\r\n        android:layout_marginBottom=\"32dp\"\r\n        android:text=\"Cari Rumah sakit/klinik terdekat\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/rv_riwayat\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView11\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"Nama\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/imageView\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/imageView\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView12\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Provinsi/Kota\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/textView11\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView11\" />\r\n\r\n    <ImageView\r\n        android:id=\"@+id/imageView\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:layout_marginBottom=\"24dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/guideline3\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:srcCompat=\"@tools:sample/avatars\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView13\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Riwayat\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/guideline3\" />\r\n\r\n    <androidx.constraintlayout.widget.Guideline\r\n        android:id=\"@+id/guideline3\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        app:layout_constraintGuide_percent=\"0.25\" />\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_riwayat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"300dp\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"16dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView13\"\r\n        tools:listitem=\"@layout/list_riwayat\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_profile.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/activity_profile.xml	(date 1623897619902)
+@@ -11,42 +11,38 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+-        android:layout_marginTop="16dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginBottom="32dp"
+         android:text="Cari Rumah sakit/klinik terdekat"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/rv_riwayat" />
++        app:layout_constraintStart_toStartOf="parent" />
+ 
+     <TextView
+-        android:id="@+id/textView11"
++        android:id="@+id/nama_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="32dp"
+         android:layout_marginTop="16dp"
+         android:text="Nama"
+-        app:layout_constraintStart_toEndOf="@+id/imageView"
+-        app:layout_constraintTop_toTopOf="@+id/imageView" />
++        app:layout_constraintStart_toEndOf="@+id/imageView_profile"
++        app:layout_constraintTop_toTopOf="@+id/imageView_profile" />
+ 
+     <TextView
+-        android:id="@+id/textView12"
++        android:id="@+id/nik_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+-        android:text="Provinsi/Kota"
+-        app:layout_constraintStart_toStartOf="@+id/textView11"
+-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
++        android:text="NIK"
++        app:layout_constraintStart_toStartOf="@+id/email_tv"
++        app:layout_constraintTop_toBottomOf="@+id/email_tv" />
+ 
+     <ImageView
+-        android:id="@+id/imageView"
+-        android:layout_width="wrap_content"
++        android:id="@+id/imageView_profile"
++        android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="32dp"
+-        android:layout_marginTop="24dp"
+-        android:layout_marginBottom="24dp"
+-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
++        android:layout_marginTop="8dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         tools:srcCompat="@tools:sample/avatars" />
+@@ -57,7 +53,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="8dp"
+-        android:text="Riwayat"
++        android:text="Riwayat Gejala"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/guideline3" />
+ 
+@@ -66,7 +62,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+-        app:layout_constraintGuide_percent="0.25" />
++        app:layout_constraintGuide_percent="0.2" />
+ 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rv_riwayat"
+@@ -75,9 +71,19 @@
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="16dp"
+         android:layout_marginEnd="16dp"
++        android:scrollbars="vertical"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView13"
+         tools:listitem="@layout/list_riwayat" />
+ 
++    <TextView
++        android:id="@+id/email_tv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:text="Email"
++        app:layout_constraintStart_toStartOf="@+id/nama_tv"
++        app:layout_constraintTop_toBottomOf="@+id/nama_tv" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/ProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n\r\n    Button nearby_button;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n\r\n        //define nearby_button\r\n        nearby_button = findViewById(R.id.btnFind_nearby);\r\n\r\n        //ketika di klik membuka maps nearby\r\n        nearby_button.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/ProfileActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/ProfileActivity.java	(date 1623897619909)
+@@ -1,24 +1,59 @@
+ package org.com.application;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++//import com.android.volley.Response;
++
+ 
+ public class ProfileActivity extends AppCompatActivity {
++    private static final String ipaddressLaravel = "127.0.0.1:8000";
++    private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
++    private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/users";
+ 
+     Button nearby_button;
+ 
++    ImageView profileImage;
++    TextView tv_nama, tv_umur, tv_alamat, tv_no_riwayat, tv_tgl_riwayat, tv_gejala;
++    RecyclerView rv_riwayat_gejala;
++    Button btnEditRiwayat, btnDelRiwayat;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_profile);
+ 
++        rv_riwayat_gejala = findViewById(R.id.rv_riwayat);
++        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
++
++        //define things
++        profileImage = findViewById(R.id.imageView_profile);
++        rv_riwayat_gejala.setLayoutManager(linearLayoutManager);
++        tv_nama = findViewById(R.id.nama_tv);
++        tv_umur = findViewById(R.id.email_tv);
++        tv_alamat = findViewById(R.id.nik_tv);
++
++        //item in RecyclerView
++        tv_no_riwayat = findViewById(R.id.no_riwayat);
++        tv_tgl_riwayat = findViewById(R.id.tanggal_riwayat);
++        tv_gejala = findViewById(R.id.gejala_riwayat);
++
++        //btn in RecyclerView
++        btnEditRiwayat = findViewById(R.id.btn_editRiwayat);
++        btnDelRiwayat = findViewById(R.id.btn_hapusRiwayat);
++
++//        LoadUser();
++
+         //define nearby_button
+         nearby_button = findViewById(R.id.btnFind_nearby);
+-
+         //ketika di klik membuka maps nearby
+         nearby_button.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -28,4 +63,34 @@
+             }
+         });
+     }
++
++//    private void LoadUser(){
++//        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_GET_USER, new Response.Listener<String>() {
++//                    @Override
++//                    public void onResponse(String response) {
++//                        try {
++//                            JSONObject jsonObject = new JSONObject(response);
++//                            JSONArray jsonArray = jsonObject.getJSONArray("data");
++//
++//                            for (int i = 0; i<jsonArray.length(); i++){
++//                                JSONObject obj = jsonArray.getJSONObject(i);
++//
++//                                if (obj != null) {
++//
++//                                }
++//                            }
++//                        } catch (JSONException e) {
++//                            e.printStackTrace();
++//                        }
++//                    }
++//                },
++//                new Response.ErrorListener() {
++//                    @Override
++//                    public void onErrorResponse(VolleyError error) {
++//                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
++//                    }
++//                });
++//        RequestQueue requestQueue = Volley.newRequestQueue(this);
++//        requestQueue.add(stringRequest);
++//    }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/list_riwayat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/no_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"No\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/tanggal_riwayat\"\r\n        android:layout_width=\"80dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:text=\"Tannggal\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintVertical_bias=\"0.0\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/gejala_riwayat\"\r\n        android:layout_width=\"100dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"24dp\"\r\n        android:text=\"Gejala\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/tanggal_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/tanggal_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/tanggal_riwayat\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/Edit_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginStart=\"48dp\"\r\n        android:text=\"Button\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/gejala_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/gejala_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/gejala_riwayat\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/hapus_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:text=\"Button\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/Edit_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/Edit_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/Edit_riwayat\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/list_riwayat.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/list_riwayat.xml	(date 1623858556835)
+@@ -37,7 +37,7 @@
+         app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
+ 
+     <Button
+-        android:id="@+id/Edit_riwayat"
++        android:id="@+id/btn_editRiwayat"
+         android:layout_width="20dp"
+         android:layout_height="40dp"
+         android:layout_marginStart="48dp"
+@@ -47,12 +47,12 @@
+         app:layout_constraintTop_toTopOf="@+id/gejala_riwayat" />
+ 
+     <Button
+-        android:id="@+id/hapus_riwayat"
++        android:id="@+id/btn_hapusRiwayat"
+         android:layout_width="20dp"
+         android:layout_height="40dp"
+         android:layout_marginStart="8dp"
+         android:text="Button"
+-        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
+-        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
+-        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
++        app:layout_constraintBottom_toBottomOf="@+id/btn_editRiwayat"
++        app:layout_constraintStart_toEndOf="@+id/btn_editRiwayat"
++        app:layout_constraintTop_toTopOf="@+id/btn_editRiwayat" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file

@@ -1,0 +1,1911 @@
+Index: app/src/main/res/layout/item_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/item_list.xml	(date 1623862890000)
++++ app/src/main/res/layout/item_list.xml	(date 1623862890000)
+@@ -0,0 +1,71 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="wrap_content"
++    android:layout_height="wrap_content">
++
++    <androidx.cardview.widget.CardView
++        android:layout_width="170dp"
++        android:layout_height="120dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginTop="8dp"
++        android:layout_marginEnd="8dp"
++        android:layout_marginBottom="8dp"
++        app:cardBackgroundColor="@android:color/white"
++        app:cardCornerRadius="5dp"
++        app:cardElevation="2dp"
++        app:cardUseCompatPadding="true"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <androidx.constraintlayout.widget.ConstraintLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++
++            <ImageView
++                android:id="@+id/imageView"
++                android:layout_width="0dp"
++                android:layout_height="60dp"
++                android:adjustViewBounds="true"
++                android:scaleType="centerCrop"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent"
++                tools:srcCompat="@tools:sample/backgrounds/scenic" />
++
++            <TextView
++                android:id="@+id/tv_rv_title"
++                android:layout_width="0dp"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:layout_marginTop="8dp"
++                android:layout_marginEnd="24dp"
++                android:ellipsize="end"
++                android:maxLines="1"
++                android:text="title"
++                android:textSize="12sp"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/imageView" />
++
++            <TextView
++                android:id="@+id/tv_rc_date"
++                android:layout_width="0dp"
++                android:layout_height="wrap_content"
++                android:layout_marginEnd="32dp"
++                android:layout_marginBottom="8dp"
++                android:ellipsize="end"
++                android:maxLines="1"
++                android:text="today"
++                android:textColor="#0183d5"
++                android:textSize="9sp"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintStart_toStartOf="@+id/tv_rv_title" />
++        </androidx.constraintlayout.widget.ConstraintLayout>
++
++    </androidx.cardview.widget.CardView>
++</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/java/org/com/application/RecyclerViewGejalaAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/RecyclerViewGejalaAdapter.java	(date 1623901177958)
++++ app/src/main/java/org/com/application/RecyclerViewGejalaAdapter.java	(date 1623901177958)
+@@ -0,0 +1,56 @@
++package org.com.application;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import java.util.ArrayList;
++
++public class RecyclerViewGejalaAdapter extends RecyclerView.Adapter<RecyclerViewGejalaAdapter.ViewHolder> {
++
++    private ArrayList<UserModel> data;
++    private Context mContext;
++
++    public RecyclerViewGejalaAdapter(ArrayList<UserModel> data, Context mContext) {
++        this.data = data;
++        this.mContext = mContext;
++    }
++
++    @NonNull
++    @Override
++    public RecyclerViewGejalaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        LayoutInflater inflater = LayoutInflater.from(mContext);
++        View view = inflater.inflate(R.layout.list_riwayat,parent,false);
++        return new ViewHolder(view);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull RecyclerViewGejalaAdapter.ViewHolder holder, int position) {
++        UserModel user = data.get(position);
++
++        holder.no.setText(user.getId());
++    }
++
++    @Override
++    public int getItemCount() {
++        return data.size();
++    }
++
++    public class ViewHolder extends RecyclerView.ViewHolder{
++        private TextView no, tanggalgejala, gejala;
++
++        public ViewHolder(@NonNull View itemView) {
++
++            super(itemView);
++            no = itemView.findViewById(R.id.no_riwayat);
++            tanggalgejala = itemView.findViewById(R.id.tanggal_riwayat);
++            gejala = itemView.findViewById(R.id.gejala_riwayat);
++
++        }
++    }
++}
+Index: app/src/main/res/layout/activity_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_home.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/activity_home.xml	(date 1623899728683)
+@@ -1,6 +1,299 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    android:background="#EEEEEE">
++
++    <View
++        android:id="@+id/divider"
++        android:layout_width="0dp"
++        android:layout_height="1dp"
++        android:layout_marginTop="150dp"
++        android:background="?android:attr/listDivider"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <LinearLayout
++        android:id="@+id/LinearLayoutVert"
++        android:layout_width="match_parent"
++        android:layout_height="180dp"
++        android:orientation="vertical"
++        android:paddingTop="26dp"
++        android:paddingBottom="26dp"
++        android:background="#FFFFFF"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/divider">
++
++        <LinearLayout
++            android:id="@+id/LinearLayoutHor"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:paddingTop="16dp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/divider">
++
++            <Button
++                android:id="@+id/btn_hospital"
++                style="?android:attr/borderlessButtonStyle"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginHorizontal="8dp"
++                android:layout_weight="1"
++                android:background="#00FFFFFF"
++                android:drawableTop="@drawable/ic_outline_add_circle_outline_24"
++                android:text="Lokasi Klinik"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/cardView" />
++
++            <Button
++                android:id="@+id/btn_inputData"
++                style="?android:attr/borderlessButtonStyle"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginHorizontal="8dp"
++                android:layout_weight="1"
++                android:background="#00FFFFFF"
++                android:drawableTop="@drawable/ic_outline_add_circle_outline_24"
++                android:shadowColor="@color/white"
++                android:text="Form Gejala"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/cardView" />
++        </LinearLayout>
++
++        <LinearLayout
++            android:id="@+id/LinearLayoutHor2"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:paddingTop="16dp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/divider">
++
++            <Button
++                android:id="@+id/btn_stepCount"
++                style="?android:attr/borderlessButtonStyle"
++                android:layout_width="56dp"
++                android:layout_height="wrap_content"
++                android:layout_marginHorizontal="8dp"
++                android:layout_weight="1"
++                android:background="#00FFFFFF"
++                android:drawableTop="@drawable/ic_baseline_directions_run_24"
++                android:shadowColor="@color/white"
++                android:text="Step Counter"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/cardView" />
++
++            <Button
++                android:id="@+id/btn_article"
++                style="?android:attr/borderlessButtonStyle"
++                android:layout_width="56dp"
++                android:layout_height="wrap_content"
++                android:layout_marginHorizontal="8dp"
++                android:layout_weight="1"
++                android:background="#00FFFFFF"
++                android:drawableTop="@drawable/ic_outline_add_circle_outline_24"
++                android:shadowColor="@color/white"
++                android:text="Artikel"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toBottomOf="@+id/cardView" />
++        </LinearLayout>
++    </LinearLayout>
++
++    <LinearLayout
++        android:id="@+id/LinearTop"
++        android:layout_width="match_parent"
++        android:layout_height="0dp"
++        android:background="#0183d5"
++        android:orientation="horizontal"
++        app:layout_constraintBottom_toTopOf="@+id/divider"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <androidx.cardview.widget.CardView
++        android:id="@+id/cardView"
++        android:layout_width="match_parent"
++        android:layout_height="56dp"
++        android:layout_marginStart="8dp"
++        android:layout_marginEnd="8dp"
++        app:cardCornerRadius="10dp"
++        app:layout_constraintBottom_toBottomOf="@+id/divider"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/divider">
++
++        <androidx.constraintlayout.widget.ConstraintLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:background="#FFFFFF">
++
++            <View
++                android:id="@+id/divider3"
++                android:layout_width="1dp"
++                android:layout_height="24dp"
++                android:background="?android:attr/listDivider"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent" />
++
++            <ImageView
++                android:id="@+id/imageView2"
++                android:layout_width="24dp"
++                android:layout_height="24dp"
++                android:layout_marginStart="16dp"
++                android:layout_marginTop="8dp"
++                android:layout_marginBottom="8dp"
++                android:layout_weight="1"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent"
++                app:srcCompat="@drawable/ic_outline_person_outline_24" />
++
++            <TextView
++                android:id="@+id/textView14"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:text="Nama"
++                android:textSize="10sp"
++                app:layout_constraintStart_toEndOf="@+id/imageView2"
++                app:layout_constraintTop_toTopOf="@+id/imageView2" />
++
++            <TextView
++                android:id="@+id/tv_nama"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:text="Null"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toEndOf="@+id/imageView2"
++                app:layout_constraintTop_toBottomOf="@+id/textView14" />
++
++
++            <ImageView
++                android:id="@+id/imageView3"
++                android:layout_width="24dp"
++                android:layout_height="24dp"
++                android:layout_marginStart="16dp"
++                android:layout_marginTop="8dp"
++                android:layout_marginBottom="8dp"
++                android:layout_weight="1"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintStart_toEndOf="@+id/divider3"
++                app:layout_constraintTop_toTopOf="parent"
++                app:srcCompat="@drawable/ic_outline_credit_card_24" />
++
++            <TextView
++                android:id="@+id/textView16"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:text="No. KTP"
++                android:textSize="10sp"
++                app:layout_constraintStart_toEndOf="@+id/imageView3"
++                app:layout_constraintTop_toTopOf="@+id/imageView3" />
++
++            <TextView
++                android:id="@+id/tv_nik_id"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="8dp"
++                android:text="Null"
++                android:textColor="#0183d5"
++                android:textSize="10sp"
++                app:layout_constraintStart_toEndOf="@+id/imageView3"
++                app:layout_constraintTop_toBottomOf="@+id/textView16" />
++        </androidx.constraintlayout.widget.ConstraintLayout>
++
++    </androidx.cardview.widget.CardView>
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:layout_marginTop="16dp"
++        android:layout_marginBottom="56dp"
++        android:background="#FFFFFF"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/LinearLayoutVert">
++
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/recycler_Home"
++            android:layout_width="0dp"
++            android:layout_height="0dp"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/nama_tv" />
++
++        <TextView
++            android:id="@+id/nama_tv"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="16dp"
++            android:layout_marginTop="8dp"
++            android:rotationX="0"
++            android:text="Artikel untuk anda"
++            android:textColor="#0183d5"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++    </androidx.constraintlayout.widget.ConstraintLayout>
++
++    <TextView
++        android:id="@+id/tv_tanggalNow"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginBottom="8dp"
++        android:text="14 Juni 2021"
++        android:textColor="#FFFFFF"
++        app:layout_constraintBottom_toTopOf="@+id/cardView"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <TextView
++        android:id="@+id/textView21"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="16dp"
++        android:text="Jumlah Kasus,"
++        android:textStyle="bold"
++        android:textColor="#FFFFFF"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <TextView
++        android:id="@+id/tv_covidTotal"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="0"
++        android:textColor="#FFFFFF"
++        android:textSize="34sp"
++        android:textStyle="bold"
++        app:layout_constraintBottom_toTopOf="@+id/tv_tanggalNow"
++        app:layout_constraintEnd_toEndOf="@+id/LinearTop"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/textView21" />
++
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".LoginActivity\">\r\n\r\n    <View\r\n        android:id=\"@+id/top_view\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"100dp\"\r\n        android:background=\"@color/primary_blue\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/top_wave\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@drawable/wavetop\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/top_view\" />\r\n\r\n    <View\r\n        android:id=\"@+id/bot_view\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@color/primary_blue\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/bot_wave\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@drawable/wavebot\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/bot_view\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/view\"\r\n        android:layout_width=\"50dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:layout_marginEnd=\"24dp\"\r\n        android:background=\"@drawable/ic_hospital\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"32dp\"\r\n        android:fontFamily=\"sans-serif\"\r\n        android:text=\"Selamat Datang!\"\r\n        android:textColor=\"#FFFFFF\"\r\n        android:textSize=\"24sp\"\r\n        android:textStyle=\"normal|bold\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.15\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextTextPassword\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_lock_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Kata sandi\"\r\n        android:inputType=\"textPassword\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextTextEmailAddress\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextTextEmailAddress\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextTextEmailAddress\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextTextEmailAddress\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:layout_marginEnd=\"32dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_mail_outline_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Email\"\r\n        android:inputType=\"textEmailAddress\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView2\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView2\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"32dp\"\r\n        android:text=\"Login dulu ya!\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"20sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextTextEmailAddress\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/top_wave\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView3\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Lupa Password? Klik disini!\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"12sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/login_button\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/login_button\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/login_button\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/login_button\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:background=\"@drawable/border_button\"\r\n        android:text=\"Masuk\"\r\n        android:textColor=\"#FFFFFF\"\r\n        android:textStyle=\"normal\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextTextPassword\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextTextPassword\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextTextPassword\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView6\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"TextView\"\r\n        android:textColor=\"#FFFFFF\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/textView\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView9\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginBottom=\"16dp\"\r\n        android:text=\"TextView\"\r\n        android:textColor=\"#FFFFFF\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/activity_login.xml	(date 1623899071466)
+@@ -58,7 +58,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginTop="32dp"
+         android:fontFamily="sans-serif"
+-        android:text="Selamat Datang!"
++        android:text="Cegah Covid"
+         android:textColor="#FFFFFF"
+         android:textSize="24sp"
+         android:textStyle="normal|bold"
+@@ -68,7 +68,7 @@
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+     <EditText
+-        android:id="@+id/editTextTextPassword"
++        android:id="@+id/edt_password"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+@@ -81,12 +81,12 @@
+         android:padding="16dp"
+         android:textColorHint="#616161"
+         android:textSize="14sp"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
+-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_email"
++        app:layout_constraintStart_toStartOf="@+id/edt_email"
++        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+ 
+     <EditText
+-        android:id="@+id/editTextTextEmailAddress"
++        android:id="@+id/edt_email"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="32dp"
+@@ -114,7 +114,7 @@
+         android:textColor="#000000"
+         android:textSize="20sp"
+         android:textStyle="bold"
+-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
++        app:layout_constraintStart_toStartOf="@+id/edt_email"
+         app:layout_constraintTop_toBottomOf="@+id/top_wave" />
+ 
+     <TextView
+@@ -138,29 +138,29 @@
+         android:text="Masuk"
+         android:textColor="#FFFFFF"
+         android:textStyle="normal"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_password"
++        app:layout_constraintStart_toStartOf="@+id/edt_password"
++        app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+ 
+     <TextView
+         android:id="@+id/textView6"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+-        android:text="TextView"
++        android:text="Indonesia"
+         android:textColor="#FFFFFF"
+         app:layout_constraintStart_toStartOf="@+id/textView"
+         app:layout_constraintTop_toBottomOf="@+id/textView" />
+ 
+     <TextView
+-        android:id="@+id/textView9"
++        android:id="@+id/tv_register"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginBottom="16dp"
+-        android:text="TextView"
+-        android:textColor="#FFFFFF"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent" />
++        android:layout_marginTop="16dp"
++        android:text="Daftar disini"
++        android:textColor="#0183d5"
++        app:layout_constraintEnd_toEndOf="@+id/textView3"
++        app:layout_constraintStart_toStartOf="@+id/textView3"
++        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_register.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".RegisterActivity\">\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextPassword_reg\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_lock_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Kata sandi\"\r\n        android:inputType=\"textPassword\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextEmail_reg\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextEmail_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextEmail_reg\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextPasswordVerif_reg\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_screen_lock_portrait_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Ketik ulang kata sandi\"\r\n        android:inputType=\"textPassword\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextPassword_reg\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextPassword_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextPassword_reg\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextAddress_reg\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_location_on_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Alamat Lengkap saat ini\"\r\n        android:inputType=\"textPassword\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextPasswordVerif_reg\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextPasswordVerif_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextPasswordVerif_reg\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextEmail_reg\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_mail_outline_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Email\"\r\n        android:inputType=\"textEmailAddress\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextName_reg\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextName_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextName_reg\" />\r\n\r\n    <EditText\r\n        android:id=\"@+id/editTextName_reg\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"32dp\"\r\n        android:background=\"@drawable/border_edit_text\"\r\n        android:drawableStart=\"@drawable/ic_baseline_assignment_ind_24\"\r\n        android:drawablePadding=\"8dp\"\r\n        android:ems=\"10\"\r\n        android:hint=\"Nama Lengkap\"\r\n        android:inputType=\"textEmailAddress\"\r\n        android:padding=\"16dp\"\r\n        android:textColorHint=\"#616161\"\r\n        android:textSize=\"14sp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView5\" />\r\n\r\n    <View\r\n        android:id=\"@+id/top_view2\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"100dp\"\r\n        android:background=\"@color/primary_blue\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/top_wave2\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@drawable/wavetop\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/top_view2\" />\r\n\r\n    <View\r\n        android:id=\"@+id/bot_view2\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@color/primary_blue\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/bot_wave2\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:background=\"@drawable/wavebot\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/bot_view2\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView4\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"32dp\"\r\n        android:text=\"Pendaftaran\"\r\n        android:textColor=\"#FFFFFF\"\r\n        android:textSize=\"24sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.13\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView5\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"Isi dulu untuk daftar ya!\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"16sp\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextEmail_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/top_wave2\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/button\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:background=\"@drawable/border_button\"\r\n        android:text=\"Daftar!\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/editTextAddress_reg\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/editTextAddress_reg\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/editTextAddress_reg\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView7\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"TextView\"\r\n        android:textColor=\"#FFFFFF\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/textView4\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView4\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView8\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginBottom=\"16dp\"\r\n        android:text=\"TextView\"\r\n        android:textColor=\"#FFFFFF\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n    <View\r\n        android:id=\"@+id/view2\"\r\n        android:layout_width=\"50dp\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:layout_marginEnd=\"24dp\"\r\n        android:background=\"@drawable/ic_hospital\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView10\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Kembali ke halaman masuk yuk! Klik disini\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"12sp\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/button\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/button\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/button\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_register.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/activity_register.xml	(date 1623899071457)
+@@ -7,7 +7,7 @@
+     tools:context=".RegisterActivity">
+ 
+     <EditText
+-        android:id="@+id/editTextPassword_reg"
++        android:id="@+id/edt_password_reg"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+@@ -20,12 +20,12 @@
+         android:padding="16dp"
+         android:textColorHint="#616161"
+         android:textSize="14sp"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextEmail_reg"
+-        app:layout_constraintStart_toStartOf="@+id/editTextEmail_reg"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail_reg" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_email_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_email_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_nik_reg" />
+ 
+     <EditText
+-        android:id="@+id/editTextPasswordVerif_reg"
++        android:id="@+id/edt_password_reg_conf"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+@@ -38,30 +38,31 @@
+         android:padding="16dp"
+         android:textColorHint="#616161"
+         android:textSize="14sp"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword_reg"
+-        app:layout_constraintStart_toStartOf="@+id/editTextPassword_reg"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword_reg" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_password_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg" />
+ 
+     <EditText
+-        android:id="@+id/editTextAddress_reg"
++        android:id="@+id/edt_nik_reg"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+         android:background="@drawable/border_edit_text"
+-        android:drawableStart="@drawable/ic_baseline_location_on_24"
++        android:drawableStart="@drawable/ic_baseline_credit_card_24"
+         android:drawablePadding="8dp"
++        android:drawableTint="?attr/colorControlNormal"
+         android:ems="10"
+-        android:hint="Alamat Lengkap saat ini"
+-        android:inputType="textPassword"
++        android:hint="Nomor NIK"
++        android:inputType="number"
+         android:padding="16dp"
+         android:textColorHint="#616161"
+         android:textSize="14sp"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextPasswordVerif_reg"
+-        app:layout_constraintStart_toStartOf="@+id/editTextPasswordVerif_reg"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordVerif_reg" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg_conf"
++        app:layout_constraintStart_toStartOf="@+id/edt_password_reg_conf"
++        app:layout_constraintTop_toBottomOf="@+id/edt_email_reg" />
+ 
+     <EditText
+-        android:id="@+id/editTextEmail_reg"
++        android:id="@+id/edt_email_reg"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+@@ -74,12 +75,12 @@
+         android:padding="16dp"
+         android:textColorHint="#616161"
+         android:textSize="14sp"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextName_reg"
+-        app:layout_constraintStart_toStartOf="@+id/editTextName_reg"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextName_reg" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_nama_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_nama_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_nama_reg" />
+ 
+     <EditText
+-        android:id="@+id/editTextName_reg"
++        android:id="@+id/edt_nama_reg"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="32dp"
+@@ -156,40 +157,41 @@
+         android:text="Isi dulu untuk daftar ya!"
+         android:textColor="#000000"
+         android:textSize="16sp"
+-        app:layout_constraintStart_toStartOf="@+id/editTextEmail_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_email_reg"
+         app:layout_constraintTop_toBottomOf="@+id/top_wave2" />
+ 
+     <Button
+-        android:id="@+id/button"
++        android:id="@+id/btn_signup"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="16dp"
+         android:background="@drawable/border_button"
+         android:text="Daftar!"
+-        app:layout_constraintEnd_toEndOf="@+id/editTextAddress_reg"
+-        app:layout_constraintStart_toStartOf="@+id/editTextAddress_reg"
+-        app:layout_constraintTop_toBottomOf="@+id/editTextAddress_reg" />
++        app:layout_constraintEnd_toEndOf="@+id/edt_nik_reg"
++        app:layout_constraintStart_toStartOf="@+id/edt_nik_reg"
++        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg_conf" />
+ 
+     <TextView
+         android:id="@+id/textView7"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+-        android:text="TextView"
++        android:text="Cegah Covid"
+         android:textColor="#FFFFFF"
+         app:layout_constraintStart_toStartOf="@+id/textView4"
+         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+ 
+     <TextView
+-        android:id="@+id/textView8"
++        android:id="@+id/tv_login"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginBottom="16dp"
+-        android:text="TextView"
+-        android:textColor="#FFFFFF"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent" />
++        android:layout_marginStart="2dp"
++        android:text="disini"
++        android:textColor="#0183d5"
++        android:textSize="12sp"
++        app:layout_constraintBottom_toBottomOf="@+id/tv_toLogin"
++        app:layout_constraintStart_toEndOf="@+id/tv_toLogin"
++        app:layout_constraintTop_toTopOf="@+id/tv_toLogin" />
+ 
+     <View
+         android:id="@+id/view2"
+@@ -202,14 +204,25 @@
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+     <TextView
+-        android:id="@+id/textView10"
++        android:id="@+id/tv_toLogin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+-        android:text="Kembali ke halaman masuk yuk! Klik disini"
++        android:text="Kembali ke halaman masuk yuk! Klik"
+         android:textColor="#000000"
+         android:textSize="12sp"
+-        app:layout_constraintEnd_toEndOf="@+id/button"
+-        app:layout_constraintStart_toStartOf="@+id/button"
+-        app:layout_constraintTop_toBottomOf="@+id/button" />
++        app:layout_constraintEnd_toEndOf="@+id/btn_signup"
++        app:layout_constraintStart_toStartOf="@+id/btn_signup"
++        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
++
++    <ProgressBar
++        android:id="@+id/progressBar"
++        style="?android:attr/progressBarStyle"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="16dp"
++        android:visibility="gone"
++        app:layout_constraintEnd_toEndOf="@+id/edt_password_reg_conf"
++        app:layout_constraintStart_toStartOf="@+id/edt_password_reg_conf"
++        app:layout_constraintTop_toBottomOf="@+id/edt_password_reg_conf" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ProfileActivity\">\r\n\r\n    <Button\r\n        android:id=\"@+id/btnFind_nearby\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"8dp\"\r\n        android:layout_marginBottom=\"32dp\"\r\n        android:text=\"Cari Rumah sakit/klinik terdekat\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/rv_riwayat\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView11\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"Nama\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/imageView\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/imageView\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView12\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Provinsi/Kota\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/textView11\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView11\" />\r\n\r\n    <ImageView\r\n        android:id=\"@+id/imageView\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:layout_marginTop=\"24dp\"\r\n        android:layout_marginBottom=\"24dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/guideline3\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:srcCompat=\"@tools:sample/avatars\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/textView13\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"8dp\"\r\n        android:text=\"Riwayat\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/guideline3\" />\r\n\r\n    <androidx.constraintlayout.widget.Guideline\r\n        android:id=\"@+id/guideline3\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        app:layout_constraintGuide_percent=\"0.25\" />\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rv_riwayat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"300dp\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginEnd=\"16dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/textView13\"\r\n        tools:listitem=\"@layout/list_riwayat\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_profile.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/activity_profile.xml	(date 1623901858258)
+@@ -11,17 +11,15 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+-        android:layout_marginTop="16dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginBottom="32dp"
+         android:text="Cari Rumah sakit/klinik terdekat"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/rv_riwayat" />
++        app:layout_constraintStart_toStartOf="parent" />
+ 
+     <TextView
+-        android:id="@+id/textView11"
++        android:id="@+id/nama_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="32dp"
+@@ -31,20 +29,20 @@
+         app:layout_constraintTop_toTopOf="@+id/imageView" />
+ 
+     <TextView
+-        android:id="@+id/textView12"
++        android:id="@+id/email_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="8dp"
+-        android:text="Provinsi/Kota"
+-        app:layout_constraintStart_toStartOf="@+id/textView11"
+-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
++        android:text="Email"
++        app:layout_constraintStart_toStartOf="@+id/nama_tv"
++        app:layout_constraintTop_toBottomOf="@+id/nama_tv" />
+ 
+     <ImageView
+         android:id="@+id/imageView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginStart="32dp"
+-        android:layout_marginTop="24dp"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="16dp"
+         android:layout_marginBottom="24dp"
+         app:layout_constraintBottom_toTopOf="@+id/guideline3"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -56,8 +54,8 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+-        android:layout_marginTop="8dp"
+-        android:text="Riwayat"
++        android:layout_marginTop="16dp"
++        android:text="Riwayat Gejala"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/guideline3" />
+ 
+@@ -80,4 +78,13 @@
+         app:layout_constraintTop_toBottomOf="@+id/textView13"
+         tools:listitem="@layout/list_riwayat" />
+ 
++    <TextView
++        android:id="@+id/nik_tv"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:text="NIK"
++        app:layout_constraintStart_toStartOf="@+id/email_tv"
++        app:layout_constraintTop_toBottomOf="@+id/email_tv" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/ProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n\r\n    Button nearby_button;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n\r\n        //define nearby_button\r\n        nearby_button = findViewById(R.id.btnFind_nearby);\r\n\r\n        //ketika di klik membuka maps nearby\r\n        nearby_button.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(ProfileActivity.this, MapsActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/ProfileActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/ProfileActivity.java	(date 1624776120859)
+@@ -1,21 +1,62 @@
+ package org.com.application;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
+ 
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.android.volley.AuthFailureError;
++import com.android.volley.Request;
++import com.android.volley.RequestQueue;
++import com.android.volley.Response;
++import com.android.volley.VolleyError;
++import com.android.volley.toolbox.StringRequest;
++import com.android.volley.toolbox.Volley;
++
++import org.json.JSONArray;
++import org.json.JSONException;
++import org.json.JSONObject;
++
++import java.util.ArrayList;
++import java.util.HashMap;
++import java.util.Map;
+ 
+ public class ProfileActivity extends AppCompatActivity {
++    private static final String ipaddressLaravel = "10.0.0.2:8000";
++    private static final String URL_GET_POSTS = "http://"+ipaddressLaravel+"/api/posts";
++    private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
+ 
+-    Button nearby_button;
++    private static String ACCESS_TOKEN;
++
++    Button nearby_button, btnHapus_riwayat, btnEdit_riwayat;
++    TextView tv_nama, tv_nik, tv_email, tv_no_gejala, tv_tanggal_gejala, tv_riwayat_gejala;
++    RecyclerView recyclerViewGejala;
++    ArrayList<UserModel> user = new ArrayList<>();
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_profile);
+ 
++        btnEdit_riwayat = findViewById(R.id.edit_riwayat);
++        btnHapus_riwayat = findViewById(R.id.hapus_riwayat);
++
++        tv_nama = findViewById(R.id.nama_tv);
++        tv_nik = findViewById(R.id.nik_tv);
++        tv_email = findViewById(R.id.email_tv);
++        tv_no_gejala = findViewById(R.id.no_riwayat);
++        tv_tanggal_gejala = findViewById(R.id.tanggal_riwayat);
++        tv_riwayat_gejala = findViewById(R.id.gejala_riwayat);
++
++//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
++//        recyclerViewGejala.setLayoutManager(linearLayoutManager);
++
+         //define nearby_button
+         nearby_button = findViewById(R.id.btnFind_nearby);
+ 
+@@ -27,5 +68,54 @@
+                 startActivity(intent);
+             }
+         });
++
++        LoadUser();
++    }
++
++    private void LoadUser(){
++        StringRequest stringRequest = new StringRequest(Request.Method.GET,
++                URL_GET_USER,
++                new Response.Listener<String>() {
++                    @Override
++                    public void onResponse(String response) {
++                        try {
++                            JSONObject jsonObject = new JSONObject(response);
++                            JSONArray jsonArray = jsonObject.getJSONArray("data");
++
++                            for (int i = 0; i<jsonArray.length(); i++){
++                                JSONObject obj = jsonArray.getJSONObject(i);
++
++                                if (obj != null) {
++                                    tv_nama.setText(obj.getString("name"));
++                                }
++                            }
++                        } catch (JSONException e) {
++                            e.printStackTrace();
++                        }
++                    }
++                },
++                new Response.ErrorListener() {
++                    @Override
++                    public void onErrorResponse(VolleyError error) {
++                        Toast.makeText(getApplicationContext(), error.getMessage(),Toast.LENGTH_SHORT).show();
++                    }
++                }) {
++
++            @Override
++            public String getBodyContentType() {
++                return "application/json; charset=utf-8";
++            }
++
++            //This is for Headers If You Needed
++            @Override
++            public Map<String, String> getHeaders() throws AuthFailureError {
++                HashMap<String, String> headers = new HashMap<String, String>();
++                headers.put("Content-Type", "application/json; charset=UTF-8");
++                headers.put("Authorization", "Bearer " + ACCESS_TOKEN);
++                return headers;
++            }
++        };
++        RequestQueue requestQueue = Volley.newRequestQueue(this);
++        requestQueue.add(stringRequest);
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/org/com/application/MapsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.core.app.ActivityCompat;\r\nimport androidx.fragment.app.FragmentActivity;\r\n\r\nimport android.Manifest;\r\nimport android.content.pm.PackageManager;\r\nimport android.location.Location;\r\nimport android.os.AsyncTask;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.Spinner;\r\n\r\nimport com.google.android.gms.location.FusedLocationProviderClient;\r\nimport com.google.android.gms.location.LocationServices;\r\nimport com.google.android.gms.maps.CameraUpdateFactory;\r\nimport com.google.android.gms.maps.GoogleMap;\r\nimport com.google.android.gms.maps.OnMapReadyCallback;\r\nimport com.google.android.gms.maps.SupportMapFragment;\r\nimport com.google.android.gms.maps.model.LatLng;\r\nimport com.google.android.gms.maps.model.MarkerOptions;\r\nimport com.google.android.gms.tasks.OnSuccessListener;\r\nimport com.google.android.gms.tasks.Task;\r\n\r\nimport org.com.application.databinding.ActivityMapsBinding;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStream;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.MalformedURLException;\r\nimport java.net.URL;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\n\r\npublic class MapsActivity extends FragmentActivity implements OnMapReadyCallback {\r\n\r\n    private GoogleMap mMap;\r\n    private ActivityMapsBinding binding;\r\n    private SupportMapFragment supportMapFragment;\r\n\r\n    Spinner spType;\r\n    Button btnFind;\r\n    FusedLocationProviderClient fusedLocationProviderClient;\r\n    double currentLat = 0, currentLong = 0;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_maps);\r\n\r\n\r\n        //initialize spinner & button find nearby\r\n        spType = findViewById(R.id.sp_type);\r\n        btnFind = findViewById(R.id.btn_find);\r\n\r\n        // Obtain the SupportMapFragment and get notified when the map is ready to be used.\r\n        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()\r\n                .findFragmentById(R.id.map);\r\n        supportMapFragment.getMapAsync(this);\r\n\r\n        //initialize array of place type\r\n        String[] placeTypeList = {\"rumah_sakit\", \"klinik\"};\r\n\r\n        //initialize array of place name\r\n        String[] placeNameList = {\"Rumah Sakit\", \"Klinik\"};\r\n\r\n        //adapter for spinner\r\n        spType.setAdapter(new ArrayAdapter<>(MapsActivity.this, R.layout.support_simple_spinner_dropdown_item, placeNameList));\r\n\r\n        //initialize fused location provider client\r\n        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);\r\n\r\n        //check permission\r\n        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {\r\n            //when permission granted\r\n            //call method\r\n            getCurrentLocation();\r\n        } else {\r\n            //whhen permission not granted/denied\r\n            //req permission\r\n            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);\r\n        }\r\n\r\n        btnFind.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                //get selected spinner position\r\n                int i = spType.getSelectedItemPosition();\r\n                //initialize url\r\n                String url = \"https://maps.googleapis.com/maps/api/place/nearbysearch/json\" + \"?location=\" + //url\r\n                        currentLat + \", \" + currentLong + //location long&lat\r\n                        \"&radius=5000\" + //nearby location radius\r\n                        \"&types=\" + placeTypeList[i] + //placeTypes\r\n                        \"&sensor=true\" + //sensor\r\n                        \"&key=\" + getResources().getString(R.string.google_maps_key);//google maps api key\r\n\r\n                new PlaceTask().execute(url);\r\n            }\r\n        });\r\n\r\n\r\n//        binding = ActivityMapsBinding.inflate(getLayoutInflater());\r\n//        setContentView(binding.getRoot());\r\n    }\r\n\r\n    private void getCurrentLocation() {\r\n\r\n        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();\r\n        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {\r\n            @Override\r\n            public void onSuccess(Location location) {\r\n                //when success\r\n                if (location != null){\r\n                    //when location = null/empty\r\n                    //get current latitude\r\n                    currentLat = location.getLatitude();\r\n                    //get current longitude\r\n                    currentLong = location.getLongitude();\r\n                    //Sync map\r\n                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {\r\n                        @Override\r\n                        public void onMapReady(@NonNull GoogleMap googleMap) {\r\n                            //When map opened/ready\r\n                            mMap = googleMap;\r\n                            //zoom in to current location\r\n                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),11));\r\n                            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title(\"Your Location\"));\r\n                        }\r\n                    });\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {\r\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults);\r\n        if (requestCode == 44) {\r\n            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {\r\n                //when permission granted\r\n                //call method\r\n                getCurrentLocation();\r\n            }\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onMapReady(GoogleMap googleMap) {\r\n        mMap = googleMap;\r\n        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);\r\n        mMap.getUiSettings().setZoomControlsEnabled(true);\r\n        mMap.getUiSettings().setZoomGesturesEnabled(true);\r\n    }\r\n\r\n    private class PlaceTask extends AsyncTask<String,Integer,String> {\r\n        @Override\r\n        protected String doInBackground(String... strings) {\r\n            String data = null;\r\n            try {\r\n                //initialize data\r\n                data = downloadUrl(strings[0]);\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n            return data;\r\n        }\r\n\r\n        @Override\r\n        protected void onPostExecute(String s) {\r\n            //execute parser task\r\n            new ParserTask().execute(s);\r\n        }\r\n    }\r\n\r\n    private String downloadUrl(String myUrl) throws IOException {\r\n\r\n        String data = \"\";\r\n        InputStream inputStream = null;\r\n        HttpURLConnection httpURLConnection = null;\r\n\r\n        try {\r\n            //initialize url\r\n            URL url = new URL(myUrl);\r\n            //initialize connection\r\n            HttpURLConnection connection = (HttpURLConnection) url.openConnection();\r\n            //connect connection\r\n            connection.connect();\r\n            //initialize input stream\r\n            InputStream stream = connection.getInputStream();\r\n            //initializez buffer reader\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));\r\n            //initialize myUrl builder\r\n            StringBuilder builder = new StringBuilder();\r\n\r\n            //initliaze myUrl variable\r\n            String line = \"\";\r\n            //use while loop\r\n            while ((line = reader.readLine()) != null) {\r\n                //append line\r\n                builder.append(line);\r\n            }\r\n\r\n            //get append data\r\n            data = builder.toString();\r\n            //close reader\r\n            reader.close();\r\n        }\r\n        catch (MalformedURLException e){\r\n            Log.i(\"DownloadUrl\",\"readUrl : \"+e.getMessage());\r\n        }\r\n        catch (IOException e){\r\n            e.printStackTrace();\r\n        }\r\n        //return data\r\n        return data;\r\n    }\r\n\r\n    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{\r\n        @Override\r\n        protected List<HashMap<String, String>> doInBackground(String... strings) {\r\n            //create json parser class\r\n            JsonParserNearbyMaps jsonParserNearbyMaps = new JsonParserNearbyMaps();\r\n            //initialize hash map list\r\n            List<HashMap<String,String>> mapList = null;\r\n            JSONObject object = null;\r\n            try {\r\n                //initialize json object\r\n                object = new JSONObject(strings[0]);\r\n                //parse json object\r\n                mapList = jsonParserNearbyMaps.parseResult(object);\r\n            } catch (JSONException e) {\r\n                e.printStackTrace();\r\n            }\r\n            //return map List\r\n            return mapList;\r\n        }\r\n\r\n        @Override\r\n        protected void onPostExecute(List<HashMap<String, String>> hashMaps) {\r\n            //clear map\r\n            mMap.clear();\r\n            //use for loop\r\n            for (int i=0; i<hashMaps.size(); i++){\r\n                //initialize hash map\r\n                HashMap<String, String> hashMapList = hashMaps.get(i);\r\n                //get latitude\r\n                double lat = Double.parseDouble(hashMapList.get(\"lat\"));\r\n                //get longitude\r\n                double lng = Double.parseDouble(hashMapList.get(\"lng\"));\r\n                //get name\r\n                String name = hashMapList.get(\"name\");\r\n                //concat latitude and longitude\r\n\r\n                LatLng latLng = new LatLng(lat,lng);\r\n                //initialize marker options\r\n                MarkerOptions options = new MarkerOptions();\r\n                //set position\r\n                options.position(latLng);\r\n                //set title\r\n                options.title(name);\r\n                //add marker on map\r\n                mMap.addMarker(options);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/MapsActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/MapsActivity.java	(date 1623902086488)
+@@ -133,6 +133,14 @@
+                             //zoom in to current location
+                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLat, currentLong),11));
+                             mMap.addMarker(new MarkerOptions().position(new LatLng(currentLat, currentLong)).title("Your Location"));
++
++                            LatLng sariasih = new LatLng(-6.167804702136648, 106.60082643805694);
++                            mMap.addMarker(new MarkerOptions().position(sariasih).title("RS Sari Asih"));
++
++                            LatLng annisa = new LatLng(-6.185360386827428, 106.60378648154852);
++                            mMap.addMarker(new MarkerOptions().position(annisa).title("RS An-nisa"));
++                            LatLng rsud = new LatLng(-6.198450662567235, 106.63532625530358);
++                            mMap.addMarker(new MarkerOptions().position(rsud).title("RS Umum Daerah Kab.Tangerang"));
+                         }
+                     });
+                 }
+Index: app/src/debug/res/values/google_maps_api.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!--\r\n    TODO: Before you run your application, you need a Google Maps API key.\r\n\r\n    To get one, follow this link, follow the directions and press \"Create\" at the end:\r\n\r\n    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E%3Borg.com.application\r\n\r\n    You can also add your credentials to an existing key, using these values:\r\n\r\n    Package name:\r\n    org.com.application\r\n\r\n    SHA-1 certificate fingerprint:\r\n    B2:EB:FB:76:DB:65:1D:22:99:89:4A:08:B0:D8:78:E9:48:06:E1:9E\r\n\r\n    Alternatively, follow the directions here:\r\n    https://developers.google.com/maps/documentation/android/start#get-key\r\n\r\n    Once you have your key (it starts with \"AIza\"), replace the \"google_maps_key\"\r\n    string in this file.\r\n    -->\r\n    <string name=\"google_maps_key\" templateMergeStrategy=\"preserve\" translatable=\"false\">AIzaSyDSk8F14GwIi44G3i0XbK5ZO8p5gmmaC10</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/debug/res/values/google_maps_api.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/debug/res/values/google_maps_api.xml	(date 1623899071423)
+@@ -1,6 +1,6 @@
+ <resources>
+     <!--
+-    TODO: Before you run your application, you need a Google Maps API key.
++    TODO: Before you run your application, you need a Google Maps org.com.application.API key.
+ 
+     To get one, follow this link, follow the directions and press "Create" at the end:
+ 
+Index: app/src/release/res/values/google_maps_api.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!--\r\n    TODO: Before you release your application, you need a Google Maps API key.\r\n\r\n    To do this, you can either add your release key credentials to your existing\r\n    key, or create a new key.\r\n\r\n    Note that this file specifies the API key for the release build target.\r\n    If you have previously set up a key for the debug target with the debug signing certificate,\r\n    you will also need to set up a key for your release certificate.\r\n\r\n    Follow the directions here:\r\n\r\n    https://developers.google.com/maps/documentation/android/signup\r\n\r\n    Once you have your key (it starts with \"AIza\"), replace the \"google_maps_key\"\r\n    string in this file.\r\n    -->\r\n    <string name=\"google_maps_key\" templateMergeStrategy=\"preserve\" translatable=\"false\">YOUR_KEY_HERE</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/release/res/values/google_maps_api.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/release/res/values/google_maps_api.xml	(date 1623899071471)
+@@ -1,11 +1,11 @@
+ <resources>
+     <!--
+-    TODO: Before you release your application, you need a Google Maps API key.
++    TODO: Before you release your application, you need a Google Maps org.com.application.API key.
+ 
+     To do this, you can either add your release key credentials to your existing
+     key, or create a new key.
+ 
+-    Note that this file specifies the API key for the release build target.
++    Note that this file specifies the org.com.application.API key for the release build target.
+     If you have previously set up a key for the debug target with the debug signing certificate,
+     you will also need to set up a key for your release certificate.
+ 
+Index: app/src/main/java/org/com/application/API/RetrofitClient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/API/RetrofitClient.java	(date 1623862890000)
++++ app/src/main/java/org/com/application/API/RetrofitClient.java	(date 1623862890000)
+@@ -0,0 +1,33 @@
++package org.com.application.API;
++
++import com.google.gson.Gson;
++import com.google.gson.GsonBuilder;
++
++import retrofit2.Retrofit;
++import retrofit2.converter.gson.GsonConverterFactory;
++
++public class RetrofitClient {
++    private static final String ipaddressLaravel = "10.0.2.2:8000";
++    private static final String BASE_URL = "http://"+ipaddressLaravel+"/api/";
++
++    private static Retrofit retrofit;
++    private static Gson gson;
++
++    public static Retrofit getRetrofitInstance(){
++        if (retrofit==null){
++
++            gson = new GsonBuilder()
++                    .setLenient()
++                    .create();
++
++            retrofit = new Retrofit.Builder()
++                    .baseUrl(BASE_URL)
++                    .addConverterFactory(GsonConverterFactory.create())
++                    .build();
++        }
++
++        return  retrofit;
++    }
++
++
++}
+Index: app/src/main/java/org/com/application/Adapter/RecyclerViewAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/Adapter/RecyclerViewAdapter.java	(date 1623901177983)
++++ app/src/main/java/org/com/application/Adapter/RecyclerViewAdapter.java	(date 1623901177983)
+@@ -0,0 +1,74 @@
++package org.com.application.Adapter;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import org.com.application.PostModel;
++import org.com.application.R;
++
++import java.text.DateFormat;
++import java.text.ParseException;
++import java.text.SimpleDateFormat;
++import java.util.ArrayList;
++
++public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
++
++    private ArrayList<PostModel> data;
++    private Context mContext;
++
++    public RecyclerViewAdapter(ArrayList<PostModel> data, Context mContext) {
++        this.data = data;
++        this.mContext = mContext;
++    }
++
++    @NonNull
++    @Override
++    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++            LayoutInflater inflater = LayoutInflater.from(mContext);
++            View view = inflater.inflate(R.layout.item_list, parent,false);
++
++            return new ViewHolder(view);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
++        PostModel nPost = data.get(position);
++
++        String tgl = nPost.getCreated_at().substring(0,10);
++        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
++        DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
++        String new_Date = null;
++        try {
++            new_Date = dateFormat.format(df.parse(tgl));
++        } catch (ParseException e) {
++            e.printStackTrace();
++        }
++
++        holder.title.setText(nPost.getTitle());
++        holder.date.setText(new_Date);
++
++    }
++
++    @Override
++    public int getItemCount() {
++        return data.size();
++    }
++
++    public class ViewHolder extends RecyclerView.ViewHolder {
++        private TextView title, date;
++        private ImageView imgView;
++        public ViewHolder(@NonNull View itemView) {
++            super(itemView);
++
++            title = itemView.findViewById(R.id.tv_rv_title);
++            date = itemView.findViewById(R.id.tv_rc_date);
++        }
++    }
++}
+Index: app/src/main/res/drawable/ic_baseline_credit_card_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_credit_card_24.xml	(date 1623898717515)
++++ app/src/main/res/drawable/ic_baseline_credit_card_24.xml	(date 1623898717515)
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#757575"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M20,4L4,4c-1.11,0 -1.99,0.89 -1.99,2L2,18c0,1.11 0.89,2 2,2h16c1.11,0 2,-0.89 2,-2L22,6c0,-1.11 -0.89,-2 -2,-2zM20,18L4,18v-6h16v6zM20,8L4,8L4,6h16v2z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_baseline_directions_run_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_baseline_directions_run_24.xml	(date 1623862890000)
++++ app/src/main/res/drawable/ic_baseline_directions_run_24.xml	(date 1623862890000)
+@@ -0,0 +1,5 @@
++<vector android:height="32dp" android:tint="#0183D5"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="32dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M13.49,5.48c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM9.89,19.38l1,-4.4 2.1,2v6h2v-7.5l-2.1,-2 0.6,-3c1.3,1.5 3.3,2.5 5.5,2.5v-2c-1.9,0 -3.5,-1 -4.3,-2.4l-1,-1.6c-0.4,-0.6 -1,-1 -1.7,-1 -0.3,0 -0.5,0.1 -0.8,0.1l-5.2,2.2v4.7h2v-3.4l1.8,-0.7 -1.6,8.1 -4.9,-1 -0.4,2 7,1.4z"/>
++</vector>
+Index: app/src/main/java/org/com/application/API/InterfaceAPI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/API/InterfaceAPI.java	(date 1623901177972)
++++ app/src/main/java/org/com/application/API/InterfaceAPI.java	(date 1623901177972)
+@@ -0,0 +1,33 @@
++package org.com.application.API;
++
++import org.com.application.UserModel;
++
++import okhttp3.ResponseBody;
++import retrofit2.Call;
++import retrofit2.http.Body;
++import retrofit2.http.GET;
++import retrofit2.http.Header;
++import retrofit2.http.Headers;
++import retrofit2.http.POST;
++
++public interface InterfaceAPI {
++
++    @Headers({
++            "Accept: application/json",
++            "Content-Type: application/json"
++    })
++    @POST("auth/login")
++//    Call<UserModel> login(@Header("Accept") String accept,@Header("Content-Type") String content_type,@Body UserModel login);
++    Call<UserModel> login(@Body UserModel login);
++//    Call<String> login(@Header("Authorization") String authToken);
++
++    @Headers({
++            "Accept: application/json",
++            "Content-Type: application/json"
++    })
++    @POST("auth/signup")
++    Call<UserModel> signup(@Body UserModel signup);
++
++    @GET("auth/user")
++    Call<ResponseBody> getUser(@Header("Authorization") String authToken);
++}
+Index: app/src/main/java/org/com/application/PostModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/PostModel.java	(date 1623901177967)
++++ app/src/main/java/org/com/application/PostModel.java	(date 1623901177967)
+@@ -0,0 +1,70 @@
++package org.com.application;
++
++public class PostModel {
++    String id,category_id,title,body,created_at,image;
++
++    public PostModel(String id, String category_id, String title, String body, String created_at, String image) {
++        this.id = id;
++        this.category_id = category_id;
++        this.title = title;
++        this.body = body;
++        this.created_at = created_at;
++        this.image = image;
++    }
++
++    public PostModel(String id, String category_id, String title, String created_at, String image) {
++        this.id = id;
++        this.category_id = category_id;
++        this.title = title;
++        this.created_at = created_at;
++        this.image = image;
++    }
++
++    public String getId() {
++        return id;
++    }
++
++    public void setId(String id) {
++        this.id = id;
++    }
++
++    public String getCategory_id() {
++        return category_id;
++    }
++
++    public void setCategory_id(String category_id) {
++        this.category_id = category_id;
++    }
++
++    public String getTitle() {
++        return title;
++    }
++
++    public void setTitle(String title) {
++        this.title = title;
++    }
++
++    public String getBody() {
++        return body;
++    }
++
++    public void setBody(String body) {
++        this.body = body;
++    }
++
++    public String getImage() {
++        return image;
++    }
++
++    public void setImage(String image) {
++        this.image = image;
++    }
++
++    public String getCreated_at() {
++        return created_at;
++    }
++
++    public void setCreated_at(String created_at) {
++        this.created_at = created_at;
++    }
++}
+Index: app/src/main/java/org/com/application/UserModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/UserModel.java	(date 1623901177988)
++++ app/src/main/java/org/com/application/UserModel.java	(date 1623901177988)
+@@ -0,0 +1,72 @@
++package org.com.application;
++
++public class UserModel {
++    String id, name,email,password,nik,access_token;
++
++    public UserModel(String name, String email, String access_token) {
++        this.id = id;
++        this.name = name;
++        this.email = email;
++        this.access_token = access_token;
++    }
++
++    public UserModel(String email, String password) {
++        this.email = email;
++        this.password = password;
++    }
++
++    public UserModel(String nik,String name, String email, String password) {
++        this.nik = nik;
++        this.name = name;
++        this.email = email;
++        this.password = password;
++    }
++
++    public String getNik() {
++        return nik;
++    }
++
++    public void setNik(String nik) {
++        this.nik = nik;
++    }
++
++    public String getPassword() {
++        return password;
++    }
++
++    public void setPassword(String password) {
++        this.password = password;
++    }
++
++    public String getId() {
++        return id;
++    }
++
++    public void setId(String id) {
++        this.id = id;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public String getEmail() {
++        return email;
++    }
++
++    public void setEmail(String email) {
++        this.email = email;
++    }
++
++    public String getAccess_token() {
++        return access_token;
++    }
++
++    public void setAccess_token(String access_token) {
++        this.access_token = access_token;
++    }
++}
+Index: app/src/main/java/org/com/application/SessionManager/SessionManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/SessionManager/SessionManager.java	(date 1623862890000)
++++ app/src/main/java/org/com/application/SessionManager/SessionManager.java	(date 1623862890000)
+@@ -0,0 +1,128 @@
++package org.com.application.SessionManager;
++
++import android.content.Context;
++import android.content.Intent;
++import android.content.SharedPreferences;
++
++import org.com.application.LoginActivity;
++
++import java.util.HashMap;
++
++public class SessionManager {
++    // Shared Preferences
++    SharedPreferences pref;
++
++    // Editor for Shared preferences
++    SharedPreferences.Editor editor;
++
++    // Context
++    Context _context;
++
++    // Shared pref mode
++    int PRIVATE_MODE = 0;
++
++    // Sharedpref file name
++    private static final String PREF_NAME = "TokenPref";
++
++    // All Shared Preferences Keys
++    private static final String IS_LOGIN = "IsLoggedIn";
++
++    // User Token (make variable public to access from outside)
++    public static final String KEY_TOKEN = "token";
++
++    // Email address (make variable public to access from outside)
++    public static final String KEY_EMAIL = "email";
++
++    // Constructor
++    public SessionManager(Context context){
++        this._context = context;
++        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
++        editor = pref.edit();
++    }
++
++
++    /**
++     * Create login session
++     * */
++    public void createLoginSession(String token, String email){
++        // Storing login value as TRUE
++        editor.putBoolean(IS_LOGIN, true);
++
++        // Storing token in pref
++        editor.putString(KEY_TOKEN, token);
++
++        // Storing email in pref
++        editor.putString(KEY_EMAIL, email);
++
++        // commit changes
++        editor.commit();
++    }
++
++    /**
++     * Check login method wil check user login status
++     * If false it will redirect user to login page
++     * Else won't do anything
++     * */
++    public void checkLogin(){
++        // Check login status
++        if(!this.isLoggedIn()){
++            // user is not logged in redirect him to Login Activity
++            Intent i = new Intent(_context, LoginActivity.class);
++            // Closing all the Activities
++            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++
++            // Add new Flag to start new Activity
++            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
++
++            // Staring Login Activity
++            _context.startActivity(i);
++        }
++
++    }
++
++
++
++    /**
++     * Get stored session data
++     * */
++    public HashMap<String, String> getUserDetails(){
++        HashMap<String, String> user = new HashMap<String, String>();
++        // user token
++        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
++
++        // user email id
++        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
++
++        // return user
++        return user;
++    }
++
++    /**
++     * Clear session details
++     * */
++    public void logoutUser(){
++        // Clearing all data from Shared Preferences
++        editor.clear();
++        editor.commit();
++
++        // After logout redirect user to Loing Activity
++        Intent i = new Intent(_context, LoginActivity.class);
++        // Closing all the Activities
++        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++
++        // Add new Flag to start new Activity
++        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
++
++        // Staring Login Activity
++        _context.startActivity(i);
++    }
++    /**
++     * Quick check for login
++     * **/
++    // Get Login State
++    public boolean isLoggedIn(){
++        return pref.getBoolean(IS_LOGIN, false);
++    }
++}
++
++
+Index: app/src/main/res/drawable/ic_launcher_foreground.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_launcher_foreground.xml	(date 1623862890000)
++++ app/src/main/res/drawable/ic_launcher_foreground.xml	(date 1623862890000)
+@@ -0,0 +1,30 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
++        <aapt:attr name="android:fillColor">
++            <gradient
++                android:endX="85.84757"
++                android:endY="92.4963"
++                android:startX="42.9492"
++                android:startY="49.59793"
++                android:type="linear">
++                <item
++                    android:color="#44000000"
++                    android:offset="0.0" />
++                <item
++                    android:color="#00000000"
++                    android:offset="1.0" />
++            </gradient>
++        </aapt:attr>
++    </path>
++    <path
++        android:fillColor="#FFFFFF"
++        android:fillType="nonZero"
++        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++</vector>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_outline_add_circle_outline_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_outline_add_circle_outline_24.xml	(date 1623862890000)
++++ app/src/main/res/drawable/ic_outline_add_circle_outline_24.xml	(date 1623862890000)
+@@ -0,0 +1,5 @@
++<vector android:height="32dp" android:tint="#0183D5"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="32dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M13,7h-2v4L7,11v2h4v4h2v-4h4v-2h-4L13,7zM12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.41,0 -8,-3.59 -8,-8s3.59,-8 8,-8 8,3.59 8,8 -3.59,8 -8,8z"/>
++</vector>
+Index: app/src/main/java/org/com/application/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\npublic class LoginActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_login);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/LoginActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/LoginActivity.java	(date 1623901177963)
+@@ -1,14 +1,114 @@
+ package org.com.application;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.TextView;
++import android.widget.Toast;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import org.com.application.API.InterfaceAPI;
++import org.com.application.API.*;
++import org.com.application.SessionManager.*;
++
++import retrofit2.Call;
++import retrofit2.Callback;
++import retrofit2.Retrofit;
++
+ public class LoginActivity extends AppCompatActivity {
+ 
++    private static final String ipaddressLaravel = "10.0.2.2:8000";
++    private static final String URL_POST_LOGIN = "http://"+ipaddressLaravel+"/api/auth/login";
++    private static final String URL_GET_USER = "http://"+ipaddressLaravel+"/api/auth/user";
++
++    private static String token;
++
++    EditText edt_email, edt_password;
++    Button btn_login;
++    String email,password;
++    TextView tv_register;
++
++    SessionManager session;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_login);
++
++        edt_email = findViewById(R.id.edt_email);
++        tv_register = findViewById(R.id.tv_register);
++        edt_password = findViewById(R.id.edt_password);
++        btn_login = findViewById(R.id.login_button);
++
++        // Session Manager
++        session = new SessionManager(getApplicationContext());
++
++        btn_login.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                login();
++            }
++        });
++
++        tv_register.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
++
++                startActivity(i);
++                finish();
++            }
++        });
++    }
++
++    private void login(){
++        email = edt_email.getText().toString().trim();
++        password = edt_password.getText().toString().trim();
++//        Retrofit.Builder builder = new Retrofit.Builder()
++//                .baseUrl(BASE_URL)
++//                .addConverterFactory(GsonConverterFactory.create());
++//        Retrofit retrofit = builder.build();
++
++        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
++
++        InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
++
++        UserModel user = new UserModel(email,password);
++//        Call<UserModel> call = apiClient.login("application/json","application/json",user);
++        Call<UserModel> call = apiClient.login(user);
++
++        call.enqueue(new Callback<UserModel>() {
++            @Override
++            public void onResponse(Call<UserModel> call, retrofit2.Response<UserModel> response) {
++                if (response.isSuccessful()) {
++                    try {
++                        token = response.body().getAccess_token();
++
++                        session.createLoginSession(token, email);
++
++                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
++                        i.putExtra("ACCESS_TOKEN_EXTRA",token);
++
++                        startActivity(i);
++                        finish();
++
++                    } catch (Exception e) {
++                        e.printStackTrace();
++                    }
++
++                }
++                else {
++                    Toast.makeText(LoginActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
++                }
++            }
++
++            @Override
++            public void onFailure(Call<UserModel> call, Throwable t) {
++                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
++            }
++        });
+     }
+ }
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"org.com.application\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    buildFeatures {\r\n        viewBinding true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.3.0'\r\n    implementation 'com.google.android.material:material:1.3.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'com.google.android.gms:play-services-maps:17.0.1'\r\n    implementation 'com.google.android.gms:play-services-location:17.0.0'\r\n    testImplementation 'junit:junit:4.+'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/build.gradle	(date 1623899071427)
+@@ -41,4 +41,8 @@
+     testImplementation 'junit:junit:4.+'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
++
++    implementation 'com.android.volley:volley:1.2.0'
++    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
++    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+ }
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"org.com.application\">\r\n    <!--\r\n         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use\r\n         Google Maps Android API v2, but you must specify either coarse or fine\r\n         location permissions for the \"MyLocation\" functionality.\r\n    -->\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.ABP\">\r\n        <activity android:name=\".ProfileActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <!--\r\n             The API key for Google Maps-based APIs is defined as a string resource.\r\n             (See the file \"res/values/google_maps_api.xml\").\r\n             Note that the API key is linked to the encryption key used to sign the APK.\r\n             You need a different API key for each encryption key, including the release key that is used to\r\n             sign the APK for publishing.\r\n             You can define the keys for the debug and release targets in src/debug/ and src/release/.\r\n        -->\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"@string/google_maps_key\" />\r\n\r\n        <activity\r\n            android:name=\".MapsActivity\"\r\n            android:label=\"@string/title_activity_maps\" />\r\n            <activity android:name=\".LoginActivity\" />\r\n        <activity android:name=\".RegisterActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/AndroidManifest.xml	(date 1623899071433)
+@@ -3,7 +3,7 @@
+     package="org.com.application">
+     <!--
+          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+-         Google Maps Android API v2, but you must specify either coarse or fine
++         Google Maps Android org.com.application.API v2, but you must specify either coarse or fine
+          location permissions for the "MyLocation" functionality.
+     -->
+     <uses-permission android:name="android.permission.INTERNET" />
+@@ -26,10 +26,10 @@
+             </intent-filter>
+         </activity>
+         <!--
+-             The API key for Google Maps-based APIs is defined as a string resource.
++             The org.com.application.API key for Google Maps-based APIs is defined as a string resource.
+              (See the file "res/values/google_maps_api.xml").
+-             Note that the API key is linked to the encryption key used to sign the APK.
+-             You need a different API key for each encryption key, including the release key that is used to
++             Note that the org.com.application.API key is linked to the encryption key used to sign the APK.
++             You need a different org.com.application.API key for each encryption key, including the release key that is used to
+              sign the APK for publishing.
+              You can define the keys for the debug and release targets in src/debug/ and src/release/.
+         -->
+Index: app/src/main/java/org/com/application/RegisterActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.com.application;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\npublic class RegisterActivity extends AppCompatActivity {\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_register);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/com/application/RegisterActivity.java	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/java/org/com/application/RegisterActivity.java	(date 1623901177978)
+@@ -1,13 +1,123 @@
+ package org.com.application;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.TextView;
++import android.widget.Toast;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import org.com.application.API.InterfaceAPI;
++import org.com.application.API.*;
++
++import retrofit2.Call;
++import retrofit2.Callback;
++import retrofit2.Retrofit;
++
+ public class RegisterActivity extends AppCompatActivity {
++
++    private static final String ipaddressLaravel = "10.0.2.2:8000";
++    private static final String URL_POST_LOGIN = "http://"+ipaddressLaravel+"/api/auth/login";
++
++    private static String token;
++
++    ProgressBar progressBar;
++    EditText edt_name, edt_email, edt_nik, edt_password, edt_password_sec;
++    Button btn_signup;
++    String name, email, password, password2, nik;
++    TextView tv_login;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_register);
++
++        //Initialize
++        progressBar = findViewById(R.id.progressBar);
++        tv_login = findViewById(R.id.tv_login);
++        edt_name = findViewById(R.id.edt_nama_reg);
++        edt_email = findViewById(R.id.edt_email_reg);
++        edt_password = findViewById(R.id.edt_password_reg);
++        edt_password_sec = findViewById(R.id.edt_password_reg_conf);
++        edt_nik = findViewById(R.id.edt_nik_reg);
++        btn_signup = findViewById(R.id.btn_signup);
++
++        btn_signup.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                signUp();
++            }
++        });
++
++        tv_login.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
++
++                startActivity(i);
++                finish();
++            }
++        });
++    }
++
++    private void signUp(){
++        nik = edt_nik.getText().toString().trim();
++        name = edt_name.getText().toString().trim();
++        email = edt_email.getText().toString().trim();
++        password = edt_password.getText().toString().trim();
++        password2 = edt_password_sec.getText().toString().trim();
++
++        System.out.println(password);
++        System.out.println(nik);
++        System.out.println(password2);
++
++        if (password.equals(password2)){
++            Retrofit retrofit = RetrofitClient.getRetrofitInstance();
++
++            InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
++
++            UserModel user = new UserModel(nik,name,email,password2);
++            Call<UserModel> call = apiClient.signup(user);
++
++            call.enqueue(new Callback<UserModel>() {
++                @Override
++                public void onResponse(Call<UserModel> call, retrofit2.Response<UserModel> response) {
++                    if (response.isSuccessful()) {
++                        try {
++//                            token = response.body().getAccess_token();
++
++                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
++                            i.putExtra("ACCESS_TOKEN_EXTRA",token);
++//
++                            startActivity(i);
++                            finish();
++
++                        } catch (Exception e) {
++                            e.printStackTrace();
++                        }
++
++                    }
++                    else {
++                        Toast.makeText(RegisterActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
++                    }
++                }
++
++                @Override
++                public void onFailure(Call<UserModel> call, Throwable t) {
++                    Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
++                }
++            });
++        } else {
++            Toast.makeText(RegisterActivity.this, "Password tidak sama.", Toast.LENGTH_SHORT).show();
++        }
++//        Retrofit.Builder builder = new Retrofit.Builder()
++//                .baseUrl(BASE_URL)
++//                .addConverterFactory(GsonConverterFactory.create());
++//        Retrofit retrofit = builder.build();
++
+     }
+ }
+Index: app/src/main/res/drawable/ic_outline_credit_card_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_outline_credit_card_24.xml	(date 1623862890000)
++++ app/src/main/res/drawable/ic_outline_credit_card_24.xml	(date 1623862890000)
+@@ -0,0 +1,5 @@
++<vector android:height="32dp" android:tint="#0183D5"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="32dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M20,4L4,4c-1.11,0 -1.99,0.89 -1.99,2L2,18c0,1.11 0.89,2 2,2h16c1.11,0 2,-0.89 2,-2L22,6c0,-1.11 -0.89,-2 -2,-2zM20,18L4,18v-6h16v6zM20,8L4,8L4,6h16v2z"/>
++</vector>
+Index: app/src/main/res/layout/list_riwayat.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/no_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:text=\"No\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/tanggal_riwayat\"\r\n        android:layout_width=\"80dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"32dp\"\r\n        android:text=\"Tannggal\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/no_riwayat\"\r\n        app:layout_constraintVertical_bias=\"0.0\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/gejala_riwayat\"\r\n        android:layout_width=\"100dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"24dp\"\r\n        android:text=\"Gejala\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/tanggal_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/tanggal_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/tanggal_riwayat\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/Edit_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginStart=\"48dp\"\r\n        android:text=\"Button\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/gejala_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/gejala_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/gejala_riwayat\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/hapus_riwayat\"\r\n        android:layout_width=\"20dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginStart=\"8dp\"\r\n        android:text=\"Button\"\r\n        app:layout_constraintBottom_toBottomOf=\"@+id/Edit_riwayat\"\r\n        app:layout_constraintStart_toEndOf=\"@+id/Edit_riwayat\"\r\n        app:layout_constraintTop_toTopOf=\"@+id/Edit_riwayat\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/list_riwayat.xml	(revision 6225e9922cbdf1932fcfbc4b8c97fa7edb84c29f)
++++ app/src/main/res/layout/list_riwayat.xml	(date 1623900027155)
+@@ -37,7 +37,7 @@
+         app:layout_constraintTop_toTopOf="@+id/tanggal_riwayat" />
+ 
+     <Button
+-        android:id="@+id/Edit_riwayat"
++        android:id="@+id/edit_riwayat"
+         android:layout_width="20dp"
+         android:layout_height="40dp"
+         android:layout_marginStart="48dp"
+@@ -52,7 +52,7 @@
+         android:layout_height="40dp"
+         android:layout_marginStart="8dp"
+         android:text="Button"
+-        app:layout_constraintBottom_toBottomOf="@+id/Edit_riwayat"
+-        app:layout_constraintStart_toEndOf="@+id/Edit_riwayat"
+-        app:layout_constraintTop_toTopOf="@+id/Edit_riwayat" />
++        app:layout_constraintBottom_toBottomOf="@+id/edit_riwayat"
++        app:layout_constraintStart_toEndOf="@+id/edit_riwayat"
++        app:layout_constraintTop_toTopOf="@+id/edit_riwayat" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_outline_person_outline_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_outline_person_outline_24.xml	(date 1623862890000)
++++ app/src/main/res/drawable/ic_outline_person_outline_24.xml	(date 1623862890000)
+@@ -0,0 +1,5 @@
++<vector android:height="32dp" android:tint="#0183D5"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="32dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M12,5.9c1.16,0 2.1,0.94 2.1,2.1s-0.94,2.1 -2.1,2.1S9.9,9.16 9.9,8s0.94,-2.1 2.1,-2.1m0,9c2.97,0 6.1,1.46 6.1,2.1v1.1L5.9,18.1L5.9,17c0,-0.64 3.13,-2.1 6.1,-2.1M12,4C9.79,4 8,5.79 8,8s1.79,4 4,4 4,-1.79 4,-4 -1.79,-4 -4,-4zM12,13c-2.67,0 -8,1.34 -8,4v3h16v-3c0,-2.66 -5.33,-4 -8,-4z"/>
++</vector>
+diff --git app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml
+diff --git app/src/main/res/drawable/ic_baseline_location_on_24.xml app/src/main/res/drawable/ic_baseline_location_on_24.xml
+diff --git app/src/main/res/drawable/ic_baseline_lock_24.xml app/src/main/res/drawable/ic_baseline_lock_24.xml
+diff --git app/src/main/res/drawable/ic_baseline_mail_outline_24.xml app/src/main/res/drawable/ic_baseline_mail_outline_24.xml
+diff --git app/src/main/res/drawable/ic_baseline_screen_lock_portrait_24.xml app/src/main/res/drawable/ic_baseline_screen_lock_portrait_24.xml
