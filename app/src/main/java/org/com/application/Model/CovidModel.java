@@ -17,6 +17,18 @@ public class CovidModel {
         this.gejala = gejala;
     }
 
+    public CovidModel(int id_user, String nama, String umur, String gender, String nik, String telepon, String provinsi, String alamat, String gejala) {
+        this.id_user = id_user;
+        this.nama = nama;
+        this.umur = umur;
+        this.gender = gender;
+        this.nik = nik;
+        this.telepon = telepon;
+        this.provinsi = provinsi;
+        this.alamat = alamat;
+        this.gejala = gejala;
+    }
+
     public int getId_user() {
         return id_user;
     }

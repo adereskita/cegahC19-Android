@@ -31,6 +31,7 @@ import org.com.application.API.InterfaceAPI;
 import org.com.application.API.RetrofitClient;
 import org.com.application.Model.CovidModel;
 import org.com.application.Model.UserModel;
+import org.com.application.SessionManager.SessionManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,8 +51,12 @@ public class FormGejalaActivity extends AppCompatActivity {
     private int id;
 
     private CheckBox cbdemam, cbbatuk, cbdiare, cblemes, cbkakupundak,cbmatakuning,cbkulitruam, cbmatamerah,cbsesaknafas;
-    EditText et_age,et_gender,et_telfo,et_provinsi, et_kota, et_address, et_gejala;
-    TextView tv_name, tv_nik;
+    EditText edt_name_form,edt_nik_form,et_age,et_gender,et_telfo,et_provinsi, et_kota, et_address, et_gejala;
+//    TextView tv_name, tv_nik;
+
+    String demam, batuk, gejala;
+
+    SessionManager session;
 
     Spinner sp_gender;
     Button btnsave;
@@ -66,25 +71,28 @@ public class FormGejalaActivity extends AppCompatActivity {
 
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(FormGejalaActivity.this);
-        meditor = mPreferences.edit();
+        session = new SessionManager(getApplicationContext());
 
-        System.out.println("ID DI HOME: "+id);
+        HashMap<String, String> user = session.getUserDetails();
+        // token
+        ACCESS_TOKEN = user.get(SessionManager.KEY_TOKEN);
+
+        id = mPreferences.getInt(SessionManager.KEY_ID, 0);
 
         //initial variable
-        tv_name = findViewById(R.id.edt_nama_reg);
+        edt_name_form = findViewById(R.id.edt_nama_reg);
         et_age = findViewById(R.id.edt_age);
         sp_gender = findViewById(R.id.sp_gender);
-        tv_nik = findViewById(R.id.edt_nik);
+        edt_nik_form = findViewById(R.id.edt_nik);
         et_telfo = findViewById(R.id.edt_no_telfon);
         et_provinsi = findViewById(R.id.edt_provinsi);
         et_address = findViewById(R.id.edt_alamat);
 //        et_gejala = findViewById(R.id.edt_g)
 
+        LoadUser();
+
         setCheckBoxListener();
         //setButtonListener();
-
-
-
 
     }
 
@@ -104,42 +112,41 @@ public class FormGejalaActivity extends AppCompatActivity {
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String status = "Demam " + cbdemam.isChecked()
-                        + "\n Batuk " + cbbatuk.isChecked()
-                        + "\n Diare " + cbdiare.isChecked()
-                        + "\n Lemes " + cblemes.isChecked()
-                        + "\n Kaku Pundak " + cbkakupundak.isChecked()
-                        + "\n Mata Kuning " + cbmatakuning.isChecked()
-                        + "\n Kulit Ruam " + cbkulitruam.isChecked()
-                        + "\n Sesak Nafas " + cbsesaknafas.isChecked()
-                        + "\n Mata merah " + cbmatamerah.isChecked();
 
-                Toast.makeText(FormGejalaActivity.this,status, Toast.LENGTH_LONG).show();
+                if (cbdemam.isChecked()){
+                    demam = "Demam";
+                }else {
+                    demam = "";
+                }
+                if (cbbatuk.isChecked()){
+                    batuk = "Batuk";
+                }else {
+                    batuk = "";
+                }
+
+                gejala = demam+","+batuk;
+                postCovid();
+
             }
         });
     }
 
 
     private void postCovid() {
-        String nama = tv_name.getText().toString().trim();
+        String nama = edt_name_form.getText().toString().trim();
         String umur = et_age.getText().toString().trim();
-        String nik = tv_nik.getText().toString().trim();
+        String nik = edt_nik_form.getText().toString().trim();
         String telepon = et_telfo.getText().toString().trim();
         String provinsi = et_provinsi.getText().toString().trim();
-        String kota = et_kota.getText().toString().trim();
+//        String kota = et_kota.getText().toString().trim();
         String alamat = et_address.getText().toString().trim();
-
-
-//        Retrofit.Builder builder = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create());
-//        Retrofit retrofit = builder.build();
 
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
 
         InterfaceAPI apiClient = retrofit.create(InterfaceAPI.class);
 
-        CovidModel covid = new CovidModel(id, "nama", "umur", "gender", "nik", "telepon", "provinsi", "kota", "alamat", "gejala");
+        CovidModel covid = new CovidModel(id, nama, umur, "pria", nik,
+                telepon, provinsi, alamat, gejala);
         //Call<UserModel> call = apiClient.login("application/json","application/json",user);
         Call<CovidModel> call = apiClient.covidPost(covid);
 
@@ -150,6 +157,7 @@ public class FormGejalaActivity extends AppCompatActivity {
                     try {
                         Toast.makeText(FormGejalaActivity.this, "Berhasil Input Data", Toast.LENGTH_SHORT).show();
 
+                        finish();
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -181,10 +189,8 @@ public class FormGejalaActivity extends AppCompatActivity {
                                 JSONObject obj = jsonArray.getJSONObject(i);
 
                                 if (obj != null) {
-                                    tv_name.setText(obj.getString("name"));
-                                    System.out.println(obj.getString("name"));
-                                    tv_nik.setText(obj.getString("nik"));
-                                    System.out.println(obj.getString("nik"));
+                                    edt_name_form.setText(obj.getString("name"));
+                                    edt_nik_form.setText(obj.getString("nik"));
                                 }
                             }
                         } catch (JSONException e) {

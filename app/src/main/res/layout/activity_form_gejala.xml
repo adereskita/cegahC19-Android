@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/edt_nama_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                 android:layout_toRightOf="@id/edt_age"
                 android:layout_below="@id/edt_nama_reg"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/edt_nik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
