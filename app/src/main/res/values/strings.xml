@@ -8,4 +8,11 @@
     <string name="judul_artikel">Judul Artikel</string>
     <string name="tanggal">tanggal</string>
     <string name="isi_artikel">Isi Artikel</string>
+
+    <string-array name="gender">
+        <item>Jenis Kelamin</item>
+        <item>Laki-Laki</item>
+        <item>Perempuan</item>
+
+    </string-array>
 </resources>

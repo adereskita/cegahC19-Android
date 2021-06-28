@@ -47,7 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
         android:text="Nama"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -76,21 +75,20 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/ic_baseline_assignment_ind_24" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Riwayat Gejala"
         android:textColor="#0183D5"
         android:textSize="20sp"
@@ -108,15 +106,34 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_riwayat"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
         tools:listitem="@layout/list_riwayat" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Keluar"
+        android:textColor="#0183D5"
+        app:layout_constraintEnd_toEndOf="@+id/exit_button"
+        app:layout_constraintStart_toStartOf="@+id/exit_button"
+        app:layout_constraintTop_toBottomOf="@+id/exit_button"></TextView>
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTintMode="screen"
+        android:foreground="@drawable/ic_baseline_exit_to_app_24"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

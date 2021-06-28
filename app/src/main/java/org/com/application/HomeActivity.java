@@ -70,10 +70,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Intent i = getIntent();
 //        Bundle b = getIntent().getExtras();
 //        int imgID = b.getInt("IMGSOURCE_EXTRA");
+        Intent i = getIntent();
+
         String token = i.getStringExtra("ACCESS_TOKEN_EXTRA");
 
         // Session class instance
