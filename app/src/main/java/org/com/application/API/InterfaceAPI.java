@@ -30,12 +30,12 @@ public interface InterfaceAPI {
     @POST("auth/signup")
     Call<UserModel> signup(@Body UserModel signup);
 
-    @POST("input/covid")
-    Call<CovidModel> covidPost(@Body CovidModel covidPost);
-
     @GET("auth/user")
     Call<ResponseBody> getUser(@Header("Authorization") String authToken);
 
     @POST("post/step")
     Call<StepModel> stepPOST(@Body StepModel stepPost);
+
+    @POST("input/covid")
+    Call<CovidModel> covidPost(@Body CovidModel covidPost);
 }
