@@ -101,7 +101,7 @@
                 android:layout_below="@id/edt_nama_reg"/>
 
             <Spinner
-                android:id="@+id/edt_gender"
+                android:id="@+id/sp_gender"
                 android:entries="@array/gender"
                 android:layout_width="155dp"
                 android:layout_height="55dp"
@@ -134,7 +134,7 @@
                 android:ems="10"
                 android:hint="Nomor NIK"
                 android:inputType="number"
-                android:padding="16dp"
+                android:padding="12dp"
                 android:textColorHint="#616161"
                 android:textSize="14sp"
                 android:layout_below="@id/edt_age"/>
@@ -240,14 +240,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Kaku Pundak"
-                android:layout_toRightOf="@id/cb_lemas"
-                android:layout_below="@id/tv_keluhan"/>
+                android:layout_below="@id/cb_demam"/>
             <CheckBox
                 android:id="@+id/cb_matakuning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Mata Kuning"
+                android:layout_toRightOf="@id/cb_kuku_ruam"
                 android:layout_below="@id/cb_demam" />
             <CheckBox
                 android:id="@+id/cb_kulit_ruam"
@@ -257,27 +257,30 @@
                 android:text="Kulit Ruam "
                 android:layout_toRightOf="@id/cb_matakuning"
                 android:layout_below="@id/cb_demam"/>
+
             <CheckBox
                 android:id="@+id/cb_mata_merah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/cb_kulit_ruam"
+                android:layout_marginStart="113dp"
                 android:layout_marginTop="8dp"
-                android:text="Mata Merah"
-                android:layout_below="@id/cb_demam"
-                android:layout_toRightOf="@id/cb_kulit_ruam"/>
+                android:layout_toEndOf="@+id/cb_sesak_nafas"
+                android:layout_toRightOf="@id/cb_matakuning"
+                android:text="Mata Merah" />
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/cb_sesak_nafas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="Sesak Nafas"
-                android:layout_below="@id/cb_demam"
-                android:layout_toRightOf="@id/cb_mata_merah"/>
+                android:layout_below="@id/cb_matakuning"
+                android:layout_toRightOf="@id/cb_sesak_nafas"/>
         </RelativeLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_signup"
+        android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -1,5 +1,6 @@
 package org.com.application.API;
 
+import org.com.application.Model.CovidModel;
 import org.com.application.Model.StepModel;
 import org.com.application.Model.UserModel;
 
@@ -34,4 +35,7 @@ public interface InterfaceAPI {
 
     @POST("post/step")
     Call<StepModel> stepPOST(@Body StepModel stepPost);
+
+    @POST("input/covid")
+    Call<CovidModel> covidPost(@Body CovidModel covidPost);
 }
